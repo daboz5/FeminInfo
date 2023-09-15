@@ -1,0 +1,65 @@
+#mBox {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    padding: 20px 20px;
+}
+
+#mediaBox {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.toMediaBtn {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    height: 120px;
+    width: 150px;
+    color: black;
+    text-decoration: none;
+    margin: 30px;
+    border-radius: 5px;
+    box-shadow:
+        inset 0 0 10px 1px rebeccapurple,
+        0 0 1px 1px rebeccapurple;
+    transition: 0.2s;
+}
+
+.toMediaBtn:hover {
+    box-shadow:
+        inset 0 0 10px 2px rebeccapurple,
+        0 0 3px 3px rebeccapurple;
+}
+
+.mediaLinkImg {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 5px;
+    z-index: -1;
+}
+
+.mediaLinkTextBox {
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 15px;
+    width: 100%;
+    padding: 5px 0;
+    background-color: rgba(255, 105, 180, 0.7);
+
+}
+
+.toMediaBtn h3 {
+    margin: 0;
+    text-shadow:
+        0 0 3px hotpink,
+        0 0 3px hotpink,
+        0 0 5px hotpink,
+        0 0 10px hotpink,
+        0 0 10px hotpink;
+}

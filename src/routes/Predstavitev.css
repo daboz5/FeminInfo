@@ -1,0 +1,12 @@
+#iPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    text-align: justify;
+}
+
+#iConBox {
+    max-width: 600px;
+    margin: 5px 0;
+}

@@ -1,0 +1,35 @@
+#Credits {
+    padding: 20px 30px;
+}
+
+#crExplain {
+    display: block;
+    max-width: 500px;
+    font-size: 18px;
+    text-align: center;
+    margin: 10px auto 30px;
+}
+
+#crContent {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#creditBox {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 315px;
+    width: 25%;
+    max-width: 350px;
+    font-size: 15px;
+    margin: 7px;
+    border: 3px solid rebeccapurple;
+    border-radius: 10px;
+    padding: 15px 20px;
+}
+
+#creditBox p {
+    margin: 5px 5px;
+}

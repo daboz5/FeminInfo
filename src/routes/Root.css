@@ -1,0 +1,120 @@
+.rootElement {
+    width: 100%;
+}
+
+/*PAGE SECTIONS*/
+
+#headBox {
+    position: relative;
+    background-color: purple;
+}
+
+#mainBox {
+    position: relative;
+    overflow-x: hidden;
+    overflow-y: auto;
+    scrollbar-gutter: stable both-edges;
+    height: calc(100vh - 200px - 50px);
+    padding: 25px 20px;
+}
+
+#footBox {
+    position: fixed;
+    bottom: 0;
+    background-color: wheat;
+}
+
+/*SCROLLBAR*/
+
+#mainBox::-webkit-scrollbar {
+    width: 12px;
+}
+
+#mainBox::-webkit-scrollbar-thumb {
+    box-shadow: inset 2px 3px 5px 2px rgba(255, 105, 180, 0.8);
+    border-radius: 10px;
+    background-color: rebeccapurple;
+}
+
+/*GENERIC TEXT TYPES*/
+
+h1 {
+    justify-self: center;
+    align-self: center;
+    color: whitesmoke;
+    font-size: 2.4rem;
+    text-shadow:
+        0 0 10px hotpink,
+        0 0 3px black,
+        0 0 5px black,
+        0 0 7px black;
+    grid-area: title;
+    margin: 0;
+}
+
+h2 {
+    text-align: center;
+    margin: 0;
+}
+
+h3 {
+    padding-left: 25px;
+    font-size: 1.4rem;
+    margin: 5px 0;
+}
+
+h4 {
+    text-indent: 25px;
+    margin: 0;
+}
+
+h5 {
+    text-indent: 25px;
+    margin: 0;
+}
+
+.textBox {
+    margin: 0 0 25px;
+}
+
+p {
+    font-size: 1rem;
+    margin: 12px 0;
+}
+
+#mainBox button {
+    font-size: 1.2rem;
+    font-weight: 600;
+    border: 0 solid black;
+    box-shadow:
+        0 0 10px 3px black,
+        0 0 3px 1px black;
+    ;
+    border-radius: 0.3rem;
+    padding: 0.4em 0.7em;
+    transition: 0.3s;
+}
+
+#mainBox button:hover {
+    box-shadow: 0 0 3px 3px black;
+}
+
+#mainBox button:active {
+    box-shadow: 0 0 0 3px black;
+}
+
+/*HOVER MARKER*/
+
+.hoverMarker {
+    position: absolute;
+    top: 40%;
+    left: -12px;
+    height: 6px;
+    width: 6px;
+    border-radius: 50%;
+    background-color: black;
+    -webkit-transition: opacity 0.3s ease-out;
+    -moz-transition: opacity 0.3s ease-out;
+    -o-transition: opacity 0.3s ease-out;
+    transition: opacity 0.3s ease-out;
+}

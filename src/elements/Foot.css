@@ -1,0 +1,44 @@
+#footer {
+    position: relative;
+    height: 50px;
+    transition: 0.5s;
+}
+
+.footLinkBox {
+    position: relative;
+}
+
+#footerContent {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+    transition: 0.3s;
+}
+
+#footerContent a {
+    color: black;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+#copyRightBox {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
+
+/*EXIT*/
+
+#expFootBtn {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    height: 25px;
+    width: 25px;
+    border-radius: 5px;
+    padding: 0 3px;
+}

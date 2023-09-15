@@ -1,0 +1,432 @@
+/*TABELA*/
+
+.filterBox {
+    height: 50px;
+    margin: 25px 0 0;
+    border-radius: 10px 10px 0 0;
+    background-color: pink;
+}
+
+.libBox {
+    border-radius: 0 0 5px 5px;
+    background-color: hotpink;
+}
+
+/*VRSTICE TABELE*/
+
+.orderBox {
+    display: grid;
+    grid-template-columns: 0.5fr 4fr 1fr;
+    grid-template-areas:
+        "id title fame";
+    font-size: 1.1rem;
+    text-align: center;
+}
+
+/*GLAVA TABELE*/
+
+.fOrder {
+    font-weight: 600;
+    padding: 3px 0;
+    background-color: violet;
+}
+
+/*SKRITE KATEGORIJE MALIH ZASLONOV*/
+
+.fOrder:nth-of-type(2) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(2) {
+    display: none;
+}
+
+.fOrder:nth-of-type(4) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(4) {
+    display: none;
+}
+
+.fOrder:nth-of-type(5) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(5) {
+    display: none;
+}
+
+.fOrder:nth-of-type(6) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(6) {
+    display: none;
+}
+
+/*VSEBINA TABELE*/
+
+.fOrdered {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.fTitle:hover {
+    text-shadow: 0 0 0.2px black;
+    transition: 0.4s;
+}
+
+.fOrdered:nth-of-type(1) {
+    grid-area: id;
+}
+
+.fOrdered:nth-of-type(2) {
+    grid-area: pic;
+}
+
+.fOrdered:nth-of-type(3) {
+    grid-area: title;
+    justify-content: left;
+    text-align: left;
+    padding: 0 15px;
+}
+
+.fOrdered:nth-of-type(4) {
+    grid-area: year;
+}
+
+.fOrdered:nth-of-type(5) {
+    grid-area: type;
+}
+
+.fOrdered:nth-of-type(6) {
+    grid-area: genre;
+}
+
+.fOrdered:nth-of-type(7) {
+    grid-area: fame;
+}
+
+.fOrdered:nth-of-type(even) {
+    background-color: pink;
+}
+
+.tablePic {
+    max-height: 85%;
+    max-width: 85%;
+}
+
+.tableGenre {
+    max-height: 80%;
+    max-width: 80%;
+}
+
+/*PODROBNOSTI FILMA*/
+
+.filmBox {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows:
+        min-content min-content;
+    grid-template-areas:
+        "title title"
+        "image type"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+    align-items: center;
+    gap: 5px;
+}
+
+.titleBox {
+    grid-area: title;
+}
+
+.title {
+    display: inline-block;
+    font-size: 1.8rem;
+    line-height: 1.3;
+    margin: 0 0 5px;
+}
+
+.year {
+    display: inline-block;
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 5px 25px;
+}
+
+.times {
+    font-weight: 700;
+    padding-left: 25px;
+    margin-bottom: 10px;
+}
+
+.epizode {
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 0;
+    padding-right: 12px;
+}
+
+.trajanje {
+    display: inline-block;
+    font-size: 1.2rem;
+    margin: 0;
+}
+
+.image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    grid-area: image;
+}
+
+.image img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.dataType {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.data {
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.typeBox {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    gap: 10px;
+    padding: 0 25px;
+    grid-area: type;
+}
+
+.femType {
+    width: 100%;
+    max-width: 150px;
+}
+
+.genreType p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-align: center;
+    margin: 0;
+}
+
+.peopleBox {
+    grid-area: people;
+}
+
+.directorsBox {
+    grid-area: director;
+}
+
+.actorsBox {
+    grid-area: actors;
+}
+
+.staffBox {
+    grid-area: staff;
+}
+
+.explanationBox {
+    grid-area: explain;
+}
+
+.descriptionBox {
+    grid-area: describe;
+}
+
+.pollBox {
+    justify-self: center;
+    margin-top: 5px;
+    border-radius: 15px;
+    padding: 1.1em 1.2em;
+    background-color: violet;
+    grid-area: result;
+}
+
+.rating {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    font-weight: 600;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.rating p {
+    font-size: 1.3em;
+    font-weight: 700;
+    margin: 0 0.7em 2em;
+}
+
+.rIcon {
+    position: absolute;
+    top: 1.8em;
+    cursor: pointer;
+    transition: 0.4s;
+}
+
+.rIcon:hover {
+    font-size: 1.4em;
+}
+
+.optionsBox {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 30px 25px 5px 25px;
+    grid-area: options;
+}
+
+/*EDITING*/
+
+.editForm h3 {
+    margin-top: 15px;
+}
+
+.editForm label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+
+.editForm label p {
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.editForm input {
+    margin-bottom: 10px;
+}
+
+.editForm input[type=text] {
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+    padding: 0.2em 0.4em;
+    transition: 0.4s;
+}
+
+.editForm input[type=text]:focus {
+    border-bottom: 3px solid rgba(0, 0, 0, 1);
+    outline: none;
+}
+
+.editForm input[type=number] {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+    padding: 0.2em 0;
+    transition: 0.4s;
+}
+
+.editForm input[type=number]:focus {
+    border-bottom: 3px solid rgba(0, 0, 0, 1);
+    outline: none;
+}
+
+#editYearBox {
+    display: flex;
+    flex-direction: column;
+}
+
+.editYear {
+    display: inline-block;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.editPicBox {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 3px;
+}
+
+.editPic {
+    max-height: 300px;
+    max-width: 300px;
+    border-radius: 5px;
+}
+
+.editPicLabel {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 15px auto 10px;
+    box-shadow:
+        inset 0 0 0 0 rebeccapurple,
+        0 0 5px 2px rebeccapurple;
+    border-radius: 0.5em;
+    padding: 0.2em 0.5em;
+    transition: 0.2s;
+}
+
+.editPicLabel:hover {
+    box-shadow:
+        inset 0 0 0px 1px rebeccapurple,
+        0 0 5px 3px rebeccapurple;
+}
+
+.editYear:nth-of-type(3) {
+    margin-bottom: 10px;
+}
+
+.editPicLabel:active {
+    box-shadow:
+        inset 0 0 0 1px rebeccapurple,
+        0 0 0 3px rebeccapurple;
+}
+
+.editPicBtn {
+    display: none;
+}
+
+.editFemTypeBox input[type=checkbox] {
+    display: none;
+}
+
+.editFemTypeImg {
+    height: 75px;
+    margin: 10px;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+
+.editGenreBox {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+}
