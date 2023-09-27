@@ -13,21 +13,25 @@ export default function Root() {
         position="bottom-center"
         reverseOrder={false}
       />
+
       <div
         id="headBox"
         className="rootElement">
         <Head />
       </div>
+
       <div
         id="mainBox"
         className="rootElement">
         <Outlet />
       </div>
+
       <div
         id="footBox"
         className="rootElement">
         <Foot />
       </div>
+
     </div>
   );
 }

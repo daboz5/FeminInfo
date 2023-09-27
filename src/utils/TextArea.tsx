@@ -21,9 +21,6 @@ export default function TextArea({ id, defaultContent, name, register, required,
     }
 
     const style = {
-        fontFamily: "Inter, system-ui, Avenir, Helvetica, Arial, sans-serif",
-        fontSize: "1.1rem",
-        fontWeight: "600",
         width: "100%",
         marginTop: "0.4em",
         border: "none",

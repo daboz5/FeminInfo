@@ -7,7 +7,7 @@
 }
 
 #cvsBox {
-    padding: 25px 20px;
+    padding: 25px 0px;
 }
 
 .cvBox {
@@ -17,17 +17,20 @@
 }
 
 .cvImg {
-    max-height: 100px;
-    max-width: 100px;
+    max-height: 110px;
+    max-width: 110px;
     border: 1px solid black;
     border-radius: 8px;
 }
 
 .cvInfo {
-    margin: 0 20px;
+    display: flex;
+    flex-direction: column;
+    margin-left: 1rem;
 }
 
 .cvInfo p {
+    font-size: 1.1rem;
     margin: 0;
 }
 

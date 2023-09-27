@@ -11,7 +11,7 @@ export default function PrikazFilma(
 
     return (film ?
         <div
-            className="filmBox"
+            className="filmBox container"
             style={(film.genre &&
                 film.director &&
                 film.actors &&
@@ -47,13 +47,6 @@ export default function PrikazFilma(
                 </p>
                 <div
                     className="times">
-                    {film.length &&
-                        film.length.episodes > 1 &&
-                        <p
-                            className="epizode">
-                            {`${film.length.episodes} epizod`}
-                        </p>
-                    }
                     {film.length?.average &&
                         <p
                             className="trajanje">
@@ -63,6 +56,13 @@ export default function PrikazFilma(
                                     film.length.average % 60 + " min" :
                                     film.length.average + " min"}`
                             }
+                        </p>
+                    }
+                    {film.length &&
+                        film.length.episodes > 1 &&
+                        <p
+                            className="epizode">
+                            {`${film.length.episodes} epizod`}
                         </p>
                     }
                 </div>
@@ -75,7 +75,10 @@ export default function PrikazFilma(
                     }
                     style={film.img ?
                         {} :
-                        { filter: "grayscale(100%)" }
+                        {
+                            filter: "grayscale(100%)",
+                            maxWidth: "90%"
+                        }
                     }
                     alt={film.img ?
                         `Slika ${film.title}` :

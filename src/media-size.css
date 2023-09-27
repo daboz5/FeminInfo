@@ -2,15 +2,115 @@
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 0.5rem;
-    padding-right: 0.5rem;
 }
 
 /* xs */
+@media (min-width: 360px) {
+    .container {
+        max-width: 360px;
+    }
+
+}
+
 @media (min-width: 475px) {
     .container {
         max-width: 475px;
     }
+
+    #femLogo {
+        height: 115px;
+    }
+
+    h1 {
+        font-size: 2.8rem;
+    }
+
+    h5 {
+        font-size: 1.1rem;
+    }
+
+    p {
+        font-size: 1.1rem;
+    }
+
+    ul {
+        font-size: 1.1rem;
+    }
+
+    .navBtn {
+        font-size: 1.2rem;
+        width: 140px;
+    }
+
+    /*contents*/
+
+    #mediaBox {
+        width: 100%;
+    }
+
+    .toMediaBtn {
+        width: 45%;
+    }
+
+    .orderBox {
+        grid-template-columns: 0.5fr 4fr 1fr 1fr;
+        grid-template-areas: "id title type fame";
+    }
+
+    .fOrder:nth-of-type(5) {
+        display: block;
+    }
+
+    .fOrdered {
+        font-size: 1.1rem;
+    }
+
+    .fOrdered:nth-of-type(5) {
+        display: block;
+    }
+
+    .dataType {
+        font-size: 1.5rem;
+    }
+
+    .data {
+        font-size: 1.1rem;
+    }
+
+    .optionsBox {
+        align-self: center;
+        max-width: 350px;
+    }
+
+    .editForm {
+        align-items: center;
+    }
+
+    h3 {
+        text-indent: 0;
+    }
+
+    .editForm h3 {
+        margin-top: 25px;
+    }
+
+    .editForm input[type=text] {
+        text-align: center;
+    }
+
+    .editPicBox {
+        align-self: center;
+    }
+
+    .editGenreBox {
+        flex-wrap: wrap;
+        max-height: 350px;
+    }
+
+    .editGenre p {
+        width: 50%;
+    }
+
 }
 
 /* sm */
@@ -18,6 +118,7 @@
     .container {
         max-width: 640px;
     }
+
 }
 
 /* md */

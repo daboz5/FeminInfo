@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import useBasics from "./useBasics";
+import useBasics from "../utils/useBasics";
 
 export default function useFoot() {
 

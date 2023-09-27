@@ -42,7 +42,8 @@ h1 {
     justify-self: center;
     align-self: center;
     color: whitesmoke;
-    font-size: 2.4rem;
+    font-family: "Lobster", serif;
+    font-size: 2.6rem;
     text-shadow:
         0 0 10px hotpink,
         0 0 3px black,
@@ -53,45 +54,56 @@ h1 {
 }
 
 h2 {
+    font-size: 1.8rem;
     text-align: center;
     margin: 0;
 }
 
 h3 {
-    padding-left: 25px;
-    font-size: 1.4rem;
-    margin: 5px 0;
+    text-indent: 25px;
+    font-size: 1.5rem;
+    margin: 15px 0 0;
 }
 
 h4 {
+    font-size: 1.3rem;
     text-indent: 25px;
     margin: 0;
 }
 
 h5 {
+    font-size: 1.1rem;
     text-indent: 25px;
     margin: 0;
 }
 
-.textBox {
-    margin: 0 0 25px;
-}
-
 p {
-    font-size: 1rem;
+    font-size: 1.05rem;
     margin: 12px 0;
 }
 
+input {
+    font-family: "Unna", serif;
+}
+
+textarea {
+    font-family: "Unna", serif;
+}
+
+button {
+    font-family: "Unna", serif;
+}
+
 #mainBox button {
-    font-size: 1.2rem;
-    font-weight: 600;
+    font-size: 1.4rem;
+    font-weight: 700;
     border: 0 solid black;
     box-shadow:
         0 0 10px 3px black,
         0 0 3px 1px black;
     ;
     border-radius: 0.3rem;
-    padding: 0.4em 0.7em;
+    padding: 0.3em 1em;
     transition: 0.3s;
 }
 

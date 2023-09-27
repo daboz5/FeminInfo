@@ -1,5 +1,5 @@
 import useFemStore from "../useFemStore";
-import useFoot from "../utils/useFoot";
+import useFoot from "./useFoot";
 import ArrowUp from "../assets/ArrowUp";
 import "./Foot.css";
 
@@ -11,10 +11,10 @@ export default function Foot() {
     return (
         <div
             id="footer"
-            className="container"
             style={{ height: footOpened ? "145px" : "50px" }}>
             <div
                 id="footerContent"
+                className="container"
                 style={{
                     opacity: footOpened ? 1 : 0,
                     transitionDelay: footOpened ? "0.2s" : "0s"

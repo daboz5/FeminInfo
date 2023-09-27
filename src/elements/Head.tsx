@@ -1,4 +1,4 @@
-import useHead from "../utils/useHead";
+import useHead from "./useHead";
 import "./Head.css";
 
 export default function Head() {
@@ -6,7 +6,9 @@ export default function Head() {
     const { navBtns } = useHead();
 
     return (
-        <div id="panel" className="container">
+        <div
+            id="panel"
+            className="container">
             <img
                 id="femLogo"
                 src="femininfoEyeIcon.png"

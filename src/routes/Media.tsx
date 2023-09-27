@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "./Media.css";
 
-export default function Media () {
+export default function Media() {
 
     type Media = {
         name: string,
@@ -62,25 +62,27 @@ export default function Media () {
     ]
 
     const mediaLinki = linksArr.map(
-        (el, index) => {return (
-            <Link
-                className="toMediaBtn"
-                to={el.to}
-                key={`media${index}`}
-                ><img
-                    className="mediaLinkImg"
-                    src={el.src}
-                    alt={el.alt}
-                />
-            <div className="mediaLinkTextBox">
-                <h3>{el.name}</h3>
-            </div>
-            </Link>
-        )}
+        (el, index) => {
+            return (
+                <Link
+                    className="toMediaBtn"
+                    to={el.to}
+                    key={`media${index}`}>
+                    <img
+                        className="mediaLinkImg"
+                        src={el.src}
+                        alt={el.alt}
+                    />
+                    <div className="mediaLinkTextBox">
+                        <p>{el.name}</p>
+                    </div>
+                </Link>
+            )
+        }
     );
 
     return (
-        <div id="mBox">
+        <div id="mBox" className="container">
             <div id="mediaBox">
                 {mediaLinki}
             </div>

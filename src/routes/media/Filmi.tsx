@@ -15,7 +15,7 @@ export default function Filmi() {
     } = useFilm();
 
     return (
-        <section id="mediaPage">
+        <section id="mediaPage" className="container">
             {editing ?
                 <EditFilm
                     contex={openedFilm}

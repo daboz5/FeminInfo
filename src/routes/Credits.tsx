@@ -60,7 +60,7 @@ export default function ONas() {
     )
 
     return (
-        <div id="Credits">
+        <div id="Credits" className="container">
             <p id="crExplain">Vsebine ljudi, katerih delo je uradni del spletišča, vendar niso neposredno sodelovali.</p>
             <div id="crContent">
                 {credits}

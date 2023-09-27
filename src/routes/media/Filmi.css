@@ -19,7 +19,7 @@
     grid-template-columns: 0.5fr 4fr 1fr;
     grid-template-areas:
         "id title fame";
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     text-align: center;
 }
 
@@ -145,6 +145,10 @@
     gap: 5px;
 }
 
+.filmBox p {
+    margin: 5px;
+}
+
 .titleBox {
     grid-area: title;
 }
@@ -171,14 +175,13 @@
 
 .epizode {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 0;
-    padding-right: 12px;
 }
 
 .trajanje {
     display: inline-block;
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     margin: 0;
 }
 
@@ -198,13 +201,13 @@
 }
 
 .dataType {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 700;
     margin-bottom: 0;
 }
 
 .data {
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: 500;
     text-align: left;
 }
@@ -258,7 +261,7 @@
     justify-self: center;
     margin-top: 5px;
     border-radius: 15px;
-    padding: 1.1em 1.2em;
+    padding: 1.5em 1em 3.5em;
     background-color: violet;
     grid-area: result;
 }
@@ -274,31 +277,38 @@
 }
 
 .rating p {
-    font-size: 1.3em;
+    font-size: 1.4rem;
     font-weight: 700;
-    margin: 0 0.7em 2em;
+    margin: 0;
+    padding: 0 1rem;
 }
 
 .rIcon {
     position: absolute;
-    top: 1.8em;
     cursor: pointer;
-    transition: 0.4s;
+    top: 35px;
+    transition: 0.3s;
 }
 
 .rIcon:hover {
-    font-size: 1.4em;
+    font-size: 1.5rem;
 }
 
 .optionsBox {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    margin: 30px 25px 5px 25px;
+    width: 100%;
+    margin: 30px auto 5px;
     grid-area: options;
 }
 
 /*EDITING*/
+
+.editForm {
+    display: flex;
+    flex-direction: column;
+}
 
 .editForm h3 {
     margin-top: 15px;
@@ -312,7 +322,7 @@
 
 
 .editForm label p {
-    font-size: 1.2rem;
+    font-size: 1.3rem;
     font-weight: 600;
     margin: 0;
 }
@@ -369,9 +379,10 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .editPicBox {
-    display: inline-flex;
+    display: flex;
     flex-direction: column;
     align-items: center;
+    align-self: baseline;
     margin-top: 3px;
 }
 
@@ -429,4 +440,8 @@ input[type='number']::-webkit-outer-spin-button {
     flex-direction: column;
     gap: 12px;
     width: 100%;
+}
+
+.editTextArea {
+    font-size: 1.3rem;
 }

@@ -22,7 +22,7 @@ export default function ONas() {
         </div>
 
     return (
-        <div id="oNas">
+        <div id="oNas" className="container">
             <h2>Sodelujoči</h2>
             <div id="cvsBox">
                 {cv}

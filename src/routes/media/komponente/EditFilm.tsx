@@ -108,7 +108,7 @@ export default function EditFilm(
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="editForm">
+            className="editForm container">
             <h2>Filmski podatki</h2>
             <h3>Naslov</h3>
             <input
@@ -150,24 +150,26 @@ export default function EditFilm(
             </div>
 
             <h3>Trajanje ogleda</h3>
-            <label id="editAverage">
-                <input
-                    min={1}
-                    max={5100}
-                    type="number"
-                    {...register("averageTime", { min: 1, max: 5100 })}>
-                </input>
-                <p>min</p>
-            </label>
-            <label id="editSeasons">
-                <input
-                    min={1}
-                    max={9999}
-                    type="number"
-                    {...register("episodes", { min: 1, max: 9999 })}>
-                </input>
-                <p>št. epizod</p>
-            </label>
+            <div>
+                <label id="editAverage">
+                    <input
+                        min={1}
+                        max={5100}
+                        type="number"
+                        {...register("averageTime", { min: 1, max: 5100 })}>
+                    </input>
+                    <p>min</p>
+                </label>
+                <label id="editSeasons">
+                    <input
+                        min={1}
+                        max={9999}
+                        type="number"
+                        {...register("episodes", { min: 1, max: 9999 })}>
+                    </input>
+                    <p>št. epizod</p>
+                </label>
+            </div>
 
             <h3>Naslovna slika</h3>
             <div
@@ -178,7 +180,7 @@ export default function EditFilm(
                         pic :
                         contex?.img ?
                             contex.img :
-                            "femininfoEyeIcon"
+                            "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
                 />

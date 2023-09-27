@@ -30,7 +30,8 @@
     align-items: center;
     width: 110px;
     color: hotpink;
-    font-size: 1rem;
+    font-family: "Lobster";
+    font-size: 1.1rem;
     font-weight: 600;
     text-decoration: none;
     border-radius: 10px;
@@ -64,7 +65,7 @@
         0 0 5px rgb(0, 0, 0);
     box-shadow:
         inset 0px 0px 10px 3px hotpink,
-        0 0 40px hotpink;
+        0 0 20px 1px rgba(255, 105, 180, 0.7);
 }
 
 .navBtnUnactive:active {
