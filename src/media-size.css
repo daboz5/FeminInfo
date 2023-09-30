@@ -119,6 +119,63 @@
         max-width: 640px;
     }
 
+    #panel {
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-template-rows: 1fr;
+        grid-template-areas:
+            "logo title navbar"
+    }
+
+    #nav {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    #nav a {
+        font-size: 1.3rem;
+        width: 160px;
+    }
+
+    #femLogo {
+        height: 150px;
+    }
+
+    h1 {
+        font-size: 3rem;
+    }
+
+    h2 {
+        font-size: 2.1rem;
+    }
+
+    h3 {
+        font-size: 1.9rem;
+    }
+
+    h4 {
+        font-size: 1.6rem;
+    }
+
+    h5 {
+        font-size: 1.3rem;
+    }
+
+    p {
+        font-size: 1.3rem;
+    }
+
+    ul {
+        font-size: 1.3rem;
+    }
+
+    a {
+        font-size: 1.3rem;
+    }
+
+    #mainBox {
+        padding: 25px 40px;
+    }
+
 }
 
 /* md */

@@ -5,13 +5,19 @@ import "./Foot.css";
 
 export default function Foot() {
 
-    const { footOpened, switchFootOpened } = useFemStore();
+    const { pageSize, footOpened, switchFootOpened } = useFemStore();
     const { content } = useFoot();
 
     return (
         <div
             id="footer"
-            style={{ height: footOpened ? "145px" : "50px" }}>
+            style={{
+                height: footOpened ?
+                    pageSize > 639 ?
+                        "170px" :
+                        "145px" :
+                    "50px"
+            }}>
             <div
                 id="footerContent"
                 className="container"
