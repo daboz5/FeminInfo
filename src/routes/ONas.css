@@ -13,34 +13,37 @@
 .cvBox {
     display: flex;
     align-items: center;
+    gap: 1.5rem;
     max-width: 350px;
 }
 
 .cvImg {
-    max-height: 110px;
-    max-width: 110px;
+    max-height: 120px;
+    max-width: 120px;
     border: 1px solid black;
     border-radius: 8px;
 }
 
-.cvInfo {
+.cvInfoBox {
     display: flex;
     flex-direction: column;
-    margin-left: 1rem;
+    line-height: 1.2;
+    gap: 7px;
 }
 
-.cvInfo p {
-    font-size: 1.1rem;
+.cvInfoBox p {
+    font-size: 1.3rem;
     margin: 0;
 }
 
-.oNasLinkBox {
+#oNasLink {
     position: relative;
 }
 
-.oNasLinkBox a {
+#oNasLink a {
+    font-family: "Lobster", serif;
     color: black;
-    font-size: 18px;
+    font-size: 1.3rem;
     font-weight: 600;
     text-decoration: none;
 }

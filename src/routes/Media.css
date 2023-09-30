@@ -51,10 +51,7 @@
 
 }
 
-.toMediaBtn p {
-    font-size: 1.5rem;
-    font-weight: 700;
-    margin: 0;
+.toMediaBtn h3 {
     text-shadow:
         0 0 3px hotpink,
         0 0 3px hotpink,

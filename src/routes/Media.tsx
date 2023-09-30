@@ -74,7 +74,7 @@ export default function Media() {
                         alt={el.alt}
                     />
                     <div className="mediaLinkTextBox">
-                        <p>{el.name}</p>
+                        <h3>{el.name}</h3>
                     </div>
                 </Link>
             )

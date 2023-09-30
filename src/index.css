@@ -1,5 +1,6 @@
 * {
   box-sizing: border-box;
+  margin: 0
 }
 
 html {
@@ -16,8 +17,4 @@ html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   -webkit-text-size-adjust: 100%;
-}
-
-body {
-  margin: 0;
 }

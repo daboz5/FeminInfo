@@ -1,4 +1,4 @@
-import useFilm from "../../utils/useFilm";
+import useFilm from "./komponente/useFilm";
 import FilmiFiltri from './komponente/FilmiFiltri';
 import FilmiTabela from './komponente/FilmiTabela';
 import PrikazFilma from "./komponente/PrikazFilma";

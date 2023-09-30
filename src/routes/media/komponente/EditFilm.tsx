@@ -1,7 +1,7 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect } from "react";
 import { Film } from "../../../type";
-import useFilm from "../../../utils/useFilm";
+import useFilm from "./useFilm";
 import toast from "react-hot-toast";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";

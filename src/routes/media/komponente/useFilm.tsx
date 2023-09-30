@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Film, Genre, Ratings } from "../type";
+import { Film, Genre, Ratings } from "../../../type";
 
 export default function useFilm() {
 

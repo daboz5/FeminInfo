@@ -34,19 +34,18 @@ export default function PrikazFilma(
                     className="title">
                     {film.title}
                 </h3>
-                <p
-                    className="year">
-                    {
-                        film.year?.start +
-                        `${film?.year?.unfinished ?
-                            "-" :
-                            film.year?.finish ?
-                                `-${film.year?.finish}` :
-                                ""}`
-                    }
-                </p>
                 <div
-                    className="times">
+                    className="fInfo">
+                    <p>
+                        {
+                            film.year?.start +
+                            `${film?.year?.unfinished ?
+                                "-" :
+                                film.year?.finish ?
+                                    `-${film.year?.finish}` :
+                                    ""}`
+                        }
+                    </p>
                     {film.length?.average &&
                         <p
                             className="trajanje">
@@ -56,6 +55,9 @@ export default function PrikazFilma(
                                     film.length.average % 60 + " min" :
                                     film.length.average + " min"}`
                             }
+                            {film.length.episodes > 1 ?
+                                "/ep" :
+                                ""}
                         </p>
                     }
                     {film.length &&

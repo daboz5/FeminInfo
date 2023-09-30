@@ -50,31 +50,30 @@ h1 {
         0 0 5px black,
         0 0 7px black;
     grid-area: title;
-    margin: 0;
 }
 
 h2 {
+    font-family: "Lobster", serif;
     font-size: 1.8rem;
     text-align: center;
-    margin: 0;
 }
 
 h3 {
+    font-family: "Lobster", serif;
     text-indent: 25px;
     font-size: 1.5rem;
-    margin: 15px 0 0;
 }
 
 h4 {
+    font-family: "Lobster", serif;
     font-size: 1.3rem;
     text-indent: 25px;
-    margin: 0;
 }
 
 h5 {
+    font-family: "Lobster", serif;
     font-size: 1.1rem;
     text-indent: 25px;
-    margin: 0;
 }
 
 p {

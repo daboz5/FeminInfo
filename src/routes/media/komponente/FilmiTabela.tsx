@@ -1,5 +1,5 @@
 import { Film } from "../../../type";
-import useFilm from "../../../utils/useFilm"
+import useFilm from "./useFilm"
 
 export default function FilmiTabela(
     { openFilm }:
@@ -43,7 +43,9 @@ export default function FilmiTabela(
                             <div
                                 className="fOrdered fTitle"
                                 onClick={() => openFilm(el)}>
-                                {el.title}
+                                <h5>
+                                    {el.title}
+                                </h5>
                             </div>
                             <div className="fOrdered">
                                 {el.year?.start +

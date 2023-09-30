@@ -13,11 +13,15 @@ export default function ONas() {
                 src="mefile.gif"
                 alt="Ikona avtorice"
             />
-            <div className="cvInfo">
-                <p>Ime: </p>
-                <p><b>Gabriela Janež</b></p>
-                <p>Status: </p>
-                <p><b>Admin</b></p>
+            <div className="cvInfoBox">
+                <div>
+                    <p>Ime</p>
+                    <p><b>Gabriela Janež</b></p>
+                </div>
+                <div>
+                    <p>Status</p>
+                    <p><b>Admin</b></p>
+                </div>
             </div>
         </div>
 
@@ -29,14 +33,13 @@ export default function ONas() {
             </div>
             <br />
             <div
-                className="oNasLinkBox">
+                id="oNasLink">
                 <div
                     id={"toCr"}
                     className="hoverMarker"
                     style={{ opacity: "0" }}>
                 </div>
                 <Link
-                    className="oNasContent"
                     to={"credits"}
                     onMouseEnter={() => hoverStart("toCr")}
                     onMouseLeave={() => hoverEnd("toCr")}>
