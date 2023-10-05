@@ -21,9 +21,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    min-width: 315px;
-    width: 25%;
-    max-width: 350px;
+    min-width: 325px;
+    width: 33%;
     font-size: 15px;
     margin: 7px;
     border: 4px solid rebeccapurple;

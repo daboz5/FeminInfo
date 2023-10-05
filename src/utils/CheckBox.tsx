@@ -26,7 +26,9 @@ export default function Checkbox(
     const seenStyle = {
         alignSelf: "center",
         height: "20px",
+        minHeight: "20px",
         width: "20px",
+        minWidth: "20px",
         lineHeight: "1.1",
         margin: "3px 5px 0 3px",
         borderRadius: "6px",

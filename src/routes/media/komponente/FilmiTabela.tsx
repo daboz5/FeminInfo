@@ -16,13 +16,11 @@ export default function FilmiTabela(
                 <div className="fOrder">Naslov</div>
                 <div className="fOrder">Leto</div>
                 <div className="fOrder">Tip</div>
-                <div className="fOrder">Žanr</div>
                 <div className="fOrder">🌟</div>
             </div>
             {lib.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
-                    const genre = el.genre?.map((el) => el + " ");
                     return (
                         <div className="orderBox" key={`film${index}`}>
                             <div className="fOrdered">{index + 1}</div>
@@ -58,15 +56,14 @@ export default function FilmiTabela(
                             </div>
                             <div className="fOrdered">
                                 {el.femType === "lib" ?
-                                    <img className="tableGenre" src={"type-liberal.svg"} alt="liberalni" /> :
+                                    <img className="tableType" src={"type-liberal.svg"} alt="liberalni" /> :
                                     el.femType === "soc" ?
-                                        <img className="tableGenre" src={"type-society.svg"} alt="družbeni" /> :
+                                        <img className="tableType" src={"type-society.svg"} alt="družbeni" /> :
                                         el.femType === "woke" ?
-                                            <img className="tableGenre" src={"type-woke.svg"} alt="woke" /> :
+                                            <img className="tableType" src={"type-woke.svg"} alt="woke" /> :
                                             ""
                                 }
                             </div>
-                            <div className="fOrdered">{genre}</div>
                             <div className="fOrdered">{fame}</div>
                         </div>
                     )

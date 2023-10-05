@@ -42,8 +42,6 @@
         width: 140px;
     }
 
-    /*contents*/
-
     #mediaBox {
         width: 100%;
     }
@@ -53,7 +51,7 @@
     }
 
     .orderBox {
-        grid-template-columns: 0.5fr 4fr 1fr 1fr;
+        grid-template-columns: 0.7fr 4fr 0.8fr 0.9fr;
         grid-template-areas: "id title type fame";
     }
 
@@ -66,7 +64,7 @@
     }
 
     .fOrdered:nth-of-type(5) {
-        display: block;
+        display: flex;
     }
 
     .dataType {
@@ -74,12 +72,18 @@
     }
 
     .data {
-        font-size: 1.1rem;
+        font-size: 1.25rem;
+    }
+
+    .image {
+        max-width: 400px;
+        max-height: 400px;
     }
 
     .optionsBox {
-        align-self: center;
-        max-width: 350px;
+        flex-direction: row;
+        justify-content: center;
+        margin: 15px 0 5px 0;
     }
 
     .editForm {
@@ -104,11 +108,17 @@
 
     .editGenreBox {
         flex-wrap: wrap;
+        gap: 15px 25px;
         max-height: 350px;
     }
 
-    .editGenre p {
+    .editGenre {
         width: 50%;
+    }
+
+    .editGenre p {
+        line-height: 1.25;
+        padding-right: 15px;
     }
 
 }
@@ -149,7 +159,7 @@
     }
 
     h3 {
-        font-size: 1.9rem;
+        font-size: 1.85rem;
     }
 
     h4 {
@@ -176,6 +186,73 @@
         padding: 25px 40px;
     }
 
+    #creditBox {
+        min-width: 375px;
+    }
+
+    .toMediaBtn {
+        max-width: 225px;
+    }
+
+    .orderBox {
+        grid-template-columns: 0.8fr 0.9fr 4fr 0.8fr 0.9fr;
+        grid-template-areas: "id pic title type fame";
+    }
+
+    .fOrder:nth-of-type(2) {
+        display: block;
+    }
+
+    .fOrdered:nth-of-type(2) {
+        display: flex;
+        background-color: pink;
+    }
+
+    .titleBox h3 {
+        font-size: 2.1rem;
+    }
+
+    .titleBox p {
+        font-size: 1.4rem;
+    }
+
+    .genreType p {
+        font-size: 1.5rem;
+    }
+
+    .data {
+        font-size: 1.3rem;
+    }
+
+    .editForm input[type=text] {
+        font-size: 1.5rem;
+    }
+
+    .editForm input[type=number] {
+        font-size: 1.5rem;
+    }
+
+    .editForm label p {
+        font-size: 1.4rem;
+    }
+
+    .editPic {
+        max-height: 350px;
+        max-width: 350px;
+    }
+
+    .editGenreBox {
+        max-height: 250px;
+        max-width: 575px;
+    }
+
+    .editGenre {
+        width: 33%;
+    }
+
+    .editGenre p {
+        line-height: 1.25;
+    }
 }
 
 /* md */
@@ -183,12 +260,57 @@
     .container {
         max-width: 768px;
     }
+
+    h1 {
+        font-size: 3.7em;
+    }
+
+    h5 {
+        font-size: 1.4rem;
+    }
+
+    p {
+        font-size: 1.4rem;
+    }
+
+    #oNasLink a {
+        font-size: 1.4rem;
+    }
+
+    #creditBox p {
+        font-size: 1.3rem;
+    }
+
+    .fOrder {
+        font-size: 1.3rem;
+    }
+
+    .fOrdered {
+        font-size: 1.3rem;
+    }
+
+    .editTextArea {
+        max-width: 600px;
+    }
 }
 
 /* lg */
 @media (min-width: 1024px) {
     .container {
         max-width: 1024px;
+    }
+
+    .fOrder:nth-of-type(4) {
+        display: block;
+    }
+
+    .fOrdered:nth-of-type(4) {
+        display: flex;
+    }
+
+    .orderBox {
+        grid-template-columns: 0.7fr 0.6fr 4fr 0.7fr 0.7fr 0.8fr;
+        grid-template-areas: "id pic title year type fame";
     }
 }
 
