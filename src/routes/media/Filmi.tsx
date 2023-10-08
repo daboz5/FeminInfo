@@ -9,22 +9,35 @@ export default function Filmi() {
 
     const {
         editing,
+        filter,
         openedFilm,
+        setEditing,
+        switchFilter,
         setOpenedFilm,
-        setEditing
     } = useFilm();
 
     return (
         <section id="mediaPage" className="container">
+            {filter ?
+                <FilmiFiltri
+                    filter={filter}
+                    switchFilter={switchFilter}
+                /> :
+                <></>
+            }
             {editing ?
                 <EditFilm
                     contex={openedFilm}
-                    closeEditor={setEditing} /> :
+                    closeEditor={setEditing}
+                    closeFilm={setOpenedFilm}
+                /> :
                 !openedFilm ?
                     <>
                         <h2>Filmske vsebine</h2>
-                        <FilmiFiltri />
-                        <FilmiTabela openFilm={setOpenedFilm} />
+                        <FilmiTabela
+                            switchFilter={switchFilter}
+                            openFilm={setOpenedFilm}
+                        />
                     </> :
                     <PrikazFilma
                         film={openedFilm}

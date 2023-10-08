@@ -30,6 +30,7 @@ export default function Foot() {
             <p id="copyRightBox">© <b>2023</b> FeminInfo</p>
             <button
                 id="expFootBtn"
+                className="actMouse"
                 onClick={() => switchFootOpened()}>
                 <ArrowUp />
             </button>

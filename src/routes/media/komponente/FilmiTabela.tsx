@@ -2,8 +2,11 @@ import { Film } from "../../../type";
 import useFilm from "./useFilm"
 
 export default function FilmiTabela(
-    { openFilm }:
-        { openFilm(el: Film): void }
+    { openFilm, switchFilter }:
+        {
+            openFilm(el: Film): void,
+            switchFilter(el: string): void,
+        }
 ) {
 
     const { lib, calcFame } = useFilm();
@@ -11,19 +14,43 @@ export default function FilmiTabela(
     return (<>
         <div className="libBox">
             <div className="orderBox">
-                <div className="fOrder">#</div>
-                <div className="fOrder">Slika</div>
-                <div className="fOrder">Naslov</div>
-                <div className="fOrder">Leto</div>
-                <div className="fOrder">Tip</div>
-                <div className="fOrder">🌟</div>
+                <div className="fOrder defMouse">
+                    <h5>
+                        Slika
+                    </h5>
+                </div>
+                <div
+                    className="fOrder actMouse filterOption"
+                    onClick={() => switchFilter("Naslov")}>
+                    <h5>
+                        Naslov
+                    </h5>
+                </div>
+                <div
+                    className="fOrder actMouse filterOption"
+                    onClick={() => switchFilter("Leto")}>
+                    <h5>
+                        Leto
+                    </h5>
+                </div>
+                <div
+                    className="fOrder actMouse filterOption"
+                    onClick={() => switchFilter("Fem tip")}>
+                    <h5>
+                        Tip
+                    </h5>
+                </div>
+                <div
+                    className="fOrder actMouse filterOption"
+                    onClick={() => switchFilter("Ocena")}>
+                    <p>🌟</p>
+                </div>
             </div>
             {lib.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
                     return (
                         <div className="orderBox" key={`film${index}`}>
-                            <div className="fOrdered">{index + 1}</div>
                             <div className="fOrdered">
                                 <img
                                     className="tablePic"
@@ -41,11 +68,11 @@ export default function FilmiTabela(
                             <div
                                 className="fOrdered fTitle"
                                 onClick={() => openFilm(el)}>
-                                <h5>
+                                <h5 className="actMouse">
                                     {el.title}
                                 </h5>
                             </div>
-                            <div className="fOrdered">
+                            <div className="fOrdered defMouse">
                                 {el.year?.start +
                                     `${el?.year?.unfinished ?
                                         "-" :
@@ -64,7 +91,7 @@ export default function FilmiTabela(
                                             ""
                                 }
                             </div>
-                            <div className="fOrdered">{fame}</div>
+                            <div className="fOrdered defMouse">{fame}</div>
                         </div>
                     )
                 }

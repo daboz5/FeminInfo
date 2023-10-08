@@ -1,71 +1,117 @@
-/*TABELA*/
+/*FILTER*/
 
-.filterBox {
-    height: 50px;
-    margin: 25px 0 0;
-    border-radius: 10px 10px 0 0;
-    background-color: pink;
+.mediaFilterPosition {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    height: 100%;
+    width: 100vw;
+    z-index: 1;
 }
 
+.mediaFilterScreen {
+    position: absolute;
+    height: 100%;
+    width: 100%;
+    backdrop-filter: blur(1px);
+    -webkit-backdrop-filter: blur(1px);
+}
+
+
+.mediaFilterBox {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    border: 2px solid rebeccapurple;
+    border-radius: 10px;
+    padding: 1rem 2rem 1.5rem;
+    background-color: violet;
+    z-index: 2;
+}
+
+.mediaFilterBox h4 {
+    text-align: center;
+    text-indent: 0;
+}
+
+.mediaFilter {
+    display: flex;
+    flex-direction: column;
+}
+
+.mediaFilter p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+}
+
+.mediaFilter input[type=text] {
+    font-size: 1.2rem;
+    font-weight: 600;
+    text-align: center;
+    max-width: 150px;
+    margin-bottom: 5px;
+    border: 0;
+    border-bottom: 3px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+}
+
+.mediaFilter button {
+    font-size: 1.1rem;
+    box-shadow: 0 0 3px 2px black;
+    margin: 7px;
+}
+
+.mediaFilter button:hover {
+    box-shadow: 0 0 3px 1px black;
+}
+
+/*TABELA*/
+
 .libBox {
-    border-radius: 0 0 5px 5px;
+    margin: 25px 0 0;
+    border-radius: 7px;
     background-color: hotpink;
 }
 
-/*VRSTICE TABELE*/
+.filterOption:hover {
+    text-shadow: 0 0 0.2px black;
+}
 
 .orderBox {
     display: grid;
-    grid-template-columns: 0.5fr 4fr 1fr;
+    grid-template-columns: 1fr 4fr 1fr;
     grid-template-areas:
-        "id title fame";
+        "pic title fame";
     font-size: 1.2rem;
     text-align: center;
 }
 
-/*GLAVA TABELE*/
-
 .fOrder {
+    display: flex;
+    justify-content: center;
     font-weight: 600;
-    padding: 3px 0;
+    padding: 0.4rem 0;
     background-color: violet;
 }
 
-/*SKRITE KATEGORIJE MALIH ZASLONOV*/
-
-.fOrder:nth-of-type(2) {
-    display: none;
+.fOrder h5 {
+    text-indent: 0;
 }
-
-.fOrdered:nth-of-type(2) {
-    display: none;
-}
-
-.fOrder:nth-of-type(4) {
-    display: none;
-}
-
-.fOrdered:nth-of-type(4) {
-    display: none;
-}
-
-.fOrder:nth-of-type(5) {
-    display: none;
-}
-
-.fOrdered:nth-of-type(5) {
-    display: none;
-}
-
-/*VSEBINA TABELE*/
 
 .fOrdered {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 60px;
+    min-height: 60px;
+    max-height: 100px;
     font-size: 1rem;
-    font-weight: 500;
+    font-weight: 600;
 }
 
 .fTitle h5 {
@@ -77,41 +123,63 @@
     text-shadow: 0 0 0.2px black;
 }
 
-.fOrdered:nth-of-type(1) {
-    grid-area: id;
+.fOrder:nth-of-type(1) {
+    border-radius: 7px 0 0 0;
 }
 
-.fOrdered:nth-of-type(2) {
+.fOrdered:nth-of-type(1) {
+    background-color: pink;
     grid-area: pic;
 }
 
-.fOrdered:nth-of-type(3) {
-    grid-area: title;
+.fOrdered:nth-of-type(2) {
     justify-content: left;
     text-align: left;
     padding: 0 15px;
+    grid-area: title;
 }
 
-.fOrdered:nth-of-type(4) {
+.fOrder:nth-of-type(3) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(3) {
+    display: none;
     grid-area: year;
 }
 
-.fOrdered:nth-of-type(5) {
+.fOrder:nth-of-type(4) {
+    display: none;
+}
+
+.fOrdered:nth-of-type(4) {
+    display: none;
     grid-area: type;
 }
 
-.fOrdered:nth-of-type(6) {
+.fOrder:nth-of-type(5) p {
+    position: relative;
+    top: 4px;
+    margin: 0;
+}
+
+.fOrder:nth-of-type(5) {
+    border-radius: 0 7px 0 0;
+}
+
+.fOrdered:nth-of-type(5) {
     grid-area: fame;
 }
 
 .tablePic {
     max-height: 85%;
     max-width: 85%;
+    border-radius: 3px;
 }
 
 .tableType {
-    max-height: 80%;
-    max-width: 80%;
+    max-height: 75%;
+    max-width: 75%;
 }
 
 /*PODROBNOSTI FILMA*/

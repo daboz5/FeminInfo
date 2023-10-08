@@ -179,23 +179,23 @@ export default function PrikazFilma(
             {film.ratings &&
                 <div className="pollBox">
                     <span className="rating">
-                        <p>{film.ratings.hates}</p>
+                        <p className="defMouse">{film.ratings.hates}</p>
                         <p className="rIcon">💀</p>
                     </span>
                     <span className="rating">
-                        <p>{film.ratings.dislikes}</p>
+                        <p className="defMouse">{film.ratings.dislikes}</p>
                         <p className="rIcon">👎</p>
                     </span>
                     <span className="rating">
-                        <p>{film.ratings.oks}</p>
+                        <p className="defMouse">{film.ratings.oks}</p>
                         <p className="rIcon">⭐</p>
                     </span>
                     <span className="rating">
-                        <p>{film.ratings.likes}</p>
+                        <p className="defMouse">{film.ratings.likes}</p>
                         <p className="rIcon">👍</p>
                     </span>
                     <span className="rating">
-                        <p>{film.ratings.loves}</p>
+                        <p className="defMouse">{film.ratings.loves}</p>
                         <p className="rIcon">💜</p>
                     </span>
                 </div>
@@ -203,10 +203,12 @@ export default function PrikazFilma(
 
             <div className="optionsBox">
                 <button
+                    className="actMouse"
                     onClick={() => openEditor(true)}>
                     Uredi
                 </button>
                 <button
+                    className="actMouse"
                     onClick={() => closeFilm(null)}>
                     Zapri
                 </button>

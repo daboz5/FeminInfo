@@ -12,6 +12,7 @@ export default function Root() {
   const { registerSize } = useFemStore();
 
   useEffect(() => {
+    registerSize(window.innerWidth);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [])

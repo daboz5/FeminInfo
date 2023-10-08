@@ -7,10 +7,11 @@ import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 
 export default function EditFilm(
-    { contex, closeEditor }:
+    { contex, closeEditor, closeFilm }:
         {
             contex: Film | null,
-            closeEditor(newState: boolean): void
+            closeEditor(newState: boolean): void,
+            closeFilm(newState: null): void
         }
 ) {
 
@@ -185,7 +186,7 @@ export default function EditFilm(
                     alt="Predogled naslovne slike"
                 />
                 <label
-                    className="editPicLabel"
+                    className="editPicLabel actMouse"
                     htmlFor="picBtn">
                     Nova slika
                     <input
@@ -329,8 +330,26 @@ export default function EditFilm(
                 register={register}
             />
             <div className="optionsBox">
-                <button type="submit">Oddaj v pregled</button>
-                <button type="button" onClick={() => closeEditor(false)}>Prekliči</button>
+                <button
+                    type="submit"
+                    className="actMouse">
+                    Oddaj v pregled
+                </button>
+                <button
+                    type="button"
+                    className="actMouse"
+                    onClick={() => closeEditor(false)}>
+                    Prekliči urejanje
+                </button>
+                <button
+                    type="button"
+                    className="actMouse"
+                    onClick={() => {
+                        closeFilm(null)
+                        closeEditor(false)
+                    }}>
+                    Nazaj na tabelo
+                </button>
             </div>
         </form>
     )

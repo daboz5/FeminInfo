@@ -26,7 +26,7 @@
     }
 
     h5 {
-        font-size: 1.1rem;
+        font-size: 1.2rem;
     }
 
     p {
@@ -51,11 +51,11 @@
     }
 
     .orderBox {
-        grid-template-columns: 0.7fr 4fr 0.8fr 0.9fr;
-        grid-template-areas: "id title type fame";
+        grid-template-columns: 1fr 4fr 1fr 1fr;
+        grid-template-areas: "pic title type fame";
     }
 
-    .fOrder:nth-of-type(5) {
+    .fOrder:nth-of-type(4) {
         display: block;
     }
 
@@ -63,7 +63,7 @@
         font-size: 1.1rem;
     }
 
-    .fOrdered:nth-of-type(5) {
+    .fOrdered:nth-of-type(4) {
         display: flex;
     }
 
@@ -195,15 +195,19 @@
     }
 
     .orderBox {
-        grid-template-columns: 0.8fr 0.9fr 4fr 0.8fr 0.9fr;
-        grid-template-areas: "id pic title type fame";
+        grid-template-columns: 1fr 4fr 0.9fr 0.9fr 1fr;
+        grid-template-areas: "pic title year type fame";
     }
 
-    .fOrder:nth-of-type(2) {
+    .fOrder {
+        font-size: 1.3rem;
+    }
+
+    .fOrder:nth-of-type(3) {
         display: block;
     }
 
-    .fOrdered:nth-of-type(2) {
+    .fOrdered:nth-of-type(3) {
         display: flex;
         background-color: pink;
     }
@@ -300,6 +304,10 @@
         max-width: 1024px;
     }
 
+    .fOrdered h5 {
+        padding: 5px 15px;
+    }
+
     .fOrder:nth-of-type(4) {
         display: block;
     }
@@ -309,8 +317,8 @@
     }
 
     .orderBox {
-        grid-template-columns: 0.7fr 0.6fr 4fr 0.7fr 0.7fr 0.8fr;
-        grid-template-areas: "id pic title year type fame";
+        grid-template-columns: 0.6fr 4fr 0.6fr 0.6fr 0.6fr;
+        grid-template-areas: "pic title year type fame";
     }
 }
 

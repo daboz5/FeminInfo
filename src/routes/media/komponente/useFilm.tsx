@@ -87,6 +87,7 @@ export default function useFilm() {
     const [openedFilm, setOpenedFilm] = useState<Film | null>(null);
     const [editing, setEditing] = useState(false);
     const [pic, setPic] = useState(openedFilm?.img);
+    const [filter, setFilter] = useState<JSX.Element | null>(null);
 
     const calcFame = (ratings: Ratings) => {
         const fame: number = (
@@ -99,15 +100,123 @@ export default function useFilm() {
         return fame;
     }
 
+    const switchFilter = (filter: string) => {
+        let currentYear: number;
+
+        switch (filter) {
+            case "Naslov":
+                setFilter(<>
+                    <h4>{filter}</h4>
+                    <div className="mediaFilter">
+                        <button>A-Z</button>
+                        <button>Z-A</button>
+                    </div>
+                    <div className="mediaFilter">
+                        <p>Iskani nabor</p>
+                        <input type="text"></input>
+                        <button>Potrdi</button>
+                    </div>
+                </>)
+                break;
+            case "Leto":
+                currentYear = new Date().getFullYear()
+                setFilter(<>
+                    <h4>{filter}</h4>
+                    <div className="mediaFilter">
+                        <button>1888-{currentYear}</button>
+                        <button>{currentYear}-1888</button>
+                    </div>
+                    <div className="mediaFilter">
+                        <p>Iskani nabor</p>
+                        <input type="number"></input>
+                        <input type="number"></input>
+                        <button>Potrdi</button>
+                    </div>
+                </>)
+                break;
+            case "Fem tip":
+                setFilter(<>
+                    <h4>{filter}</h4>
+                    <div className="editFemTypeBox">
+                        <label
+                            htmlFor="filterSoc">
+                            <img
+                                className="editFemTypeImg"
+                                src="type-society.svg"
+                                alt="družbeni"
+                            />
+                            <input
+                                type="checkbox"
+                                id="filterSoc"
+                                className="editFemTypeCheck"
+                                value="soc"
+                            />
+                        </label>
+                        <label
+                            htmlFor="filterWoke">
+                            <img
+                                className="editFemTypeImg"
+                                src="type-woke.svg"
+                                alt="woke"
+                            />
+                            <input
+                                type="checkbox"
+                                id="filterWoke"
+                                className="editFemTypeCheck"
+                                value="woke"
+                            />
+                        </label>
+                        <label
+                            htmlFor="filterLib">
+                            <img
+                                className="editFemTypeImg"
+                                src="type-liberal.svg"
+                                alt="liberalni"
+                            />
+                            <input
+                                type="checkbox"
+                                id="filterLib"
+                                className="editFemTypeCheck"
+                                value="lib"
+                            />
+                        </label>
+                    </div>
+                </>)
+                break;
+            case "Ocena":
+                setFilter(<>
+                    <h4>{filter}</h4>
+                    <div className="mediaFilter">
+                        <button>1-100</button>
+                        <button>100-1</button>
+                    </div>
+                    <div className="mediaFilter">
+                        <p>Iskani nabor</p>
+                        <input type="number"></input>
+                        <input type="number"></input>
+                        <button>Potrdi</button>
+                    </div>
+                </>)
+                break;
+            case "":
+                setFilter(null);
+                break;
+            default:
+                setFilter(<p>Neznani filter</p>)
+        }
+    }
+
     return {
         lib,
         editing,
+        filter,
         openedFilm,
         filmTypes,
         pic,
         setPic,
         calcFame,
         setEditing,
+        switchFilter,
         setOpenedFilm,
     }
 }

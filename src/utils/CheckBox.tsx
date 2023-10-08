@@ -116,11 +116,11 @@ export default function Checkbox(
     }
 
     return (
-        <div className={boxClass + " checkboxBox"}>
-            <label>
+        <div className={boxClass}>
+            <label style={{ cursor: "pointer" }}>
                 {
                     beforeText ?
-                        <p
+                        <p style={{ cursor: "pointer" }}
                             onMouseOver={() => handleMouseOver()}
                             onMouseLeave={() => handleLeave()}>
                             {beforeText}
@@ -147,7 +147,7 @@ export default function Checkbox(
                 </input>
                 {
                     afterText ?
-                        <p
+                        <p style={{ cursor: "pointer" }}
                             onMouseOver={() => handleMouseOver()}
                             onMouseLeave={() => handleLeave()}>
                             {afterText}
