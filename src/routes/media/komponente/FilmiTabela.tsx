@@ -14,34 +14,34 @@ export default function FilmiTabela(
     return (<>
         <div className="libBox">
             <div className="orderBox">
-                <div className="fOrder defMouse">
+                <div className="fOrder defMouse flex">
                     <h5>
                         Slika
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption"
+                    className="fOrder actMouse filterOption flex"
                     onClick={() => switchFilter("Naslov")}>
                     <h5>
                         Naslov
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption"
+                    className="fOrder actMouse filterOption flex"
                     onClick={() => switchFilter("Leto")}>
                     <h5>
                         Leto
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption"
+                    className="fOrder actMouse filterOption flex"
                     onClick={() => switchFilter("Fem tip")}>
                     <h5>
                         Tip
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption"
+                    className="fOrder actMouse filterOption flex"
                     onClick={() => switchFilter("Ocena")}>
                     <p>🌟</p>
                 </div>
@@ -51,7 +51,7 @@ export default function FilmiTabela(
                     const fame = calcFame(el.ratings);
                     return (
                         <div className="orderBox" key={`film${index}`}>
-                            <div className="fOrdered">
+                            <div className="fOrdered flex">
                                 <img
                                     className="tablePic"
                                     src={el.img ?
@@ -66,13 +66,13 @@ export default function FilmiTabela(
                                 />
                             </div>
                             <div
-                                className="fOrdered fTitle"
+                                className="fOrdered fTitle flex"
                                 onClick={() => openFilm(el)}>
                                 <h5 className="actMouse">
                                     {el.title}
                                 </h5>
                             </div>
-                            <div className="fOrdered defMouse">
+                            <div className="fOrdered defMouse flex">
                                 {el.year?.start +
                                     `${el?.year?.unfinished ?
                                         "-" :
@@ -81,7 +81,7 @@ export default function FilmiTabela(
                                             ""}`
                                 }
                             </div>
-                            <div className="fOrdered">
+                            <div className="fOrdered flex">
                                 {el.femType === "lib" ?
                                     <img className="tableType" src={"type-liberal.svg"} alt="liberalni" /> :
                                     el.femType === "soc" ?
@@ -91,7 +91,7 @@ export default function FilmiTabela(
                                             ""
                                 }
                             </div>
-                            <div className="fOrdered defMouse">{fame}</div>
+                            <div className="fOrdered defMouse flex">{fame}</div>
                         </div>
                     )
                 }

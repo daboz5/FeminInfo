@@ -109,7 +109,7 @@ export default function EditFilm(
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
-            className="editForm container">
+            className="editForm container colFlex">
             <h2>Filmski podatki</h2>
             <h3>Naslov</h3>
             <input
@@ -118,8 +118,8 @@ export default function EditFilm(
             </input>
 
             <h3>Izšel</h3>
-            <div id="editYearBox">
-                <div className="editYear">
+            <div id="editYearBox" className="colFlex">
+                <div className="inBlock">
                     <label>
                         <p>od</p>
                         <input
@@ -174,7 +174,7 @@ export default function EditFilm(
 
             <h3>Naslovna slika</h3>
             <div
-                className="editPicBox">
+                className="editPicBox colFlex">
                 <img
                     className="editPic"
                     src={pic ?
@@ -261,7 +261,7 @@ export default function EditFilm(
             </div>
 
             <h3>Žanri</h3>
-            <div className="editGenreBox">
+            <div className="editGenreBox colFlex">
                 {filmTypes.map((type, index) => {
                     const num = index + 1;
                     const label = type.toLowerCase().replace("znanstvena fantastika", "scifi");
@@ -329,7 +329,7 @@ export default function EditFilm(
                 maxLength={1500}
                 register={register}
             />
-            <div className="optionsBox">
+            <div className="optionsBox colFlex">
                 <button
                     type="submit"
                     className="actMouse">

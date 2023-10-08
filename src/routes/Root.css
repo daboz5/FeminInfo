@@ -22,6 +22,7 @@
     position: fixed;
     bottom: 0;
     background-color: wheat;
+    z-index: 2;
 }
 
 /*SCROLLBAR*/
@@ -36,7 +37,7 @@
     background-color: rebeccapurple;
 }
 
-/*GENERIC TEXT TYPES*/
+/*GENERIC CSS TYPES*/
 
 .defMouse {
     cursor: default;
@@ -45,6 +46,29 @@
 .actMouse {
     cursor: pointer;
 }
+
+.block {
+    display: block;
+}
+
+.inBlock {
+    display: inline-block;
+}
+
+.flex {
+    display: flex;
+}
+
+.inFlex {
+    display: inline-flex;
+}
+
+.colFlex {
+    display: flex;
+    flex-direction: column;
+}
+
+/*GENERIC HTML TYPES*/
 
 h1 {
     justify-self: center;

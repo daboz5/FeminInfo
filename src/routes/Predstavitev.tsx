@@ -8,7 +8,7 @@ export default function Predstavitev() {
     const { hoverStart, hoverEnd } = useBasics();
 
     return (
-        <div id="iPage" className="container">
+        <div id="iPage" className="container colFlex">
             <h2>Fem in informirana</h2>
             <div id="iConBox">
                 <p>Spletna stran je namenjena feministkam.</p>

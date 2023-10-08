@@ -51,6 +51,7 @@ export default function ONas() {
             return (
                 <div
                     id="creditBox"
+                    className="colFlex"
                     key={"cr" + (index + 1)}>
                     <p className="crRazlaga">{cr.razlaga}</p>
                     <p className="crNavedba">{cr.navedba}</p>
@@ -61,8 +62,8 @@ export default function ONas() {
 
     return (
         <div id="Credits" className="container">
-            <p id="crExplain">Vsebine ljudi, katerih delo je uradni del spletišča, vendar niso neposredno sodelovali.</p>
-            <div id="crContent">
+            <p id="crExplain" className="block">Vsebine ljudi, katerih delo je uradni del spletišča, vendar niso neposredno sodelovali.</p>
+            <div id="crContent" className="flex">
                 {credits}
             </div>
         </div>

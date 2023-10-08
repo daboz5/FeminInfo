@@ -16,11 +16,11 @@ export default function Foot() {
                     pageSize > 639 ?
                         "170px" :
                         "145px" :
-                    "50px"
+                    "50px",
             }}>
             <div
                 id="footerContent"
-                className="container"
+                className="container colFlex"
                 style={{
                     opacity: footOpened ? 1 : 0,
                     transitionDelay: footOpened ? "0.2s" : "0s"
@@ -30,7 +30,7 @@ export default function Foot() {
             <p id="copyRightBox">© <b>2023</b> FeminInfo</p>
             <button
                 id="expFootBtn"
-                className="actMouse"
+                className="actMouse flex"
                 onClick={() => switchFootOpened()}>
                 <ArrowUp />
             </button>

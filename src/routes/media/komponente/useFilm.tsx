@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Film, Genre, Ratings } from "../../../type";
+import ArrowUp from "../../../assets/ArrowUp";
 
 export default function useFilm() {
 
@@ -104,93 +105,70 @@ export default function useFilm() {
         let currentYear: number;
 
         switch (filter) {
+
             case "Naslov":
                 setFilter(<>
                     <h4>{filter}</h4>
-                    <div className="mediaFilter">
-                        <button>A-Z</button>
-                        <button>Z-A</button>
+                    <div className="mediaFilter flex">
+                        <button className="upBtn"><ArrowUp /></button>
+                        <button className="downBtn"><ArrowUp /></button>
                     </div>
-                    <div className="mediaFilter">
+                    <div className="mediaFilter colFlex">
                         <p>Iskani nabor</p>
-                        <input type="text"></input>
+                        <input type="text" placeholder="f-m, o" maxLength={10}></input>
                         <button>Potrdi</button>
                     </div>
                 </>)
                 break;
+
             case "Leto":
-                currentYear = new Date().getFullYear()
+                currentYear = new Date().getFullYear();
                 setFilter(<>
                     <h4>{filter}</h4>
-                    <div className="mediaFilter">
-                        <button>1888-{currentYear}</button>
-                        <button>{currentYear}-1888</button>
+                    <div className="mediaFilter flex">
+                        <button className="upBtn"><ArrowUp /></button>
+                        <button className="downBtn"><ArrowUp /></button>
                     </div>
-                    <div className="mediaFilter">
+                    <div className="mediaFilter colFlex">
                         <p>Iskani nabor</p>
-                        <input type="number"></input>
-                        <input type="number"></input>
+                        <input type="number" placeholder="1888"></input>
+                        <input type="number" placeholder={`${currentYear}`}></input>
                         <button>Potrdi</button>
                     </div>
                 </>)
                 break;
+
             case "Fem tip":
                 setFilter(<>
                     <h4>{filter}</h4>
-                    <div className="editFemTypeBox">
-                        <label
-                            htmlFor="filterSoc">
-                            <img
-                                className="editFemTypeImg"
-                                src="type-society.svg"
-                                alt="družbeni"
-                            />
-                            <input
-                                type="checkbox"
-                                id="filterSoc"
-                                className="editFemTypeCheck"
-                                value="soc"
-                            />
-                        </label>
-                        <label
-                            htmlFor="filterWoke">
-                            <img
-                                className="editFemTypeImg"
-                                src="type-woke.svg"
-                                alt="woke"
-                            />
-                            <input
-                                type="checkbox"
-                                id="filterWoke"
-                                className="editFemTypeCheck"
-                                value="woke"
-                            />
-                        </label>
-                        <label
-                            htmlFor="filterLib">
-                            <img
-                                className="editFemTypeImg"
-                                src="type-liberal.svg"
-                                alt="liberalni"
-                            />
-                            <input
-                                type="checkbox"
-                                id="filterLib"
-                                className="editFemTypeCheck"
-                                value="lib"
-                            />
-                        </label>
+                    <div className="mediaFilter flex">
+                        <img
+                            className="filterType"
+                            src="type-society.svg"
+                            alt="družbeni"
+                        />
+                        <img
+                            className="filterType"
+                            src="type-woke.svg"
+                            alt="woke"
+                        />
+                        <img
+                            className="filterType"
+                            src="type-liberal.svg"
+                            alt="liberalni"
+                        />
                     </div>
                 </>)
                 break;
+
             case "Ocena":
                 setFilter(<>
                     <h4>{filter}</h4>
-                    <div className="mediaFilter">
-                        <button>1-100</button>
-                        <button>100-1</button>
+                    <div className="mediaFilter flex">
+                        <button className="upBtn"><ArrowUp /></button>
+                        <button className="downBtn"><ArrowUp /></button>
                     </div>
-                    <div className="mediaFilter">
+                    <div className="mediaFilter colFlex">
                         <p>Iskani nabor</p>
                         <input type="number"></input>
                         <input type="number"></input>
@@ -198,9 +176,11 @@ export default function useFilm() {
                     </div>
                 </>)
                 break;
+
             case "":
                 setFilter(null);
                 break;
+
             default:
                 setFilter(<p>Neznani filter</p>)
         }

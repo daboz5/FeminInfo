@@ -40,7 +40,7 @@ export default function useHead() {
                 radio === btn.id ?
                     " navBtnActive" :
                     " navBtnUnactive";
-            const navClass = "navBtn" + active;
+            const navClass = "navBtn flex" + active;
             return (
                 <Link
                     key={"nav" + index}

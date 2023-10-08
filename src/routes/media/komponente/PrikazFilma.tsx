@@ -69,7 +69,7 @@ export default function PrikazFilma(
                     }
                 </div>
             </div>
-            <div className="image">
+            <div className="image flex">
                 <img
                     src={film.img ?
                         film.img :
@@ -89,7 +89,7 @@ export default function PrikazFilma(
                 />
             </div>
             {film.femType || film.genre ?
-                <div className="typeBox">
+                <div className="typeBox colFlex">
                     {film.femType &&
                         film.femType === "lib" ?
                         <img className="femType" src={"type-liberal.svg"} alt="liberalni feminizem" /> :
@@ -201,7 +201,7 @@ export default function PrikazFilma(
                 </div>
             }
 
-            <div className="optionsBox">
+            <div className="optionsBox colFlex">
                 <button
                     className="actMouse"
                     onClick={() => openEditor(true)}>

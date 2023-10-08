@@ -7,12 +7,12 @@ export default function FilmiFiltri(
 ) {
 
     return (
-        <div className="mediaFilterPosition">
+        <div className="mediaFilterPosition flex">
             <div
                 className="mediaFilterScreen"
                 onClick={() => switchFilter("")}>
             </div>
-            <div className="mediaFilterBox">
+            <div className="mediaFilterBox colFlex">
                 {filter}
             </div>
         </div>

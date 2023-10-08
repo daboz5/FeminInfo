@@ -3,7 +3,6 @@
 }
 
 #crExplain {
-    display: block;
     max-width: 300px;
     font-size: 1.4rem;
     font-weight: 500;
@@ -12,14 +11,11 @@
 }
 
 #crContent {
-    display: flex;
     justify-content: center;
     flex-wrap: wrap;
 }
 
 #creditBox {
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     min-width: 325px;
     width: 33%;

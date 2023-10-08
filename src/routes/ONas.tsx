@@ -7,13 +7,13 @@ export default function ONas() {
     const { hoverStart, hoverEnd } = useBasics();
 
     const cv =
-        <div className="cvBox">
+        <div className="cvBox flex">
             <img
                 className="cvImg"
                 src="mefile.gif"
                 alt="Ikona avtorice"
             />
-            <div className="cvInfoBox">
+            <div className="cvInfoBox colFlex">
                 <div>
                     <p>Ime</p>
                     <p><b>Gabriela Janež</b></p>
@@ -33,7 +33,7 @@ export default function ONas() {
             </div>
             <br />
             <div
-                id="oNasLink">
+                id="oNasLink" className="colFlex">
                 <div
                     id={"toCr"}
                     className="hoverMarker"

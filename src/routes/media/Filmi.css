@@ -1,7 +1,6 @@
 /*FILTER*/
 
 .mediaFilterPosition {
-    display: flex;
     justify-content: center;
     align-items: center;
     position: absolute;
@@ -18,14 +17,13 @@
     width: 100%;
     backdrop-filter: blur(1px);
     -webkit-backdrop-filter: blur(1px);
+    z-index: 0;
 }
 
 
 .mediaFilterBox {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    border: 2px solid rebeccapurple;
+    gap: 13px;
+    border: 4px solid rebeccapurple;
     border-radius: 10px;
     padding: 1rem 2rem 1.5rem;
     background-color: violet;
@@ -33,25 +31,40 @@
 }
 
 .mediaFilterBox h4 {
+    font-size: 1.5rem;
     text-align: center;
     text-indent: 0;
 }
 
 .mediaFilter {
-    display: flex;
-    flex-direction: column;
+    justify-content: center;
+    gap: 12px;
+}
+
+.upBtn {
+    padding: 5px;
+}
+
+.downBtn {
+    padding: 5px;
+    transform: rotate(180deg);
+}
+
+.mediaFilter svg {
+    height: 23px;
 }
 
 .mediaFilter p {
-    font-size: 1.1rem;
+    font-size: 1.4rem;
     font-weight: 600;
     text-align: center;
     margin: 0;
 }
 
 .mediaFilter input[type=text] {
-    font-size: 1.2rem;
+    font-size: 1.4rem;
     font-weight: 600;
+    letter-spacing: 3px;
     text-align: center;
     max-width: 150px;
     margin-bottom: 5px;
@@ -62,21 +75,33 @@
 }
 
 .mediaFilter button {
-    font-size: 1.1rem;
-    box-shadow: 0 0 3px 2px black;
+    font-size: 1.4rem;
+    box-shadow: 0 0 3px 3px black;
     margin: 7px;
+    transition: 0.3s;
 }
 
 .mediaFilter button:hover {
     box-shadow: 0 0 3px 1px black;
 }
 
+.filterType {
+    height: 75px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.filterType:hover {
+    box-shadow: 0 0 10px 3px black;
+}
+
 /*TABELA*/
 
 .libBox {
     margin: 25px 0 0;
-    border-radius: 7px;
-    background-color: hotpink;
+    border-radius: 10px;
+    background-color: rebeccapurple;
+    padding: 4px;
 }
 
 .filterOption:hover {
@@ -90,10 +115,30 @@
         "pic title fame";
     font-size: 1.2rem;
     text-align: center;
+    background-color: hotpink;
+}
+
+.orderBox:first-of-type {
+    border-radius: 7px 7px 0 0;
+}
+
+.orderBox:first-of-type .fOrder:first-of-type {
+    border-radius: 7px 0 0 0;
+}
+
+.orderBox:first-of-type .fOrder:last-of-type {
+    border-radius: 0 7px 0 0;
+}
+
+.orderBox:last-of-type {
+    border-radius: 0 0 7px 7px;
+}
+
+.orderBox:last-child .fOrdered:first-of-type {
+    border-radius: 0 0 0 7px;
 }
 
 .fOrder {
-    display: flex;
     justify-content: center;
     font-weight: 600;
     padding: 0.4rem 0;
@@ -105,7 +150,6 @@
 }
 
 .fOrdered {
-    display: flex;
     justify-content: center;
     align-items: center;
     min-height: 60px;
@@ -121,10 +165,6 @@
 
 .fTitle h5:hover {
     text-shadow: 0 0 0.2px black;
-}
-
-.fOrder:nth-of-type(1) {
-    border-radius: 7px 0 0 0;
 }
 
 .fOrdered:nth-of-type(1) {
@@ -161,10 +201,6 @@
     position: relative;
     top: 4px;
     margin: 0;
-}
-
-.fOrder:nth-of-type(5) {
-    border-radius: 0 7px 0 0;
 }
 
 .fOrdered:nth-of-type(5) {
@@ -223,7 +259,6 @@
 
 .image {
     justify-self: center;
-    display: flex;
     justify-content: center;
     align-items: center;
     height: 100%;
@@ -250,9 +285,7 @@
 }
 
 .typeBox {
-    display: flex;
     align-items: center;
-    flex-direction: column;
     gap: 10px;
     padding: 0 25px;
     grid-area: type;
@@ -331,8 +364,6 @@
 }
 
 .optionsBox {
-    display: flex;
-    flex-direction: column;
     gap: 20px;
     width: 100%;
     margin: 30px auto 5px;
@@ -342,8 +373,6 @@
 /*EDITING*/
 
 .editForm {
-    display: flex;
-    flex-direction: column;
     gap: 7px;
 }
 
@@ -400,23 +429,12 @@
     outline: none;
 }
 
-#editYearBox {
-    display: flex;
-    flex-direction: column;
-}
-
-.editYear {
-    display: inline-block;
-}
-
 input[type='number']::-webkit-inner-spin-button,
 input[type='number']::-webkit-outer-spin-button {
     -webkit-appearance: none;
 }
 
 .editPicBox {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     align-self: baseline;
     margin-top: 3px;
@@ -472,8 +490,6 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .editGenreBox {
-    display: flex;
-    flex-direction: column;
     gap: 12px;
     width: 100%;
 }

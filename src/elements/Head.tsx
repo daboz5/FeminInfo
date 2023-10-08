@@ -15,7 +15,7 @@ export default function Head() {
                 alt="Femininfo logo"
             />
             <h1>FeminInfo</h1>
-            <div id="nav">
+            <div id="nav" className="flex">
                 {navBtns}
             </div>
         </div>

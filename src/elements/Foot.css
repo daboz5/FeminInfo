@@ -9,8 +9,6 @@
 }
 
 #footerContent {
-    display: flex;
-    flex-direction: column;
     align-items: center;
     padding-top: 20px;
     transition: 0.3s;
@@ -32,7 +30,6 @@
 /*EXIT*/
 
 #expFootBtn {
-    display: flex;
     align-items: center;
     position: absolute;
     top: 12px;
