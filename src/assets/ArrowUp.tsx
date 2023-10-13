@@ -1,9 +1,8 @@
 import { createUseStyles } from "react-jss";
-import useFemStore from "../useFemStore";
 
-export default function ArrowUp() {
-
-  const { footOpened } = useFemStore();
+export default function ArrowUp(
+  { rotate }: { rotate?: boolean }
+) {
 
   const styles = createUseStyles({
     a: {
@@ -17,15 +16,15 @@ export default function ArrowUp() {
 
   const classes = styles();
 
-  const rotate = {
-    transform: footOpened ? "rotate(-0.5turn)" : "rotate(0turn)",
+  const rotation = {
+    transform: rotate ? "rotate(-0.5turn)" : "rotate(0turn)",
     transition: "0.3s",
   }
 
   return (<>
     <svg
       id="arrowUp"
-      style={rotate}
+      style={rotation}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 164.35 132.668">
       <polyline

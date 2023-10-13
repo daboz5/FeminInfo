@@ -1,4 +1,5 @@
 import { Film } from "../../../type";
+import useFemStore from "../../../useFemStore";
 import useFilm from "./useFilm"
 
 export default function FilmiTabela(
@@ -9,7 +10,8 @@ export default function FilmiTabela(
         }
 ) {
 
-    const { lib, calcFame } = useFilm();
+    const { filmLib } = useFemStore();
+    const { calcFame, } = useFilm();
 
     return (<>
         <div className="libBox">
@@ -20,33 +22,33 @@ export default function FilmiTabela(
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption flex"
+                    className="fOrder filterOption flex"
                     onClick={() => switchFilter("Naslov")}>
-                    <h5>
+                    <h5 className="actMouse">
                         Naslov
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption flex"
+                    className="fOrder filterOption flex"
                     onClick={() => switchFilter("Leto")}>
-                    <h5>
+                    <h5 className="actMouse">
                         Leto
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption flex"
+                    className="fOrder filterOption flex"
                     onClick={() => switchFilter("Fem tip")}>
-                    <h5>
+                    <h5 className="actMouse">
                         Tip
                     </h5>
                 </div>
                 <div
                     className="fOrder actMouse filterOption flex"
                     onClick={() => switchFilter("Ocena")}>
-                    <p>🌟</p>
+                    <p className="actMouse">🌟</p>
                 </div>
             </div>
-            {lib.map(
+            {filmLib?.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
                     return (

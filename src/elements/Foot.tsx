@@ -32,7 +32,7 @@ export default function Foot() {
                 id="expFootBtn"
                 className="actMouse flex"
                 onClick={() => switchFootOpened()}>
-                <ArrowUp />
+                <ArrowUp rotate={footOpened} />
             </button>
         </div>
     )

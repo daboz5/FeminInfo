@@ -1,6 +1,8 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Film, Genre, Ratings } from "../../../type";
 import ArrowUp from "../../../assets/ArrowUp";
+import useFemStore from "../../../useFemStore";
+import toast from "react-hot-toast";
 
 export default function useFilm() {
 
@@ -85,10 +87,29 @@ export default function useFilm() {
         "Znanstvena fantastika"
     ]
 
+    const { setFilmLib } = useFemStore();
+
     const [openedFilm, setOpenedFilm] = useState<Film | null>(null);
     const [editing, setEditing] = useState(false);
     const [pic, setPic] = useState(openedFilm?.img);
     const [filter, setFilter] = useState<JSX.Element | null>(null);
+    const [libBackup, setLibBackup] = useState<Film[]>();
+
+    useEffect(() => {
+        setFilmLib(lib.sort(
+            (a, b) => {
+                const titleA = a.title.toUpperCase();
+                const titleB = b.title.toUpperCase();
+                if (titleA < titleB) {
+                    return -1;
+                }
+                if (titleA > titleB) {
+                    return 1;
+                }
+                return 0;
+            }));
+        setLibBackup(lib);
+    }, []);
 
     const calcFame = (ratings: Ratings) => {
         const fame: number = (
@@ -101,6 +122,84 @@ export default function useFilm() {
         return fame;
     }
 
+    const stringComplexFilter = (querry: string) => {
+        if (!querry) { return toast.error(`Neveljaven vnos.`) }
+
+        const checkRegex = /[^\w\sčžšćđ,]/
+        const error = querry.search(checkRegex);
+        if (error > -1) {
+            return toast.error(`Neveljaven vnos.`);
+        }
+
+        const querryArr = querry.toUpperCase().split("");
+        const filteredArr = querryArr.filter((el) => el !== ",");
+        const noRepeats = filteredArr.filter(
+            (el, index) => {
+                return filteredArr.indexOf(el) === index;
+            });
+
+        const result = libBackup?.filter(
+            (el) => {
+                const match = el.title[0];
+                for (let i = 0; i < noRepeats.length; i++) {
+                    if (match === noRepeats[i]) {
+                        return el;
+                    }
+                }
+            }
+        );
+        result ? setFilmLib(result) : {}
+
+    }
+
+    const searchRegexCreator = (querry: string) => {
+        const regArr: string[] = [];
+        for (let i = 0; i < querry.length; i++) {
+            const part1 = querry.slice(0, i);
+            const part2 = querry.slice(i + 1, querry.length);
+            const newRegex = part1 + "." + part2;
+            regArr.unshift(newRegex.toUpperCase());
+        }
+        return regArr;
+    }
+
+    const searchRegexFilter = (regArr: string[]) => {
+        const filterTotal: Film[] = [];
+        for (let i = 0; i < regArr.length; i++) {
+            const matches = libBackup?.filter(
+                (film) => {
+                    const title = film.title.toUpperCase();
+                    const result = title.search(new RegExp(regArr[i]));
+                    if (result >= 0) {
+                        return film;
+                    }
+                }
+            );
+            const noRepeats = matches?.filter(
+                (match) => {
+                    const repeat = filterTotal.includes(match);
+                    if (!repeat) {
+                        return match;
+                    }
+                }
+            )
+            if (noRepeats) {
+                noRepeats.forEach((el) => filterTotal.push(el));
+            }
+        }
+        return filterTotal;
+    }
+
+    const stringSimpleFilter = (querry: string) => {
+        console.log(querry)
+        if (!querry) { return toast.error(`Neveljaven vnos.`) }
+
+        const regArr = searchRegexCreator(querry);
+        const result = searchRegexFilter(regArr);
+        result ? setFilmLib(result) : {}
+        return;
+    }
+
     const switchFilter = (filter: string) => {
         let currentYear: number;
 
@@ -110,13 +209,74 @@ export default function useFilm() {
                 setFilter(<>
                     <h4>{filter}</h4>
                     <div className="mediaFilter flex">
-                        <button className="upBtn"><ArrowUp /></button>
-                        <button className="downBtn"><ArrowUp /></button>
+                        <button
+                            className="upBtn"
+                            onClick={() => setFilmLib(
+                                lib.sort(
+                                    (a, b) => {
+                                        const titleA = a.title.toUpperCase();
+                                        const titleB = b.title.toUpperCase();
+                                        if (titleA < titleB) {
+                                            return -1;
+                                        }
+                                        if (titleA > titleB) {
+                                            return 1;
+                                        }
+                                        return 0;
+                                    })
+                            )}>
+                            <ArrowUp />
+                        </button>
+                        <button
+                            className="downBtn"
+                            onClick={() => setFilmLib(
+                                lib.sort(
+                                    (a, b) => {
+                                        const titleA = a.title.toUpperCase();
+                                        const titleB = b.title.toUpperCase();
+                                        if (titleA < titleB) {
+                                            return 1;
+                                        }
+                                        if (titleA > titleB) {
+                                            return -1;
+                                        }
+                                        return 0;
+                                    })
+                            )}>
+                            <ArrowUp />
+                        </button>
                     </div>
                     <div className="mediaFilter colFlex">
                         <p>Iskani nabor</p>
-                        <input type="text" placeholder="f-m, o" maxLength={10}></input>
-                        <button>Potrdi</button>
+                        <input
+                            id="filmTitleLetterFilter"
+                            type="text"
+                            placeholder="a,b,c / abc"
+                            maxLength={10}>
+                        </input>
+                        <button
+                            onClick={() => {
+                                const el: HTMLInputElement | null = document.getElementById("filmTitleLetterFilter");
+                                el ? stringComplexFilter(el.value) : {}
+                            }}>
+                            Potrdi
+                        </button>
+                    </div>
+                    <div className="mediaFilter colFlex">
+                        <p>Iskano zaporedje</p>
+                        <input
+                            id="filmTitleWordFilter"
+                            type="text"
+                            placeholder="Naslov"
+                            maxLength={20}>
+                        </input>
+                        <button
+                            onClick={() => {
+                                const el: HTMLInputElement | null = document.getElementById("filmTitleWordFilter");
+                                el ? stringSimpleFilter(el.value) : {}
+                            }}>
+                            Potrdi
+                        </button>
                     </div>
                 </>)
                 break;
@@ -170,8 +330,8 @@ export default function useFilm() {
                     </div>
                     <div className="mediaFilter colFlex">
                         <p>Iskani nabor</p>
-                        <input type="number"></input>
-                        <input type="number"></input>
+                        <input type="number" placeholder="od ocene"></input>
+                        <input type="number" placeholder="do ocene"></input>
                         <button>Potrdi</button>
                     </div>
                 </>)
@@ -187,7 +347,6 @@ export default function useFilm() {
     }
 
     return {
-        lib,
         editing,
         filter,
         openedFilm,
