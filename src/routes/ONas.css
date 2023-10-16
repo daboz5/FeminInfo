@@ -9,9 +9,9 @@
 }
 
 .cvBox {
+    justify-content: center;
     align-items: center;
     gap: 1.5rem;
-    max-width: 350px;
 }
 
 .cvImg {
@@ -33,6 +33,7 @@
 
 #oNasLink {
     position: relative;
+    justify-content: center;
 }
 
 #oNasLink a {

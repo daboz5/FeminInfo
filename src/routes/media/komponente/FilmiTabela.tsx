@@ -3,10 +3,10 @@ import useFemStore from "../../../useFemStore";
 import useFilm from "./useFilm"
 
 export default function FilmiTabela(
-    { openFilm, switchFilter }:
+    { openFilm, setFilter }:
         {
             openFilm(el: Film): void,
-            switchFilter(el: string): void,
+            setFilter(el: string): void,
         }
 ) {
 
@@ -23,28 +23,28 @@ export default function FilmiTabela(
                 </div>
                 <div
                     className="fOrder filterOption flex"
-                    onClick={() => switchFilter("Naslov")}>
+                    onClick={() => setFilter("Naslov")}>
                     <h5 className="actMouse">
                         Naslov
                     </h5>
                 </div>
                 <div
                     className="fOrder filterOption flex"
-                    onClick={() => switchFilter("Leto")}>
+                    onClick={() => setFilter("Leto")}>
                     <h5 className="actMouse">
                         Leto
                     </h5>
                 </div>
                 <div
                     className="fOrder filterOption flex"
-                    onClick={() => switchFilter("Fem tip")}>
+                    onClick={() => setFilter("Fem tip")}>
                     <h5 className="actMouse">
                         Tip
                     </h5>
                 </div>
                 <div
                     className="fOrder actMouse filterOption flex"
-                    onClick={() => switchFilter("Ocena")}>
+                    onClick={() => setFilter("Ocena")}>
                     <p className="actMouse">🌟</p>
                 </div>
             </div>
@@ -69,7 +69,10 @@ export default function FilmiTabela(
                             </div>
                             <div
                                 className="fOrdered fTitle flex"
-                                onClick={() => openFilm(el)}>
+                                onClick={() => {
+                                    setFilter("")
+                                    openFilm(el)
+                                }}>
                                 <h5 className="actMouse">
                                     {el.title}
                                 </h5>

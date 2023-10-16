@@ -33,7 +33,7 @@ export default function ONas() {
             </div>
             <br />
             <div
-                id="oNasLink" className="colFlex">
+                id="oNasLink" className="flex">
                 <div
                     id={"toCr"}
                     className="hoverMarker"
