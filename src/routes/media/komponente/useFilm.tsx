@@ -228,46 +228,36 @@ export default function useFilm() {
     }
 
     const searchRegexTitleFilter = (regArr: string[]) => {
-        const filterTotal: Film[] = [];
-        for (let i = 0; i < regArr.length; i++) {
-            const matches = filmBackupLib?.filter(
-                (film) => {
-                    const title = film.title.toUpperCase();
-                    const result = title.search(new RegExp(regArr[i]));
-                    if (result >= 0) {
-                        return film;
+        const filtered = filmBackupLib?.filter(
+            (film) => {
+                const title = film.title.toUpperCase();
+                const maches: string[] = [];
+                regArr.forEach((regex) => {
+                    const result = title.search(new RegExp(regex));
+                    if (result > -1) {
+                        maches.push(regex);
                     }
+                })
+                if (maches.length > 0) {
+                    return film;
                 }
-            );
-            const noRepeats = matches?.filter(
-                (match) => {
-                    const repeat = filterTotal.includes(match);
-                    if (!repeat) {
-                        return match;
-                    }
-                }
-            )
-            if (noRepeats) {
-                noRepeats.forEach((el) => filterTotal.push(el));
             }
-        }
-        return filterTotal;
+        );
+        return filtered;
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const filterTotal: Film[] = [];
-        for (let i = 0; i < regArr.length; i++) {
-            const matches = filmBackupLib?.filter(
-                (film) => {
-                    const title = film.title.toUpperCase();
-                    const yearStart = film.year?.start;
-                    const yearEnd = film.year?.finish;
-                    const directors = film.director?.join(",").toUpperCase();
-                    const actors = film.actors?.join(",").toUpperCase();
-                    const others = film.others?.join(",").toUpperCase();
-                    const explanation = film.explanation?.toUpperCase();
-                    const description = film.description.toUpperCase();
-                    const joined = `
+        const filtered = filmBackupLib?.filter(
+            (film) => {
+                const title = film.title.toUpperCase();
+                const yearStart = film.year?.start;
+                const yearEnd = film.year?.finish;
+                const directors = film.director?.join(",").toUpperCase();
+                const actors = film.actors?.join(",").toUpperCase();
+                const others = film.others?.join(",").toUpperCase();
+                const explanation = film.explanation?.toUpperCase();
+                const description = film.description.toUpperCase();
+                const joined = `
                     ${title ? title : ""};
                     ${yearStart ? yearStart : ""};
                     ${yearEnd ? yearEnd : ""};
@@ -276,26 +266,19 @@ export default function useFilm() {
                     ${others ? others : ""};
                     ${explanation ? explanation : ""};
                     ${description ? description : ""}`
-                    const result = joined.search(new RegExp(regArr[i]));
-                    if (result >= 0) {
-                        console.log(joined)
-                        return film;
+                const maches: string[] = [];
+                regArr.forEach((regex) => {
+                    const result = joined.search(new RegExp(regex));
+                    if (result > -1) {
+                        maches.push(regex);
                     }
+                })
+                if (maches.length > 0) {
+                    return film;
                 }
-            );
-            const noRepeats = matches?.filter(
-                (match) => {
-                    const repeat = filterTotal.includes(match);
-                    if (!repeat) {
-                        return match;
-                    }
-                }
-            )
-            if (noRepeats) {
-                noRepeats.forEach((el) => filterTotal.push(el));
             }
-        }
-        return filterTotal;
+        );
+        return filtered;
     }
 
     const omniFilter = (querry: string) => {

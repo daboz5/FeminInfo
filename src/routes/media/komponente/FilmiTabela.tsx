@@ -82,7 +82,7 @@ export default function FilmiTabela(
                                     `${el?.year?.unfinished ?
                                         "-" :
                                         el.year?.finish ?
-                                            `-${el.year?.finish}` :
+                                            `- ${el.year?.finish}` :
                                             ""}`
                                 }
                             </div>
