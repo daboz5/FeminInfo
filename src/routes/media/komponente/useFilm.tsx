@@ -86,13 +86,12 @@ export default function useFilm() {
         "Znanstvena fantastika"
     ]
 
-    const { setFilmLib } = useFemStore();
+    const { setFilmLib, filmBackupLib } = useFemStore();
 
     const [openedFilm, setOpenedFilm] = useState<Film | null>(null);
     const [editing, setEditing] = useState(false);
     const [pic, setPic] = useState(openedFilm?.img);
     const [filter, setFilter] = useState("");
-    const [libBackup, setLibBackup] = useState<Film[]>();
 
     const calcFame = (ratings: Ratings) => {
         const fame: number = (
@@ -106,7 +105,7 @@ export default function useFilm() {
     }
 
     const sortAZ = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const titleA = a.title.toUpperCase();
@@ -122,7 +121,7 @@ export default function useFilm() {
     }
 
     const sortZA = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const titleA = a.title.toUpperCase();
@@ -138,7 +137,7 @@ export default function useFilm() {
     }
 
     const sort19Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const fameA = calcFame(a.ratings);
@@ -158,7 +157,7 @@ export default function useFilm() {
     }
 
     const sort91Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const fameA = calcFame(a.ratings);
@@ -178,7 +177,7 @@ export default function useFilm() {
     }
 
     const sort19Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const yearA = a.year?.start;
@@ -198,7 +197,7 @@ export default function useFilm() {
     }
 
     const sort91Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : lib;
+        const selection: Film[] = content ? content : filmBackupLib;
         return selection.sort(
             (a, b) => {
                 const yearA = a.year?.start;
@@ -228,10 +227,10 @@ export default function useFilm() {
         return regArr;
     }
 
-    const searchRegexFilter = (regArr: string[]) => {
+    const searchRegexTitleFilter = (regArr: string[]) => {
         const filterTotal: Film[] = [];
         for (let i = 0; i < regArr.length; i++) {
-            const matches = libBackup?.filter(
+            const matches = filmBackupLib?.filter(
                 (film) => {
                     const title = film.title.toUpperCase();
                     const result = title.search(new RegExp(regArr[i]));
@@ -255,14 +254,64 @@ export default function useFilm() {
         return filterTotal;
     }
 
-    const simpleFilter = (querry: string) => {
-        console.log(querry)
+    const searchRegexOmniFilter = (regArr: string[]) => {
+        const filterTotal: Film[] = [];
+        for (let i = 0; i < regArr.length; i++) {
+            const matches = filmBackupLib?.filter(
+                (film) => {
+                    const title = film.title.toUpperCase();
+                    const yearStart = film.year?.start;
+                    const yearEnd = film.year?.finish;
+                    const directors = film.director?.join(",").toUpperCase();
+                    const actors = film.actors?.join(",").toUpperCase();
+                    const others = film.others?.join(",").toUpperCase();
+                    const explanation = film.explanation?.toUpperCase();
+                    const description = film.description.toUpperCase();
+                    const joined = `
+                    ${title ? title : ""};
+                    ${yearStart ? yearStart : ""};
+                    ${yearEnd ? yearEnd : ""};
+                    ${directors ? directors : ""};
+                    ${actors ? actors : ""};
+                    ${others ? others : ""};
+                    ${explanation ? explanation : ""};
+                    ${description ? description : ""}`
+                    const result = joined.search(new RegExp(regArr[i]));
+                    if (result >= 0) {
+                        console.log(joined)
+                        return film;
+                    }
+                }
+            );
+            const noRepeats = matches?.filter(
+                (match) => {
+                    const repeat = filterTotal.includes(match);
+                    if (!repeat) {
+                        return match;
+                    }
+                }
+            )
+            if (noRepeats) {
+                noRepeats.forEach((el) => filterTotal.push(el));
+            }
+        }
+        return filterTotal;
+    }
+
+    const omniFilter = (querry: string) => {
         if (!querry) { return toast.error(`Neveljaven vnos.`) }
 
         const regArr = searchRegexCreator(querry);
-        const result = searchRegexFilter(regArr);
+        const result = searchRegexOmniFilter(regArr);
         result ? setFilmLib(result) : {}
-        return;
+    }
+
+    const simpleFilter = (querry: string) => {
+        if (!querry) { return toast.error(`Neveljaven vnos.`) }
+
+        const regArr = searchRegexCreator(querry);
+        const result = searchRegexTitleFilter(regArr);
+        result ? setFilmLib(result) : {}
     }
 
     const complexFilter = (querry: string) => {
@@ -281,7 +330,7 @@ export default function useFilm() {
                 return filteredArr.indexOf(el) === index;
             });
 
-        const result = libBackup?.filter(
+        const result = filmBackupLib?.filter(
             (el) => {
                 const match = el.title[0];
                 for (let i = 0; i < noRepeats.length; i++) {
@@ -413,13 +462,13 @@ export default function useFilm() {
         calcFame,
         setEditing,
         setFilter,
+        omniFilter,
         simpleFilter,
         complexFilter,
         yearsFilter,
         typeFilter,
         fameFilter,
         setOpenedFilm,
-        setLibBackup,
         sortAZ,
         sortZA,
         sort19Year,

@@ -16,10 +16,10 @@ export default function FilmiTabela(
     return (<>
         <div className="libBox">
             <div className="orderBox">
-                <div className="fOrder defMouse flex">
-                    <h5>
-                        Slika
-                    </h5>
+                <div
+                    className="fOrder actMouse filterOption flex"
+                    onClick={() => setFilter("Iskanje")}>
+                    <p className="actMouse">🔍</p>
                 </div>
                 <div
                     className="fOrder filterOption flex"

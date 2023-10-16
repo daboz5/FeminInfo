@@ -9,7 +9,7 @@ import useFemStore from "../../useFemStore";
 
 export default function Filmi() {
 
-    const { setFilmLib } = useFemStore();
+    const { setFilmLib, setFilmBackupLib } = useFemStore();
 
     const {
         lib,
@@ -19,7 +19,6 @@ export default function Filmi() {
         setEditing,
         setFilter,
         setOpenedFilm,
-        setLibBackup
     } = useFilm();
 
     useEffect(() => {
@@ -35,7 +34,7 @@ export default function Filmi() {
                 }
                 return 0;
             }));
-        setLibBackup(lib);
+        setFilmBackupLib(lib);
     }, []);
 
     return (

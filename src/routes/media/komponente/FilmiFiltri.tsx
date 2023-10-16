@@ -23,9 +23,28 @@ export default function FilmiFiltri(
         sort19Year,
         sort91Year,
         sort19Fame,
-        sort91Fame
+        sort91Fame,
+        omniFilter
     } = useFilm();
 
+    const search = <>
+        <div className="mediaFilter colFlex">
+            <p>Iskano zaporedje</p>
+            <input
+                id="filmSearchWordFilter"
+                type="text"
+                placeholder="iščem"
+                maxLength={30}>
+            </input>
+            <button
+                onClick={() => {
+                    const el: HTMLInputElement | null = document.getElementById("filmSearchWordFilter");
+                    el ? omniFilter(el.value) : {}
+                }}>
+                Potrdi
+            </button>
+        </div>
+    </>
 
     const title = <>
         <div className="mediaFilter flex">
@@ -166,15 +185,17 @@ export default function FilmiFiltri(
         <div className="mediaFilterPosition flex">
             <div className="mediaFilterBox colFlex">
                 <h4>{filter}</h4>
-                {filter === "Naslov" ?
-                    title :
-                    filter === "Leto" ?
-                        year :
-                        filter === "Fem tip" ?
-                            type :
-                            filter === "Ocena" ?
-                                fame :
-                                <></>}
+                {filter === "Iskanje" ?
+                    search :
+                    filter === "Naslov" ?
+                        title :
+                        filter === "Leto" ?
+                            year :
+                            filter === "Fem tip" ?
+                                type :
+                                filter === "Ocena" ?
+                                    fame :
+                                    <></>}
                 <div
                     className="filterExit"
                     onClick={() => setFilter("")}>

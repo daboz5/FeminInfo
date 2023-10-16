@@ -4,13 +4,15 @@ import { Film } from './type';
 type State = {
     pageSize: number,
     footOpened: boolean,
-    filmLib: null | Film[];
+    filmLib: [] | Film[],
+    filmBackupLib: [] | Film[]
 }
 
 type Action = {
     registerSize(newSize: number): void,
     switchFootOpened(): void,
-    setFilmLib(newLib: Film[]): void
+    setFilmLib(newLib: Film[]): void,
+    setFilmBackupLib(newLib: Film[]): void
 }
 
 const useFemStore = create<State & Action>(set => ({
@@ -24,9 +26,13 @@ const useFemStore = create<State & Action>(set => ({
         footOpened: !state.footOpened
     })),
 
-    filmLib: null,
+    filmLib: [],
+    filmBackupLib: [],
     setFilmLib: (newLib) => set(() => ({
         filmLib: newLib
+    })),
+    setFilmBackupLib: (newLib) => set(() => ({
+        filmBackupLib: newLib
     })),
 }))
 
