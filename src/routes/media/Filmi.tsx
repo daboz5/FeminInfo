@@ -58,6 +58,7 @@ export default function Filmi() {
                         <FilmiTabela
                             setFilter={setFilter}
                             openFilm={setOpenedFilm}
+                            openEditor={setEditing}
                         />
                     </> :
                     <PrikazFilma

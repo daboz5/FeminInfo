@@ -3,9 +3,10 @@ import useFemStore from "../../../useFemStore";
 import useFilm from "./useFilm"
 
 export default function FilmiTabela(
-    { openFilm, setFilter }:
+    { openFilm, openEditor, setFilter }:
         {
             openFilm(el: Film): void,
+            openEditor(el: boolean): void,
             setFilter(el: string): void,
         }
 ) {
@@ -101,6 +102,13 @@ export default function FilmiTabela(
                     )
                 }
             )}
+        </div>
+        <div className="flex">
+            <button
+                className="addContentBtn"
+                onClick={() => openEditor(true)}>
+                Dodaj film
+            </button>
         </div>
     </>)
 }

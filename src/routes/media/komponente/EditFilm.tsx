@@ -19,6 +19,7 @@ export default function EditFilm(
         filmTypes,
         pic,
         setPic,
+        splitInput
     } = useFilm();
 
     const {
@@ -41,7 +42,7 @@ export default function EditFilm(
             averageTime: contex?.length?.average,
             episodes: contex?.length?.episodes,
             femType: contex?.femType ? contex.femType : undefined,
-            action: contex?.genre?.find(gen => gen === "Akcija") ? true : false,
+            akcija: contex?.genre?.find(gen => gen === "Akcija") ? true : false,
             avantura: contex?.genre?.find(gen => gen === "Avantura") ? true : false,
             drama: contex?.genre?.find(gen => gen === "Drama") ? true : false,
             dokumentarec: contex?.genre?.find(gen => gen === "Dokumentarec") ? true : false,
@@ -64,11 +65,54 @@ export default function EditFilm(
         }
     });
 
-    const onSubmit: SubmitHandler = (data) => console.log(data);
+    const onSubmit: SubmitHandler = (data) => {
+        const result = {
+            title: data.title,
+            year: {
+                start: data.fromYear,
+                finish: data.toYear,
+                unfinished: true
+            },
+            length: {
+                averaga: data.averageTime,
+                epizodes: data.episodes
+            },
+            img: pic,
+            director: splitInput(data.direction),
+            actors: splitInput(data.actors),
+            others: splitInput(data.others),
+            femType: data.femType,
+            genre: [
+                data.akcija ? "Akcija" : {},
+                data.avantura ? "Avantura" : {},
+                data.drama ? "Drama" : {},
+                data.dokumentarec ? "Dokumentarec" : {},
+                data.fantazija ? "Fantazija" : {},
+                data.grozljivka ? "Grozljivka" : {},
+                data.isekai ? "Isekai" : {},
+                data.komedija ? "Komendija" : {},
+                data.kriminalka ? "Kriminalka" : {},
+                data.misterija ? "Misterija" : {},
+                data.romantika ? "Romantika" : {},
+                data.satira ? "Satira" : {},
+                data.scifi ? "Znanstvena fantastika" : {},
+                data.triler ? "Triler" : {},
+                data.zgodovina ? "Zgodovina" : {},
+            ],
+            explanation: data.explanation,
+            description: data.description,
+            ratings: contex?.ratings
+        }
+
+        /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
+        console.log(result);
+
+    };
     const currentYear = new Date().getFullYear();
 
     useEffect(() => {
-        handleType(watch("femType"), watch("femType") ? true : false)
+        handleType(watch("femType"), watch("femType") ? true : false);
+        setPic(contex?.img);
     }, [])
 
     const handleType = (
@@ -155,18 +199,18 @@ export default function EditFilm(
                 <label id="editAverage">
                     <input
                         min={1}
-                        max={5100}
+                        max={5000}
                         type="number"
-                        {...register("averageTime", { min: 1, max: 5100 })}>
+                        {...register("averageTime", { min: 1, max: 5000 })}>
                     </input>
                     <p>min</p>
                 </label>
                 <label id="editSeasons">
                     <input
                         min={1}
-                        max={9999}
+                        max={5000}
                         type="number"
-                        {...register("episodes", { min: 1, max: 9999 })}>
+                        {...register("episodes", { min: 1, max: 5000 })}>
                     </input>
                     <p>št. epizod</p>
                 </label>
@@ -329,7 +373,7 @@ export default function EditFilm(
                 maxLength={1500}
                 register={register}
             />
-            <div className="optionsBox colFlex">
+            <div className="editOptionsBox colFlex">
                 <button
                     type="submit"
                     className="actMouse">
@@ -341,15 +385,18 @@ export default function EditFilm(
                     onClick={() => closeEditor(false)}>
                     Prekliči urejanje
                 </button>
-                <button
-                    type="button"
-                    className="actMouse"
-                    onClick={() => {
-                        closeFilm(null)
-                        closeEditor(false)
-                    }}>
-                    Nazaj na tabelo
-                </button>
+                {contex ?
+                    <button
+                        type="button"
+                        className="actMouse"
+                        onClick={() => {
+                            closeFilm(null)
+                            closeEditor(false)
+                        }}>
+                        Nazaj na tabelo
+                    </button> :
+                    <></>
+                }
             </div>
         </form>
     )

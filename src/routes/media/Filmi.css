@@ -207,7 +207,7 @@
 
 .fOrder:nth-of-type(1) p {
     position: relative;
-    top: 4px;
+    top: 3px;
     margin: 0;
 }
 
@@ -260,6 +260,10 @@
 .tableType {
     max-height: 75%;
     max-width: 75%;
+}
+
+.addContentBtn {
+    margin: 25px auto 0;
 }
 
 /*PODROBNOSTI FILMA*/
@@ -384,6 +388,7 @@
     flex-direction: column;
     align-items: center;
     position: relative;
+    width: 50px;
     font-weight: 600;
     border: none;
     background-color: rgba(0, 0, 0, 0);
@@ -408,10 +413,14 @@
 }
 
 .optionsBox {
+    justify-self: center;
     gap: 20px;
-    width: 100%;
     margin: 30px auto 5px;
     grid-area: options;
+}
+
+.optionsBox button {
+    width: 75vw;
 }
 
 /*EDITING*/
@@ -421,6 +430,7 @@
 }
 
 .editForm h3 {
+    text-indent: 0;
     margin: 10px auto 0;
 }
 
@@ -540,4 +550,28 @@ input[type='number']::-webkit-outer-spin-button {
 
 .editTextArea {
     font-size: 1.3rem;
+}
+
+.editOptionsBox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "submit"
+        "cancel"
+        "return";
+    gap: 20px;
+    width: 100%;
+    margin: 30px auto 5px;
+}
+
+.editOptionsBox button:nth-of-type(1) {
+    grid-area: submit;
+}
+
+.editOptionsBox button:nth-of-type(2) {
+    grid-area: cancel;
+}
+
+.editOptionsBox button:nth-of-type(3) {
+    grid-area: return;
 }

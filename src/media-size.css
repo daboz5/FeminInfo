@@ -80,10 +80,23 @@
         max-height: 400px;
     }
 
+    .rating {
+        width: 75px;
+    }
+
+    .rating p {
+        font-size: 1.5rem;
+    }
+
     .optionsBox {
         flex-direction: row;
         justify-content: center;
+        max-width: 400px;
         margin: 15px 0 5px 0;
+    }
+
+    .optionsBox button {
+        width: 40vw;
     }
 
     .editForm {
@@ -115,6 +128,16 @@
     .editGenre p {
         line-height: 1.25;
         padding-right: 15px;
+    }
+
+    .editOptionsBox {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "submit cancel"
+            "return return";
+        flex-direction: row;
+        justify-content: center;
+        margin: 30px 0 10px;
     }
 
 }
@@ -252,6 +275,10 @@
 
     .editGenre p {
         line-height: 1.25;
+    }
+
+    .editOptionsBox {
+        max-width: 600px;
     }
 }
 

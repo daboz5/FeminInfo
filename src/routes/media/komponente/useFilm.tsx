@@ -434,6 +434,34 @@ export default function useFilm() {
         }
     }
 
+    const splitInput = (input: string) => {
+        if (!input) { return [] }
+
+        const splitStep1 = input.split(",");
+        const splitStep2: string[] = [];
+        splitStep1.forEach((el) => {
+            {
+                if (el.includes(";")) {
+                    const newArr = el.split(";");
+                    newArr.forEach((el) => {
+                        splitStep2.push(el);
+                    })
+                } else {
+                    splitStep2.push(el);
+                }
+            }
+        })
+
+        const cleanInput = splitStep2.map((el) => {
+            const uncleanArr = el.split("");
+            while (uncleanArr[0] === " ") { uncleanArr.shift() }
+            while (uncleanArr[uncleanArr.length - 1] === " ") { uncleanArr.pop() }
+            return uncleanArr.join("");
+        })
+
+        return cleanInput;
+    }
+
     return {
         lib,
         editing,
@@ -457,6 +485,7 @@ export default function useFilm() {
         sort19Year,
         sort91Year,
         sort19Fame,
-        sort91Fame
+        sort91Fame,
+        splitInput
     }
 }
