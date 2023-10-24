@@ -1,37 +1,49 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect } from "react";
-import { Film, FilmGenre } from "../../../type";
-import useFilm from "./useFilm";
-import toast from "react-hot-toast";
+import { Igra, IgraGenre } from "../../../type";
+import useComponent from "./useComponent";
+import useIgra from "./useIgra";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
-import useComponent from "./useComponent";
+import toast from "react-hot-toast";
 
-export default function EditFilm(
-    { film, setEditor, setFilm }:
+export default function EditIgra(
+    { igra, setEditor, setIgra }:
         {
-            film: Film | null,
+            igra: Igra | null,
             setEditor(newState: boolean): void,
-            setFilm(newState: null): void
+            setIgra(newState: null): void
         }
 ) {
 
-    const filmTypes: FilmGenre[] = [
+    const igraTypes: IgraGenre[] = [
+        "4X",
         "Akcija",
+        "Anime",
+        "Arkadna",
         "Avantura",
-        "Drama",
-        "Dokumentarec",
+        "Bojevanje",
+        "Co-op",
         "Fantazija",
+        "Golota",
         "Grozljivka",
-        "Isekai",
-        "Komedija",
-        "Kriminalka",
+        "Igra vlog",
+        "Karte",
+        "Miselne igre",
         "Misterija",
-        "Romantika",
-        "Satira",
-        "Triler",
-        "Zgodovina",
-        "Znanstvena fantastika"
+        "MMO",
+        "Preživetvena",
+        "Simulator",
+        "Slovanska",
+        "Sproščena",
+        "Strategija",
+        "Streljanje",
+        "Športna",
+        "Upravljanje",
+        "Vesolje",
+        "Virtualni roman",
+        "Zgodbovnica",
+        "Zmenkarjenje"
     ]
 
     const {
@@ -41,7 +53,7 @@ export default function EditFilm(
     const {
         pic,
         setPic,
-    } = useFilm();
+    } = useIgra();
 
     const {
         register,
@@ -52,44 +64,44 @@ export default function EditFilm(
         formState: { errors }
     } = useForm({
         defaultValues: {
-            title: film?.title,
-            start: film?.year.start ?
-                film?.year.start :
+            title: igra?.title,
+            start: igra?.year.start ?
+                igra?.year.start :
                 undefined,
-            finish: film?.year.finish ?
-                film?.year.finish :
+            finish: igra?.year.finish ?
+                igra?.year.finish :
                 undefined,
-            unfinished: film?.year.unfinished ? true : false,
-            average: film?.length.average,
-            episodes: film?.length.episodes,
-            femType: film?.femType ? film.femType : undefined,
-            akcija: film?.genre.find(gen => gen === "Akcija") ? true : false,
-            avantura: film?.genre.find(gen => gen === "Avantura") ? true : false,
-            drama: film?.genre.find(gen => gen === "Drama") ? true : false,
-            dokumentarec: film?.genre.find(gen => gen === "Dokumentarec") ? true : false,
-            fantazija: film?.genre.find(gen => gen === "Fantazija") ? true : false,
-            grozljivka: film?.genre.find(gen => gen === "Grozljivka") ? true : false,
-            isekai: film?.genre.find(gen => gen === "Isekai") ? true : false,
-            komedija: film?.genre.find(gen => gen === "Komedija") ? true : false,
-            kriminalka: film?.genre.find(gen => gen === "Kriminalka") ? true : false,
-            misterija: film?.genre.find(gen => gen === "Misterija") ? true : false,
-            romantika: film?.genre.find(gen => gen === "Romantika") ? true : false,
-            satira: film?.genre.find(gen => gen === "Satira") ? true : false,
-            scifi: film?.genre.find(gen => gen === "Znanstvena fantastika") ? true : false,
-            triler: film?.genre.find(gen => gen === "Triler") ? true : false,
-            zgodovina: film?.genre.find(gen => gen === "Zgodovina") ? true : false,
-            direction: film?.director.join(", "),
-            actors: film?.actors.join(", "),
-            others: film?.others.join(", "),
-            explanation: film?.explanation,
-            description: film?.description,
+            unfinished: igra?.year.unfinished ? true : false,
+            average: igra?.length.average,
+            episodes: igra?.length.episodes,
+            femType: igra?.femType ? igra.femType : undefined,
+            akcija: igra?.genre.find(gen => gen === "Akcija") ? true : false,
+            avantura: igra?.genre.find(gen => gen === "Avantura") ? true : false,
+            drama: igra?.genre.find(gen => gen === "Drama") ? true : false,
+            dokumentarec: igra?.genre.find(gen => gen === "Dokumentarec") ? true : false,
+            fantazija: igra?.genre.find(gen => gen === "Fantazija") ? true : false,
+            grozljivka: igra?.genre.find(gen => gen === "Grozljivka") ? true : false,
+            isekai: igra?.genre.find(gen => gen === "Isekai") ? true : false,
+            komedija: igra?.genre.find(gen => gen === "Komedija") ? true : false,
+            kriminalka: igra?.genre.find(gen => gen === "Kriminalka") ? true : false,
+            misterija: igra?.genre.find(gen => gen === "Misterija") ? true : false,
+            romantika: igra?.genre.find(gen => gen === "Romantika") ? true : false,
+            satira: igra?.genre.find(gen => gen === "Satira") ? true : false,
+            scifi: igra?.genre.find(gen => gen === "Znanstvena fantastika") ? true : false,
+            triler: igra?.genre.find(gen => gen === "Triler") ? true : false,
+            zgodovina: igra?.genre.find(gen => gen === "Zgodovina") ? true : false,
+            direction: igra?.director.join(", "),
+            actors: igra?.actors.join(", "),
+            others: igra?.others.join(", "),
+            explanation: igra?.explanation,
+            description: igra?.description,
         }
     });
 
     const onSubmit: SubmitHandler = (data) => {
 
         const genreFilter = () => {
-            const result: FilmGenre[] = [];
+            const result: IgraGenre[] = [];
             data.akcija ? result.push("Akcija") : {};
             data.avantura ? result.push("Avantura") : {};
             data.drama ? result.push("Drama") : {};
@@ -108,7 +120,7 @@ export default function EditFilm(
             return result;
         }
 
-        const result: Film = {
+        const result: Igra = {
             title: data.title,
             year: {
                 start: data.start,
@@ -127,8 +139,8 @@ export default function EditFilm(
             genre: genreFilter(),
             explanation: data.explanation,
             description: data.description,
-            ratings: film?.ratings ?
-                film.ratings :
+            ratings: igra?.ratings ?
+                igra.ratings :
                 {
                     hates: 0,
                     dislikes: 0,
@@ -147,7 +159,7 @@ export default function EditFilm(
 
     useEffect(() => {
         handleType(watch("femType"), watch("femType") ? true : false);
-        setPic(film?.img);
+        setPic(igra?.img);
     }, [])
 
     const handleType = (
@@ -258,8 +270,8 @@ export default function EditFilm(
                     className="editPic"
                     src={pic ?
                         pic :
-                        film?.img ?
-                            film.img :
+                        igra?.img ?
+                            igra.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -341,7 +353,7 @@ export default function EditFilm(
 
             <h3>Žanri</h3>
             <div className="editGenreBox colFlex">
-                {filmTypes.map((type, index) => {
+                {igraTypes.map((type, index) => {
                     const num = index + 1;
                     const label = type.toLowerCase().replace("znanstvena fantastika", "scifi");
                     const group = "editGenreCheckbox"
@@ -352,8 +364,8 @@ export default function EditFilm(
                             checkClass={group}
                             afterText={type}
                             preChecked={
-                                film?.genre &&
-                                    film.genre.find((gen) => gen === type) ?
+                                igra?.genre &&
+                                    igra.genre.find((gen) => gen === type) ?
                                     true :
                                     false
                             }
@@ -420,12 +432,12 @@ export default function EditFilm(
                     onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {film ?
+                {igra ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            setFilm(null)
+                            setIgra(null)
                             setEditor(false)
                         }}>
                         Nazaj na tabelo

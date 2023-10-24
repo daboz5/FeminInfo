@@ -1,4 +1,5 @@
 import { Film } from "../../../type";
+import useFilm from "./useFilm";
 
 export default function ShowFilm(
     { film, setFilm, setEditor }:
@@ -9,30 +10,11 @@ export default function ShowFilm(
         }
 ) {
 
-    const setGrid = () => {
-        if (film) {
-            let type = false;
-            let creators = false;
-            let explain = false;
-            if (film.genre.length > 0 || film.femType) { type = true; }
-            if (film.director.length > 0 || film.actors.length > 0 || film.others.length > 0) { creators = true; }
-            if (film.explanation) { explain = true; }
-
-            if (type && creators && explain) { return 0 }
-            if (!type && creators && explain) { return 1 }
-            if (type && !creators && explain) { return 2 }
-            if (type && creators && !explain) { return 3 }
-            if (!type && !creators && explain) { return 4 }
-            if (type && !creators && !explain) { return 5 }
-            if (!type && creators && !explain) { return 6 }
-            if (!type && !creators && !explain) { return 7 }
-        }
-        return 0
-    }
+    const { setGrid } = useFilm();
 
     return (film ?
         <div
-            className={`filmBox filmGrid${setGrid()} container`}>
+            className={`filmBox filmGrid${setGrid(film)} container`}>
             <div className="titleBox">
                 <h3
                     className="title">

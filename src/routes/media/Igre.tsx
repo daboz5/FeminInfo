@@ -5,6 +5,7 @@ import useIgra from "./komponente/useIgra";
 import TabeleIgra from "./komponente/TableIgra";
 import FilterIgra from "./komponente/FilterIgra";
 import ShowIgra from "./komponente/ShowIgra";
+import EditIgra from "./komponente/EditIgra";
 
 export default function Igre() {
 
@@ -49,12 +50,11 @@ export default function Igre() {
                 <></>
             }
             {editing ?
-                // <EditIgra
-                //     contex={selected}
-                //     closeEditor={setEditing}
-                //     closeFilm={setSelected}
-                // /> :
-                <></> :
+                <EditIgra
+                    igra={selected}
+                    setEditor={setEditing}
+                    setIgra={setSelected}
+                /> :
                 !selected ?
                     <>
                         <h2>Igralne vsebine</h2>

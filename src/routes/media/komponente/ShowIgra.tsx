@@ -1,4 +1,5 @@
 import { Igra } from "../../../type";
+import useIgra from "./useIgra";
 
 export default function ShowIgra(
     { igra, setIgra, setEditor }:
@@ -9,43 +10,14 @@ export default function ShowIgra(
         }
 ) {
 
-    const setGrid = () => {
-        if (igra) {
-            let type = false;
-            let creators = false;
-            let explain = false;
-            if (igra.genre.length > 0 || igra.femType) { type = true; }
-            if (igra.developer || igra.publisher || igra.others.length > 0) { creators = true; }
-            if (igra.explanation) { explain = true; }
-
-            if (type && creators && explain) { return 0 }
-            if (!type && creators && explain) { return 1 }
-            if (type && !creators && explain) { return 2 }
-            if (type && creators && !explain) { return 3 }
-            if (!type && !creators && explain) { return 4 }
-            if (type && !creators && !explain) { return 5 }
-            if (!type && creators && !explain) { return 6 }
-            if (!type && !creators && !explain) { return 7 }
-        }
-        return 0
-    }
-
-    const bonusContentCheck = () => {
-        if (
-            igra?.content.bonus_content.dlc ||
-            igra?.content.bonus_content.microtransactions ||
-            igra?.content.bonus_content.movie ||
-            igra?.content.bonus_content.publication
-        ) {
-            return true;
-        } else {
-            return false
-        }
-    }
+    const {
+        setGrid,
+        bonusContentCheck
+    } = useIgra();
 
     return (igra ?
         <div
-            className={`igraBox igraGrid${setGrid()} container"`}>
+            className={`igraBox igraGrid${setGrid(igra)} container"`}>
             <div className="titleBox">
                 <h3
                     className="title">
@@ -68,7 +40,7 @@ export default function ShowIgra(
                             {`${igra.platforms.join(" - ")}`}
                         </p>
                     }
-                    {bonusContentCheck() &&
+                    {bonusContentCheck(igra) &&
                         <ul
                             className="vsebina">
                             {igra.content.bonus_content.dlc ? <li>vsaj en DLC</li> : <></>}

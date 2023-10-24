@@ -434,6 +434,40 @@ export default function useIgra() {
         }
     }
 
+    const setGrid = (content: Igra) => {
+        if (content) {
+            let type = false;
+            let creators = false;
+            let explain = false;
+            if (content.genre.length > 0 || content.femType) { type = true; }
+            if (content.developer || content.publisher || content.others.length > 0) { creators = true; }
+            if (content.explanation) { explain = true; }
+
+            if (type && creators && explain) { return 0 }
+            if (!type && creators && explain) { return 1 }
+            if (type && !creators && explain) { return 2 }
+            if (type && creators && !explain) { return 3 }
+            if (!type && !creators && explain) { return 4 }
+            if (type && !creators && !explain) { return 5 }
+            if (!type && creators && !explain) { return 6 }
+            if (!type && !creators && !explain) { return 7 }
+        }
+        return 0
+    }
+
+    const bonusContentCheck = (content: Igra) => {
+        if (
+            content?.content.bonus_content.dlc ||
+            content?.content.bonus_content.microtransactions ||
+            content?.content.bonus_content.movie ||
+            content?.content.bonus_content.publication
+        ) {
+            return true;
+        } else {
+            return false
+        }
+    }
+
     return {
         pic,
         selected,
@@ -452,5 +486,7 @@ export default function useIgra() {
         simpleFilter,
         complexFilter,
         omniFilter,
+        setGrid,
+        bonusContentCheck,
     }
 }

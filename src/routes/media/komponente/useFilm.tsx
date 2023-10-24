@@ -427,32 +427,25 @@ export default function useFilm() {
         }
     }
 
-    const splitInput = (input: string) => {
-        if (!input) { return [] }
+    const setGrid = (content: Film) => {
+        if (content) {
+            let type = false;
+            let creators = false;
+            let explain = false;
+            if (content.genre.length > 0 || content.femType) { type = true; }
+            if (content.director.length > 0 || content.actors.length > 0 || content.others.length > 0) { creators = true; }
+            if (content.explanation) { explain = true; }
 
-        const splitStep1 = input.split(",");
-        const splitStep2: string[] = [];
-        splitStep1.forEach((el) => {
-            {
-                if (el.includes(";")) {
-                    const newArr = el.split(";");
-                    newArr.forEach((el) => {
-                        splitStep2.push(el);
-                    })
-                } else {
-                    splitStep2.push(el);
-                }
-            }
-        })
-
-        const cleanInput = splitStep2.map((el) => {
-            const uncleanArr = el.split("");
-            while (uncleanArr[0] === " ") { uncleanArr.shift() }
-            while (uncleanArr[uncleanArr.length - 1] === " ") { uncleanArr.pop() }
-            return uncleanArr.join("");
-        })
-
-        return cleanInput;
+            if (type && creators && explain) { return 0 }
+            if (!type && creators && explain) { return 1 }
+            if (type && !creators && explain) { return 2 }
+            if (type && creators && !explain) { return 3 }
+            if (!type && !creators && explain) { return 4 }
+            if (type && !creators && !explain) { return 5 }
+            if (!type && creators && !explain) { return 6 }
+            if (!type && !creators && !explain) { return 7 }
+        }
+        return 0
     }
 
     return {
@@ -473,6 +466,6 @@ export default function useFilm() {
         sort91Year,
         sort19Fame,
         sort91Fame,
-        splitInput
+        setGrid,
     }
 }
