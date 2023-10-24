@@ -1,60 +1,60 @@
 import { Film } from "../../../type";
 import useFemStore from "../../../useFemStore";
-import useFilm from "./useFilm"
+import useComponent from "./useComponent";
 
-export default function FilmiTabela(
-    { openFilm, openEditor, setFilter }:
+export default function TabeleFilm(
+    { setFilm, setEditor, setFilter }:
         {
-            openFilm(el: Film): void,
-            openEditor(el: boolean): void,
+            setFilm(el: Film): void,
+            setEditor(el: boolean): void,
             setFilter(el: string): void,
         }
 ) {
 
-    const { filmLib } = useFemStore();
-    const { calcFame, } = useFilm();
+    const { libFilm, backupLibFilm, setLibFilm } = useFemStore();
+    const { calcFame } = useComponent();
 
     return (<>
         <div className="libBox">
             <div className="orderBox">
                 <div
-                    className="fOrder actMouse filterOption flex"
+                    className="mOrder actMouse filterOption flex"
                     onClick={() => setFilter("Iskanje")}>
                     <p className="actMouse">🔍</p>
                 </div>
                 <div
-                    className="fOrder filterOption flex"
+                    className="mOrder filterOption flex"
                     onClick={() => setFilter("Naslov")}>
                     <h5 className="actMouse">
                         Naslov
                     </h5>
                 </div>
                 <div
-                    className="fOrder filterOption flex"
+                    className="mOrder filterOption flex"
                     onClick={() => setFilter("Leto")}>
                     <h5 className="actMouse">
                         Leto
                     </h5>
                 </div>
                 <div
-                    className="fOrder filterOption flex"
+                    className="mOrder filterOption flex"
                     onClick={() => setFilter("Fem tip")}>
                     <h5 className="actMouse">
                         Tip
                     </h5>
                 </div>
                 <div
-                    className="fOrder actMouse filterOption flex"
+                    className="mOrder actMouse filterOption flex"
                     onClick={() => setFilter("Ocena")}>
                     <p className="actMouse">🌟</p>
                 </div>
             </div>
-            {filmLib?.map(
+            {libFilm?.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
                     return (
                         <div className="orderBox" key={`film${index}`}>
-                            <div className="fOrdered flex">
+                            <div className="mOrdered flex">
                                 <img
                                     className="tablePic"
                                     src={el.img ?
@@ -69,17 +69,17 @@ export default function FilmiTabela(
                                 />
                             </div>
                             <div
-                                className="fOrdered fTitle flex"
+                                className="mOrdered mTitle flex"
                                 onClick={() => {
                                     setFilter("")
-                                    openFilm(el)
+                                    setFilm(el)
                                 }}>
                                 <h5 className="actMouse">
                                     {el.title}
                                 </h5>
                             </div>
-                            <div className="fOrdered defMouse flex">
-                                {el.year?.start +
+                            <div className="mOrdered defMouse flex">
+                                {el.year.start +
                                     `${el?.year?.unfinished ?
                                         "-" :
                                         el.year?.finish ?
@@ -87,7 +87,7 @@ export default function FilmiTabela(
                                             ""}`
                                 }
                             </div>
-                            <div className="fOrdered flex">
+                            <div className="mOrdered flex">
                                 {el.femType === "lib" ?
                                     <img className="tableType" src={"type-liberal.svg"} alt="liberalni" /> :
                                     el.femType === "soc" ?
@@ -97,17 +97,22 @@ export default function FilmiTabela(
                                             ""
                                 }
                             </div>
-                            <div className="fOrdered defMouse flex">{fame}</div>
+                            <div className="mOrdered defMouse flex">{fame}</div>
                         </div>
                     )
                 }
             )}
         </div>
-        <div className="flex">
+        <div className="flex tableOptions">
             <button
-                className="addContentBtn"
-                onClick={() => openEditor(true)}>
+                className="tableOptionBtn"
+                onClick={() => setEditor(true)}>
                 Dodaj film
+            </button>
+            <button
+                className="tableOptionBtn"
+                onClick={() => setLibFilm(backupLibFilm)}>
+                Obnovi seznam
             </button>
         </div>
     </>)

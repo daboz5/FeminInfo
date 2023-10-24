@@ -55,15 +55,15 @@
         grid-template-areas: "pic title type fame";
     }
 
-    .fOrder:nth-of-type(4) {
+    .mOrder:nth-of-type(4) {
         display: block;
     }
 
-    .fOrdered {
+    .mOrdered {
         font-size: 1.1rem;
     }
 
-    .fOrdered:nth-of-type(4) {
+    .mOrdered:nth-of-type(4) {
         display: flex;
     }
 
@@ -78,6 +78,11 @@
     .image {
         max-width: 400px;
         max-height: 400px;
+    }
+
+    .genreType p {
+        line-height: 1.3;
+        font-size: 1.4rem;
     }
 
     .rating {
@@ -218,17 +223,21 @@
         grid-template-areas: "pic title year type fame";
     }
 
-    .fOrder {
+    .mOrder {
         font-size: 1.3rem;
     }
 
-    .fOrder:nth-of-type(3) {
+    .mOrder:nth-of-type(3) {
         display: block;
     }
 
-    .fOrdered:nth-of-type(3) {
+    .mOrdered:nth-of-type(3) {
         display: flex;
         background-color: pink;
+    }
+
+    .tableOptions {
+        gap: 25px;
     }
 
     .titleBox h3 {
@@ -239,7 +248,12 @@
         font-size: 1.4rem;
     }
 
+    .femType {
+        max-width: 275px;
+    }
+
     .genreType p {
+        line-height: 1.5;
         font-size: 1.5rem;
     }
 
@@ -308,11 +322,11 @@
         font-size: 1.3rem;
     }
 
-    .fOrder {
+    .mOrder {
         font-size: 1.3rem;
     }
 
-    .fOrdered {
+    .mOrdered {
         font-size: 1.3rem;
     }
 
@@ -323,19 +337,15 @@
 
 /* lg */
 @media (min-width: 1024px) {
-    .container {
-        max-width: 1024px;
-    }
-
-    .fOrdered h5 {
+    .mOrdered h5 {
         padding: 5px 15px;
     }
 
-    .fOrder:nth-of-type(4) {
+    .mOrder:nth-of-type(4) {
         display: block;
     }
 
-    .fOrdered:nth-of-type(4) {
+    .mOrdered:nth-of-type(4) {
         display: flex;
     }
 
@@ -346,15 +356,7 @@
 }
 
 /* xl */
-@media (min-width: 1280px) {
-    .container {
-        max-width: 1280px;
-    }
-}
+@media (min-width: 1280px) {}
 
 /* 2xl */
-@media (min-width: 1536px) {
-    .container {
-        max-width: 1536px;
-    }
-}
+@media (min-width: 1536px) {}

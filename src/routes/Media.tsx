@@ -1,5 +1,9 @@
 import { Link } from "react-router-dom";
 import "./Media.css";
+import "./media/komponente/Table.css"
+import "./media/komponente/Filter.css"
+import "./media/komponente/Show.css"
+import "./media/komponente/Edit.css"
 
 export default function Media() {
 

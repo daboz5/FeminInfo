@@ -1,87 +1,91 @@
 import { useState } from "react";
-import { Film } from "../../../type";
+import { Igra } from "../../../type"
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
-export default function useFilm() {
+export default function useIgra() {
 
-    const testLib: Film[] = [
+    const testLib: Igra[] = [
         {
-            title: "Revolutionary Girl Uthena",
-            year: {
-                start: 1997,
-                finish: undefined,
-                unfinished: false
-            },
-            length: {
-                average: 23,
-                episodes: 39
+            title: "Tales of Berseria",
+            year: 2017,
+            content: {
+                length: undefined,
+                bonus_content: {
+                    dlc: true,
+                    microtransactions: false,
+                    movie: false,
+                    publication: false
+                }
             },
             img: undefined,
-            director: [],
-            actors: [],
-            others: [],
-            genre: [],
-            femType: undefined,
-            explanation: "",
-            description: "Childhood idealism, illusions, ambition, adulthood, sexuality, abuse, incest and identity are all prominent themes which are explored in what is essentially a highly metaphorical and symbolic coming-of-age story. Loss of innocence, both sexual and otherwise, is treated as a life changing event. Fairy tale archetypes such as the noble prince and the damsel in distress, as well as standard tropes of the shoujo and magical girl genre are incorporated, subverted, inverted, averted and deconstructed.",
-            ratings: {
-                loves: 0,
-                likes: 0,
-                oks: 0,
-                dislikes: 0,
-                hates: 0
-            }
-        },
-        {
-            title: "Portret of a lady on fire",
-            year: {
-                start: 2019,
-                finish: undefined,
-                unfinished: false
-            },
-            length: {
-                average: undefined,
-                episodes: undefined
-            },
-            img: undefined,
-            director: [],
-            actors: [],
-            others: [],
-            genre: [],
-            femType: undefined,
-            explanation: "",
-            description: "On an isolated island in Brittany at the end of the eighteenth century, a female painter is obliged to paint a wedding portrait of a young woman.",
-            ratings: {
-                loves: 0,
-                likes: 0,
-                oks: 0,
-                dislikes: 0,
-                hates: 0
-            }
-        },
-        {
-            title: "Volver",
-            year: {
-                start: 2006,
-                finish: undefined,
-                unfinished: false
-            },
-            length: {
-                average: 121,
-                episodes: 1
-            },
-            img: "volver.jpg",
-            director: ["Pedro Almodóvar"],
-            actors: ["Penélope Cruz", "Carmen Maura", "Lola Dueñas", "Blanca Portillo", "Yohana Cobo", "Chus Lampreave", "Antonio de la Torre"],
-            others: ["Example 1", "Example 2", "Example 3"],
-            genre: ["Komedija", "Drama"],
+            platforms: ["Windows", "PlayStation 4", "PlayStation 3"],
+            developer: "BANDAI NAMCO Studios Inc.",
+            publisher: "BANDAI NAMCO Entertainment",
+            others: ["Direktor Yoshimasa Tanaka", "Producent Yasuhiro Fukaya", "Snovalec Tatsuro Udo", "Umetnik Mutsumi Inomata", "Umetnik Kōsuke Fujishima", "Umetnik Minoru Iwamoto", "Umetnik Daigo Okumura", "Writer Naoki Yamamoto", "Composer	Motoi Sakuraba"],
+            genre: ["Anime", "Igra vlog", "Zgodbovnica", "Akcija", "Avantura"],
             femType: "lib",
-            explanation: "Razni ženski liki se znajdejo v nenadejanih zahtevnih situacijah, iz katerih se izvlečejo s pretkanostjo, oportunizmom ali nujo po preživetju.",
-            description: "After her death, a mother returns to her home town in order to fix the situations she couldn't resolve during her life.",
+            explanation: "Protagonistki je odvzeto vse in namerava se maščevati. Med iskanjem načina za maščevanje mora ugotoviti koliko je pripravljena žrtvovati in kaj bo od nje po maščevanju ostalo. Odlikuje jo moč, volja ter odločnost.",
+            description: "Players embark on a journey of self-discovery as they assume the role of Velvet, a young woman whose once kind demeanor has been replaced and overcome with a festering anger and hatred after a traumatic experience three years prior to the events within Tales of Berseria.",
             ratings: {
                 loves: 1,
+                likes: 0,
+                oks: 0,
+                dislikes: 0,
+                hates: 0
+            }
+        }, {
+            title: "Black Book",
+            year: 2021,
+            content: {
+                length: "dolga",
+                bonus_content: {
+                    dlc: true,
+                    microtransactions: false,
+                    movie: false,
+                    publication: false
+                }
+            },
+            img: undefined,
+            platforms: ["Windows", "Linux", "OS X", "Nintendo Switch", "PlayStation 4"],
+            developer: "Morteshka",
+            publisher: "HypeTrain Digital",
+            others: [],
+            genre: ["Karte", "Igra vlog", "Zgodbovnica", "Strategija"],
+            femType: undefined,
+            explanation: "",
+            description: "",
+            ratings: {
+                loves: 0,
+                likes: 0,
+                oks: 0,
+                dislikes: 0,
+                hates: 0
+            }
+        }, {
+            title: "UNSIGHTED",
+            year: 2021,
+            content: {
+                length: "dolga",
+                bonus_content: {
+                    dlc: false,
+                    microtransactions: false,
+                    movie: false,
+                    publication: false
+                }
+            },
+            img: undefined,
+            platforms: [],
+            developer: "",
+            publisher: "",
+            others: [],
+            genre: [],
+            femType: "lib",
+            explanation: "",
+            description: "EXPLORE YOUR WAY. Awoken to a world ruined by war, Alma must traverse the vast city of Arcadia before the life force of her friends and herself withers away. Time is ticking, and every moment matters. Who will you save, and who will you leave to turn UNSIGHTED?",
+            ratings: {
+                loves: 0,
                 likes: 0,
                 oks: 0,
                 dislikes: 0,
@@ -90,15 +94,20 @@ export default function useFilm() {
         }
     ]
 
-    const { setLibFilm, backupLibFilm } = useFemStore();
-
-    const { calcFame } = useComponent();
-
-    const [selected, setSelected] = useState<Film | null>(null);
+    const [selected, setSelected] = useState<Igra | null>(null);
     const [pic, setPic] = useState(selected?.img);
 
-    const sortAZ = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const {
+        backupLibIgra,
+        setLibIgra,
+    } = useFemStore();
+
+    const {
+        calcFame
+    } = useComponent();
+
+    const sortAZ = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
                 const titleA = a.title.toUpperCase();
@@ -113,8 +122,8 @@ export default function useFilm() {
             })
     }
 
-    const sortZA = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const sortZA = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
                 const titleA = a.title.toUpperCase();
@@ -129,8 +138,8 @@ export default function useFilm() {
             })
     }
 
-    const sort19Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const sort19Fame = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
                 const fameA = calcFame(a.ratings);
@@ -149,8 +158,8 @@ export default function useFilm() {
             })
     }
 
-    const sort91Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const sort91Fame = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
                 const fameA = calcFame(a.ratings);
@@ -169,12 +178,12 @@ export default function useFilm() {
             })
     }
 
-    const sort19Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const sort19Year = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
-                const yearA = a.year?.start;
-                const yearB = b.year?.start;
+                const yearA = a.year;
+                const yearB = b.year;
                 if (typeof yearA === "number" && typeof yearB === "number") {
                     return yearB - yearA;
                 } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
@@ -189,12 +198,12 @@ export default function useFilm() {
             })
     }
 
-    const sort91Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
+    const sort91Year = (content?: Igra[]) => {
+        const selection: Igra[] = content ? content : backupLibIgra;
         return selection.sort(
             (a, b) => {
-                const yearA = a.year?.start;
-                const yearB = b.year?.start;
+                const yearA = a.year;
+                const yearB = b.year;
                 if (typeof yearA === "number" && typeof yearB === "number") {
                     return yearA - yearB;
                 } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
@@ -221,9 +230,9 @@ export default function useFilm() {
     }
 
     const searchRegexTitleFilter = (regArr: string[]) => {
-        const filtered = backupLibFilm?.filter(
-            (film) => {
-                const title = film.title.toUpperCase();
+        const filtered = backupLibIgra?.filter(
+            (igra) => {
+                const title = igra.title.toUpperCase();
                 const maches: string[] = [];
                 regArr.forEach((regex) => {
                     const result = title.search(new RegExp(regex));
@@ -232,7 +241,7 @@ export default function useFilm() {
                     }
                 })
                 if (maches.length > 0) {
-                    return film;
+                    return igra;
                 }
             }
         );
@@ -240,22 +249,20 @@ export default function useFilm() {
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const filtered = backupLibFilm?.filter(
-            (film) => {
-                const title = film.title.toUpperCase();
-                const yearStart = film.year?.start;
-                const yearEnd = film.year?.finish;
-                const directors = film.director?.join(",").toUpperCase();
-                const actors = film.actors?.join(",").toUpperCase();
-                const others = film.others?.join(",").toUpperCase();
-                const explanation = film.explanation?.toUpperCase();
-                const description = film.description.toUpperCase();
+        const filtered = backupLibIgra.filter(
+            (igra) => {
+                const title = igra.title.toUpperCase();
+                const year = igra.year;
+                const developer = igra.developer;
+                const publisher = igra.publisher;
+                const others = igra.others.join(",").toUpperCase();
+                const explanation = igra.explanation.toUpperCase();
+                const description = igra.description.toUpperCase();
                 const joined = `
                     ${title ? title : ""};
-                    ${yearStart ? yearStart : ""};
-                    ${yearEnd ? yearEnd : ""};
-                    ${directors ? directors : ""};
-                    ${actors ? actors : ""};
+                    ${year ? year : ""};
+                    ${developer ? developer : ""};
+                    ${publisher ? publisher : ""};
                     ${others ? others : ""};
                     ${explanation ? explanation : ""};
                     ${description ? description : ""}`
@@ -267,7 +274,7 @@ export default function useFilm() {
                     }
                 })
                 if (maches.length > 0) {
-                    return film;
+                    return igra;
                 }
             }
         );
@@ -279,7 +286,7 @@ export default function useFilm() {
 
         const regArr = searchRegexCreator(querry);
         const result = searchRegexOmniFilter(regArr);
-        result ? setLibFilm(result) : {}
+        result ? setLibIgra(result) : {}
     }
 
     const simpleFilter = (querry: string) => {
@@ -287,7 +294,7 @@ export default function useFilm() {
 
         const regArr = searchRegexCreator(querry);
         const result = searchRegexTitleFilter(regArr);
-        result ? setLibFilm(result) : {}
+        result ? setLibIgra(result) : {}
     }
 
     const complexFilter = (querry: string) => {
@@ -306,7 +313,7 @@ export default function useFilm() {
                 return filteredArr.indexOf(el) === index;
             });
 
-        const result = backupLibFilm?.filter(
+        const result = backupLibIgra?.filter(
             (el) => {
                 const match = el.title[0];
                 for (let i = 0; i < noRepeats.length; i++) {
@@ -316,7 +323,7 @@ export default function useFilm() {
                 }
             }
         );
-        result ? setLibFilm(result) : {}
+        result ? setLibIgra(result) : {}
     }
 
     const yearFilter = (querry1?: string, querry2?: string) => {
@@ -333,30 +340,30 @@ export default function useFilm() {
 
         const currentYear = new Date().getFullYear();
         if (min) {
-            if (min < 1888 || min > currentYear) {
-                if (min < 1888) {
+            if (min < 1950 || min > currentYear) {
+                if (min < 1950) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prvi znani film je izdelan leta 1888.`);
+                    Prva znana igra je izdelana leta 1950.`);
                     return;
                 }
                 if (min > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje filmov iz leta ${min}.
+                    Baza zaenkrat ne vsebuje iger iz leta ${min}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
             }
         }
         if (max) {
-            if (max < 1888 || max > currentYear) {
-                if (max < 1888) {
+            if (max < 1950 || max > currentYear) {
+                if (max < 1950) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prvi znani film je izdelan leta 1888.`);
+                    Prva znana igra je izdelana leta 1950.`);
                     return;
                 }
                 if (max > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje filmov iz leta ${max}.
+                    Baza zaenkrat ne vsebuje iger iz leta ${min}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
@@ -364,32 +371,32 @@ export default function useFilm() {
         }
 
         if (min || max) {
-            const result = testLib.filter((film) => {
-                const year = film.year?.start;
+            const result = testLib.filter((igra) => {
+                const year = igra.year;
                 if (year) {
                     if (min && max) {
                         if (min && max && min > max && year <= min && year >= max) {
-                            return film;
+                            return igra;
                         } else if (year >= min && year <= max) {
-                            return film;
+                            return igra;
                         }
                     }
                     if (min && !max && year >= min) {
-                        return film;
+                        return igra;
                     }
                     if (!min && max && year <= max) {
-                        return film;
+                        return igra;
                     }
                 }
             })
-            setLibFilm(result);
+            setLibIgra(result);
         }
     }
 
-    const typeFilter = (querry: string, content?: Film[]) => {
+    const typeFilter = (querry: string, content?: Igra[]) => {
         const selection = content ? content : testLib;
-        const result = selection.filter((film) => film.femType === querry);
-        setLibFilm(result);
+        const result = selection.filter((igra) => igra.femType === querry);
+        setLibIgra(result);
     }
 
     const fameFilter = (querry1?: string, querry2?: string) => {
@@ -405,54 +412,26 @@ export default function useFilm() {
         const max = querry2 ? Number(querry2) : undefined;
 
         if (min || max) {
-            const result = testLib.filter((film) => {
-                const fame = calcFame(film.ratings);
+            const result = testLib.filter((igra) => {
+                const fame = calcFame(igra.ratings);
                 if (fame) {
                     if (min && max) {
                         if (min && max && min > max && fame <= min && fame >= max) {
-                            return film;
+                            return igra;
                         } else if (fame >= min && fame <= max) {
-                            return film;
+                            return igra;
                         }
                     }
                     if (min && !max && fame >= min) {
-                        return film;
+                        return igra;
                     }
                     if (!min && max && fame <= max) {
-                        return film;
+                        return igra;
                     }
                 }
             })
-            setLibFilm(result);
+            setLibIgra(result);
         }
-    }
-
-    const splitInput = (input: string) => {
-        if (!input) { return [] }
-
-        const splitStep1 = input.split(",");
-        const splitStep2: string[] = [];
-        splitStep1.forEach((el) => {
-            {
-                if (el.includes(";")) {
-                    const newArr = el.split(";");
-                    newArr.forEach((el) => {
-                        splitStep2.push(el);
-                    })
-                } else {
-                    splitStep2.push(el);
-                }
-            }
-        })
-
-        const cleanInput = splitStep2.map((el) => {
-            const uncleanArr = el.split("");
-            while (uncleanArr[0] === " ") { uncleanArr.shift() }
-            while (uncleanArr[uncleanArr.length - 1] === " ") { uncleanArr.pop() }
-            return uncleanArr.join("");
-        })
-
-        return cleanInput;
     }
 
     return {
@@ -461,18 +440,17 @@ export default function useFilm() {
         testLib,
         setPic,
         setSelected,
-        omniFilter,
-        simpleFilter,
-        complexFilter,
-        yearFilter,
-        typeFilter,
-        fameFilter,
         sortAZ,
         sortZA,
         sort19Year,
         sort91Year,
         sort19Fame,
         sort91Fame,
-        splitInput
+        yearFilter,
+        typeFilter,
+        fameFilter,
+        simpleFilter,
+        complexFilter,
+        omniFilter,
     }
 }

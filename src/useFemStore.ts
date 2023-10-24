@@ -1,18 +1,22 @@
 import { create } from 'zustand';
-import { Film } from './type';
+import { Film, Igra } from './type';
 
 type State = {
     pageSize: number,
     footOpened: boolean,
-    filmLib: [] | Film[],
-    filmBackupLib: [] | Film[]
+    libFilm: [] | Film[],
+    backupLibFilm: [] | Film[],
+    libIgra: [] | Igra[],
+    backupLibIgra: [] | Igra[]
 }
 
 type Action = {
     registerSize(newSize: number): void,
     switchFootOpened(): void,
-    setFilmLib(newLib: Film[]): void,
-    setFilmBackupLib(newLib: Film[]): void
+    setLibFilm(newLib: Film[]): void,
+    setBackupLibFilm(newLib: Film[]): void,
+    setLibIgra(newLib: Igra[]): void,
+    setBackupLibIgra(newLib: Igra[]): void
 }
 
 const useFemStore = create<State & Action>(set => ({
@@ -26,13 +30,22 @@ const useFemStore = create<State & Action>(set => ({
         footOpened: !state.footOpened
     })),
 
-    filmLib: [],
-    filmBackupLib: [],
-    setFilmLib: (newLib) => set(() => ({
-        filmLib: newLib
+    libFilm: [],
+    backupLibFilm: [],
+    setLibFilm: (newLib) => set(() => ({
+        libFilm: newLib
     })),
-    setFilmBackupLib: (newLib) => set(() => ({
-        filmBackupLib: newLib
+    setBackupLibFilm: (newLib) => set(() => ({
+        backupLibFilm: newLib
+    })),
+
+    libIgra: [],
+    backupLibIgra: [],
+    setLibIgra: (newLib) => set(() => ({
+        libIgra: newLib
+    })),
+    setBackupLibIgra: (newLib) => set(() => ({
+        backupLibIgra: newLib
     })),
 }))
 

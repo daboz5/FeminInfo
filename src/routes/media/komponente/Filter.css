@@ -1,0 +1,136 @@
+.mediaFilterPosition {
+    pointer-events: none;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    left: -12px;
+    height: 100%;
+    width: 100vw;
+    z-index: 1;
+}
+
+.mediaFilterBox {
+    position: relative;
+    gap: 13px;
+    border: 4px solid rebeccapurple;
+    border-radius: 10px;
+    padding: 1rem 2rem 1.5rem;
+    background-color: violet;
+    pointer-events: auto;
+    z-index: 2;
+}
+
+.mediaFilterBox h4 {
+    font-size: 1.7rem;
+    text-align: center;
+    text-indent: 0;
+}
+
+.mediaFilter {
+    justify-content: center;
+    gap: 12px;
+}
+
+.upBtn {
+    padding: 5px;
+}
+
+.downBtn {
+    padding: 5px;
+    transform: rotate(180deg);
+}
+
+.mediaFilter svg {
+    height: 23px;
+}
+
+.mediaFilter p {
+    font-size: 1.4rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 0;
+}
+
+.mediaFilter input[type=text] {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-align: center;
+    max-width: 225px;
+    margin-bottom: 5px;
+    border: 0;
+    border-bottom: 3px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+}
+
+.mediaFilter input[type=number] {
+    font-size: 1.4rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-align: center;
+    max-width: 225px;
+    margin-bottom: 5px;
+    border: 0;
+    border-bottom: 3px solid black;
+    background-color: rgba(0, 0, 0, 0);
+    outline: none;
+}
+
+.mediaFilter button {
+    font-size: 1.4rem;
+    box-shadow: 0 0 3px 3px black;
+    margin: 7px;
+    transition: 0.3s;
+}
+
+.mediaFilter button:hover {
+    box-shadow: 0 0 3px 1px black;
+}
+
+.filterOption {
+    transition: 0.3s;
+}
+
+.filterOption:hover {
+    text-shadow: 0 0 0.5px black;
+}
+
+.filterOption:nth-of-type(1):hover {
+    text-shadow: 0 0 3px black;
+}
+
+.filterOption:nth-of-type(5):hover {
+    text-shadow: 0 0 3px black;
+}
+
+.filterType {
+    height: 75px;
+    border-radius: 50%;
+    transition: 0.3s;
+}
+
+.filterType:hover {
+    box-shadow: 0 0 10px 3px black;
+}
+
+.filterExit {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    box-shadow:
+        inset 0 0 7px 0.5px black,
+        0 0 1px 0.5px black;
+    background-color: rebeccapurple;
+    transition: 0.3s;
+}
+
+.filterExit:hover {
+    box-shadow:
+        inset 0 0 4px 0.5px black,
+        0 0 3px 1px black;
+}

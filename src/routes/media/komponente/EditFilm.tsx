@@ -1,22 +1,40 @@
 import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect } from "react";
-import { Film } from "../../../type";
+import { Film, FilmGenre } from "../../../type";
 import useFilm from "./useFilm";
 import toast from "react-hot-toast";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
+import useComponent from "./useComponent";
 
 export default function EditFilm(
-    { contex, closeEditor, closeFilm }:
+    { film, setEditor, setFilm }:
         {
-            contex: Film | null,
-            closeEditor(newState: boolean): void,
-            closeFilm(newState: null): void
+            film: Film | null,
+            setEditor(newState: boolean): void,
+            setFilm(newState: null): void
         }
 ) {
 
+    const filmTypes: FilmGenre[] = [
+        "Akcija",
+        "Avantura",
+        "Drama",
+        "Dokumentarec",
+        "Fantazija",
+        "Grozljivka",
+        "Isekai",
+        "Komedija",
+        "Kriminalka",
+        "Misterija",
+        "Romantika",
+        "Satira",
+        "Triler",
+        "Zgodovina",
+        "Znanstvena fantastika"
+    ]
+
     const {
-        filmTypes,
         pic,
         setPic,
         splitInput
@@ -31,77 +49,91 @@ export default function EditFilm(
         formState: { errors }
     } = useForm({
         defaultValues: {
-            title: contex?.title,
-            fromYear: contex?.year?.start ?
-                contex?.year.start :
+            title: film?.title,
+            start: film?.year.start ?
+                film?.year.start :
                 undefined,
-            toYear: contex?.year?.finish ?
-                contex?.year.finish :
+            finish: film?.year.finish ?
+                film?.year.finish :
                 undefined,
-            unfinished: contex?.year?.unfinished ? true : false,
-            averageTime: contex?.length?.average,
-            episodes: contex?.length?.episodes,
-            femType: contex?.femType ? contex.femType : undefined,
-            akcija: contex?.genre?.find(gen => gen === "Akcija") ? true : false,
-            avantura: contex?.genre?.find(gen => gen === "Avantura") ? true : false,
-            drama: contex?.genre?.find(gen => gen === "Drama") ? true : false,
-            dokumentarec: contex?.genre?.find(gen => gen === "Dokumentarec") ? true : false,
-            fantazija: contex?.genre?.find(gen => gen === "Fantazija") ? true : false,
-            grozljivka: contex?.genre?.find(gen => gen === "Grozljivka") ? true : false,
-            isekai: contex?.genre?.find(gen => gen === "Isekai") ? true : false,
-            komedija: contex?.genre?.find(gen => gen === "Komedija") ? true : false,
-            kriminalka: contex?.genre?.find(gen => gen === "Kriminalka") ? true : false,
-            misterija: contex?.genre?.find(gen => gen === "Misterija") ? true : false,
-            romantika: contex?.genre?.find(gen => gen === "Romantika") ? true : false,
-            satira: contex?.genre?.find(gen => gen === "Satira") ? true : false,
-            scifi: contex?.genre?.find(gen => gen === "Znanstvena fantastika") ? true : false,
-            triler: contex?.genre?.find(gen => gen === "Triler") ? true : false,
-            zgodovina: contex?.genre?.find(gen => gen === "Zgodovina") ? true : false,
-            direction: contex?.director?.join(", "),
-            actors: contex?.actors?.join(", "),
-            others: contex?.others?.join(", "),
-            explanation: contex?.explanation,
-            description: contex?.description,
+            unfinished: film?.year.unfinished ? true : false,
+            average: film?.length.average,
+            episodes: film?.length.episodes,
+            femType: film?.femType ? film.femType : undefined,
+            akcija: film?.genre.find(gen => gen === "Akcija") ? true : false,
+            avantura: film?.genre.find(gen => gen === "Avantura") ? true : false,
+            drama: film?.genre.find(gen => gen === "Drama") ? true : false,
+            dokumentarec: film?.genre.find(gen => gen === "Dokumentarec") ? true : false,
+            fantazija: film?.genre.find(gen => gen === "Fantazija") ? true : false,
+            grozljivka: film?.genre.find(gen => gen === "Grozljivka") ? true : false,
+            isekai: film?.genre.find(gen => gen === "Isekai") ? true : false,
+            komedija: film?.genre.find(gen => gen === "Komedija") ? true : false,
+            kriminalka: film?.genre.find(gen => gen === "Kriminalka") ? true : false,
+            misterija: film?.genre.find(gen => gen === "Misterija") ? true : false,
+            romantika: film?.genre.find(gen => gen === "Romantika") ? true : false,
+            satira: film?.genre.find(gen => gen === "Satira") ? true : false,
+            scifi: film?.genre.find(gen => gen === "Znanstvena fantastika") ? true : false,
+            triler: film?.genre.find(gen => gen === "Triler") ? true : false,
+            zgodovina: film?.genre.find(gen => gen === "Zgodovina") ? true : false,
+            direction: film?.director.join(", "),
+            actors: film?.actors.join(", "),
+            others: film?.others.join(", "),
+            explanation: film?.explanation,
+            description: film?.description,
         }
     });
 
     const onSubmit: SubmitHandler = (data) => {
-        const result = {
+
+        const genreFilter = () => {
+            const result: FilmGenre[] = [];
+            data.akcija ? result.push("Akcija") : {};
+            data.avantura ? result.push("Avantura") : {};
+            data.drama ? result.push("Drama") : {};
+            data.dokumentarec ? result.push("Dokumentarec") : {};
+            data.fantazija ? result.push("Fantazija") : {};
+            data.grozljivka ? result.push("Grozljivka") : {};
+            data.isekai ? result.push("Isekai") : {};
+            data.komedija ? result.push("Komedija") : {};
+            data.kriminalka ? result.push("Kriminalka") : {};
+            data.misterija ? result.push("Misterija") : {};
+            data.romantika ? result.push("Romantika") : {};
+            data.satira ? result.push("Satira") : {};
+            data.scifi ? result.push("Znanstvena fantastika") : {};
+            data.triler ? result.push("Triler") : {};
+            data.zgodovina ? result.push("Zgodovina") : {};
+            return result;
+        }
+
+        const result: Film = {
             title: data.title,
             year: {
-                start: data.fromYear,
-                finish: data.toYear,
+                start: data.start,
+                finish: data.finish === "" ? undefined : data.finish,
                 unfinished: true
             },
             length: {
-                averaga: data.averageTime,
-                epizodes: data.episodes
+                average: data.average === "" ? undefined : data.average,
+                episodes: data.episodes === "" ? undefined : data.episodes
             },
-            img: pic,
+            img: pic ? pic : undefined,
             director: splitInput(data.direction),
             actors: splitInput(data.actors),
             others: splitInput(data.others),
-            femType: data.femType,
-            genre: [
-                data.akcija ? "Akcija" : {},
-                data.avantura ? "Avantura" : {},
-                data.drama ? "Drama" : {},
-                data.dokumentarec ? "Dokumentarec" : {},
-                data.fantazija ? "Fantazija" : {},
-                data.grozljivka ? "Grozljivka" : {},
-                data.isekai ? "Isekai" : {},
-                data.komedija ? "Komendija" : {},
-                data.kriminalka ? "Kriminalka" : {},
-                data.misterija ? "Misterija" : {},
-                data.romantika ? "Romantika" : {},
-                data.satira ? "Satira" : {},
-                data.scifi ? "Znanstvena fantastika" : {},
-                data.triler ? "Triler" : {},
-                data.zgodovina ? "Zgodovina" : {},
-            ],
+            femType: data.femType === false ? undefined : data.femType,
+            genre: genreFilter(),
             explanation: data.explanation,
             description: data.description,
-            ratings: contex?.ratings
+            ratings: film?.ratings ?
+                film.ratings :
+                {
+                    hates: 0,
+                    dislikes: 0,
+                    oks: 0,
+                    likes: 0,
+                    loves: 0
+                }
+            /*KASNEJE LOČI RATING, SICER BO ZADNJA SHRANJENA VERZIJA NADPISALA AKTIVNO VERZIJO*/
         }
 
         /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
@@ -112,7 +144,7 @@ export default function EditFilm(
 
     useEffect(() => {
         handleType(watch("femType"), watch("femType") ? true : false);
-        setPic(contex?.img);
+        setPic(film?.img);
     }, [])
 
     const handleType = (
@@ -122,18 +154,18 @@ export default function EditFilm(
         if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
             return;
         }
-        const elements: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
+        const els: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
         for (let i = 0; i < 3; i++) {
-            elements[i].style.boxShadow = "0 0 0 0 black";
+            els[i].style.boxShadow = "0 0 0 0 black";
         }
         elCheck ? setValue("femType", elValue) : setValue("femType", undefined)
         elCheck ?
             elValue === "soc" ?
-                elements[0].style.boxShadow = "0 0 10px 5px black" :
+                els[0].style.boxShadow = "0 0 10px 5px black" :
                 elValue === "woke" ?
-                    elements[1].style.boxShadow = "0 0 10px 5px black" :
+                    els[1].style.boxShadow = "0 0 10px 5px black" :
                     elValue === "lib" ?
-                        elements[2].style.boxShadow = "0 0 10px 5px black" :
+                        els[2].style.boxShadow = "0 0 10px 5px black" :
                         {} :
             {}
     }
@@ -170,7 +202,7 @@ export default function EditFilm(
                             type="number"
                             min={1888}
                             max={currentYear}
-                            {...register("fromYear", { min: 1888, max: currentYear })}>
+                            {...register("start", { min: 1888, max: currentYear })}>
                         </input>
                     </label>
                 </div>
@@ -181,7 +213,7 @@ export default function EditFilm(
                             type="number"
                             min={1888}
                             max={currentYear}
-                            {...register("toYear", { min: 1888, max: currentYear })}>
+                            {...register("finish", { min: 1888, max: currentYear })}>
                         </input>
                     </label>
                 </div>
@@ -201,7 +233,7 @@ export default function EditFilm(
                         min={1}
                         max={5000}
                         type="number"
-                        {...register("averageTime", { min: 1, max: 5000 })}>
+                        {...register("average", { min: 1, max: 5000 })}>
                     </input>
                     <p>min</p>
                 </label>
@@ -223,8 +255,8 @@ export default function EditFilm(
                     className="editPic"
                     src={pic ?
                         pic :
-                        contex?.img ?
-                            contex.img :
+                        film?.img ?
+                            film.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -317,13 +349,13 @@ export default function EditFilm(
                             checkClass={group}
                             afterText={type}
                             preChecked={
-                                contex?.genre &&
-                                    contex.genre.find((gen) => gen === type) ?
+                                film?.genre &&
+                                    film.genre.find((gen) => gen === type) ?
                                     true :
                                     false
                             }
                             limit={{
-                                context: group,
+                                filmt: group,
                                 max: 5
                             }}
                             key={"genre" + num}
@@ -382,16 +414,16 @@ export default function EditFilm(
                 <button
                     type="button"
                     className="actMouse"
-                    onClick={() => closeEditor(false)}>
+                    onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {contex ?
+                {film ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            closeFilm(null)
-                            closeEditor(false)
+                            setFilm(null)
+                            setEditor(false)
                         }}>
                         Nazaj na tabelo
                     </button> :

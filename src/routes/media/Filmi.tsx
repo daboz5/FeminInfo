@@ -1,28 +1,31 @@
 import { useEffect } from "react";
-import useFilm from "./komponente/useFilm";
-import FilmiFiltri from './komponente/FilmiFiltri';
-import FilmiTabela from './komponente/FilmiTabela';
-import PrikazFilma from "./komponente/PrikazFilma";
-import EditFilm from "./komponente/EditFilm";
-import "./Filmi.css"
 import useFemStore from "../../useFemStore";
+import useComponent from "./komponente/useComponent";
+import useFilm from "./komponente/useFilm";
+import TableFilm from './komponente/TableFilm';
+import FilterFilm from './komponente/FilterFilm';
+import ShowFilm from "./komponente/ShowFilm";
+import EditFilm from "./komponente/EditFilm";
 
 export default function Filmi() {
 
-    const { setFilmLib, setFilmBackupLib } = useFemStore();
+    const { setLibFilm, setBackupLibFilm } = useFemStore();
 
     const {
-        lib,
-        editing,
-        filter,
-        openedFilm,
-        setEditing,
-        setFilter,
-        setOpenedFilm,
+        selected,
+        testLib,
+        setSelected
     } = useFilm();
 
+    const {
+        filter,
+        editing,
+        setFilter,
+        setEditing,
+    } = useComponent();
+
     useEffect(() => {
-        setFilmLib(lib.sort(
+        setLibFilm(testLib.sort(
             (a, b) => {
                 const titleA = a.title.toUpperCase();
                 const titleB = b.title.toUpperCase();
@@ -34,13 +37,15 @@ export default function Filmi() {
                 }
                 return 0;
             }));
-        setFilmBackupLib(lib);
+        setBackupLibFilm(testLib);
     }, []);
 
     return (
-        <section id="mediaPage" className="container">
+        <section
+            id="mediaPage"
+            className="container">
             {filter ?
-                <FilmiFiltri
+                <FilterFilm
                     filter={filter}
                     setFilter={setFilter}
                 /> :
@@ -48,23 +53,23 @@ export default function Filmi() {
             }
             {editing ?
                 <EditFilm
-                    contex={openedFilm}
-                    closeEditor={setEditing}
-                    closeFilm={setOpenedFilm}
+                    film={selected}
+                    setEditor={setEditing}
+                    setFilm={setSelected}
                 /> :
-                !openedFilm ?
+                !selected ?
                     <>
                         <h2>Filmske vsebine</h2>
-                        <FilmiTabela
+                        <TableFilm
                             setFilter={setFilter}
-                            openFilm={setOpenedFilm}
-                            openEditor={setEditing}
+                            setFilm={setSelected}
+                            setEditor={setEditing}
                         />
                     </> :
-                    <PrikazFilma
-                        film={openedFilm}
-                        closeFilm={setOpenedFilm}
-                        openEditor={setEditing} />
+                    <ShowFilm
+                        film={selected}
+                        setFilm={setSelected}
+                        setEditor={setEditing} />
             }
         </section>
     )

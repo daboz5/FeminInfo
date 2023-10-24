@@ -2,7 +2,7 @@ import ArrowUp from "../../../assets/ArrowUp";
 import useFemStore from "../../../useFemStore";
 import useFilm from "./useFilm";
 
-export default function FilmiFiltri(
+export default function FilterFilm(
     { filter, setFilter }:
         {
             filter: string,
@@ -10,12 +10,12 @@ export default function FilmiFiltri(
         }
 ) {
 
-    const { setFilmLib } = useFemStore();
+    const { setLibFilm } = useFemStore();
 
     const {
         simpleFilter,
         complexFilter,
-        yearsFilter,
+        yearFilter,
         typeFilter,
         fameFilter,
         sortAZ,
@@ -31,14 +31,14 @@ export default function FilmiFiltri(
         <div className="mediaFilter colFlex">
             <p>Iskano zaporedje</p>
             <input
-                id="filmSearchWordFilter"
+                id="searchWordFilter"
                 type="text"
                 placeholder="iščem"
                 maxLength={30}>
             </input>
             <button
                 onClick={() => {
-                    const el: HTMLInputElement | null = document.getElementById("filmSearchWordFilter");
+                    const el: HTMLInputElement | null = document.getElementById("searchWordFilter");
                     el ? omniFilter(el.value) : {}
                 }}>
                 Potrdi
@@ -50,26 +50,26 @@ export default function FilmiFiltri(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setFilmLib(sortAZ())}>
+                onClick={() => setLibFilm(sortAZ())}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setFilmLib(sortZA())}>
+                onClick={() => setLibFilm(sortZA())}>
                 <ArrowUp />
             </button>
         </div>
         <div className="mediaFilter colFlex">
             <p>Iskani nabor</p>
             <input
-                id="filmTitleLetterFilter"
+                id="titleLetterFilter"
                 type="text"
                 placeholder="a,b,c / abc"
                 maxLength={10}>
             </input>
             <button
                 onClick={() => {
-                    const el: HTMLInputElement | null = document.getElementById("filmTitleLetterFilter");
+                    const el: HTMLInputElement | null = document.getElementById("titleLetterFilter");
                     el ? complexFilter(el.value) : {}
                 }}>
                 Potrdi
@@ -78,14 +78,14 @@ export default function FilmiFiltri(
         <div className="mediaFilter colFlex">
             <p>Iskano zaporedje</p>
             <input
-                id="filmTitleWordFilter"
+                id="titleWordFilter"
                 type="text"
                 placeholder="Naslov"
                 maxLength={20}>
             </input>
             <button
                 onClick={() => {
-                    const el: HTMLInputElement | null = document.getElementById("filmTitleWordFilter");
+                    const el: HTMLInputElement | null = document.getElementById("titleWordFilter");
                     el ? simpleFilter(el.value) : {}
                 }}>
                 Potrdi
@@ -98,32 +98,32 @@ export default function FilmiFiltri(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setFilmLib(sort91Year())}>
+                onClick={() => setLibFilm(sort91Year())}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setFilmLib(sort19Year())}>
+                onClick={() => setLibFilm(sort19Year())}>
                 <ArrowUp />
             </button>
         </div>
         <div className="mediaFilter colFlex">
             <p>Iskani nabor</p>
             <input
-                id="filmYearMinFilter"
+                id="yearMinFilter"
                 type="number"
                 placeholder="1888">
             </input>
             <input
-                id="filmYearMaxFilter"
+                id="yearMaxFilter"
                 type="number"
                 placeholder={`${currentYear}`}>
             </input>
             <button
                 onClick={() => {
-                    const elMin: HTMLInputElement | null = document.getElementById("filmYearMinFilter");
-                    const elMax: HTMLInputElement | null = document.getElementById("filmYearMaxFilter");
-                    elMin && elMax ? yearsFilter(elMin.value, elMax.value) : {}
+                    const elMin: HTMLInputElement | null = document.getElementById("yearMinFilter");
+                    const elMax: HTMLInputElement | null = document.getElementById("yearMaxFilter");
+                    elMin && elMax ? yearFilter(elMin.value, elMax.value) : {}
                 }}>
                 Potrdi
             </button>
@@ -157,12 +157,12 @@ export default function FilmiFiltri(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setFilmLib(sort91Fame())}>
+                onClick={() => setLibFilm(sort91Fame())}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setFilmLib(sort19Fame())}>
+                onClick={() => setLibFilm(sort19Fame())}>
                 <ArrowUp />
             </button>
         </div>

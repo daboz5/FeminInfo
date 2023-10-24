@@ -1,0 +1,353 @@
+/*FILM GRID*/
+
+.filmBox {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows:
+        min-content min-content;
+    align-items: center;
+    gap: 15px;
+}
+
+.filmBox p {
+    margin: 5px;
+}
+
+.filmGrid0 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid1 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid2 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid3 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "people people"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid4 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid5 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid6 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.filmGrid7 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+/*IGRA GRID*/
+
+.igraBox {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    grid-template-rows:
+        min-content min-content;
+    grid-template-areas:
+        "title title"
+        "image genre"
+        "type type"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+    align-items: center;
+    gap: 15px;
+}
+
+.igraBox p {
+    margin: 5px;
+}
+
+.igraGrid0 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid1 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid2 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid3 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "people people"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid4 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "explain explain"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid5 {
+    grid-template-areas:
+        "title title"
+        "image type"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid6 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "people people"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.igraGrid7 {
+    grid-template-areas:
+        "title title"
+        "image image"
+        "describe describe"
+        "result result"
+        "options options";
+}
+
+.vsebina {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+/*COMMON CONTENT*/
+
+.titleBox {
+    grid-area: title;
+    margin-top: 5px;
+}
+
+.titleBox h3 {
+    font-size: 1.8rem;
+}
+
+.titleBox p {
+    display: inline-block;
+    font-size: 1.3rem;
+    font-weight: 700;
+    margin: 0;
+    padding-left: 25px;
+}
+
+.image {
+    justify-self: center;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    grid-area: image;
+}
+
+.image img {
+    max-height: 100%;
+    max-width: 100%;
+    border-radius: 5px;
+}
+
+.dataType {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.data {
+    font-size: 1.1rem;
+    font-weight: 500;
+    text-align: left;
+}
+
+.genreBox {
+    position: relative;
+    align-items: center;
+    gap: 10px;
+    padding: 0 25px;
+    grid-area: type;
+}
+
+.femType {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    filter: opacity(0.3);
+    width: 100%;
+}
+
+.genreType p {
+    position: relative;
+    font-size: 1.3rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: center;
+    text-shadow: 0 0 0.1px black, 0 0 3px white, 0 0 5px white;
+    z-index: 1;
+}
+
+.peopleBox {
+    grid-area: people;
+}
+
+.directorsBox {
+    grid-area: director;
+}
+
+.actorsBox {
+    grid-area: actors;
+}
+
+.staffBox {
+    grid-area: staff;
+}
+
+.explanationBox {
+    grid-area: explain;
+}
+
+.descriptionBox {
+    grid-area: describe;
+}
+
+.pollBox {
+    justify-self: center;
+    margin: 5px auto 0;
+    border-radius: 15px;
+    padding: 1.5em 1em 3.5em;
+    background-color: violet;
+    grid-area: result;
+}
+
+.rating {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    width: 50px;
+    font-weight: 600;
+    border: none;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.rating p {
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0;
+    padding: 0 1rem;
+}
+
+.rIcon {
+    position: absolute;
+    cursor: pointer;
+    top: 35px;
+    transition: 0.3s;
+}
+
+.rIcon:hover {
+    font-size: 1.5rem;
+}
+
+.optionsBox {
+    justify-self: center;
+    gap: 20px;
+    margin: 30px auto 5px;
+    grid-area: options;
+}
+
+.optionsBox button {
+    width: 75vw;
+}

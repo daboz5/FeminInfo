@@ -1,0 +1,151 @@
+.editForm {
+    gap: 7px;
+}
+
+.editForm h3 {
+    text-indent: 0;
+    margin: 10px auto 0;
+}
+
+.editForm label {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 5px;
+}
+
+
+.editForm label p {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.editForm input {
+    margin-bottom: 10px;
+}
+
+.editForm input[type=text] {
+    width: 100%;
+    font-size: 1.3rem;
+    font-weight: 600;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+    padding: 0.2em 0.4em;
+    transition: 0.4s;
+}
+
+.editForm input[type=text]:focus {
+    border-bottom: 3px solid rgba(0, 0, 0, 1);
+    outline: none;
+}
+
+.editForm input[type=number] {
+    font-size: 1.3rem;
+    font-weight: 600;
+    text-align: center;
+    margin-left: 10px;
+    margin-right: 10px;
+    border: 0;
+    border-bottom: 3px solid rgba(0, 0, 0, 0.4);
+    padding: 0.2em 0;
+    transition: 0.4s;
+}
+
+.editForm input[type=number]:focus {
+    border-bottom: 3px solid rgba(0, 0, 0, 1);
+    outline: none;
+}
+
+input[type='number']::-webkit-inner-spin-button,
+input[type='number']::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+}
+
+.editPicBox {
+    align-items: center;
+    align-self: baseline;
+    margin-top: 3px;
+}
+
+.editPic {
+    max-height: 300px;
+    max-width: 300px;
+    border-radius: 5px;
+}
+
+.editPicLabel {
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 20px auto 10px;
+    box-shadow:
+        inset 0 0 0 0 rebeccapurple,
+        0 0 5px 2px rebeccapurple;
+    border-radius: 0.5em;
+    padding: 0.2em 0.5em;
+    transition: 0.2s;
+}
+
+.editPicLabel:hover {
+    box-shadow:
+        inset 0 0 0px 1px rebeccapurple,
+        0 0 5px 3px rebeccapurple;
+}
+
+.editYear:nth-of-type(3) {
+    margin-bottom: 10px;
+}
+
+.editPicLabel:active {
+    box-shadow:
+        inset 0 0 0 1px rebeccapurple,
+        0 0 0 3px rebeccapurple;
+}
+
+.editPicBtn {
+    display: none;
+}
+
+.editFemTypeBox input[type=checkbox] {
+    display: none;
+}
+
+.editFemTypeImg {
+    height: 75px;
+    margin: 10px;
+    transition: 0.5s;
+    border-radius: 50%;
+}
+
+.editGenreBox {
+    margin-top: 7px;
+    gap: 12px;
+    width: 100%;
+}
+
+.editTextArea {
+    font-size: 1.3rem;
+}
+
+.editOptionsBox {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-areas:
+        "submit"
+        "cancel"
+        "return";
+    gap: 20px;
+    width: 100%;
+    margin: 30px auto 5px;
+}
+
+.editOptionsBox button:nth-of-type(1) {
+    grid-area: submit;
+}
+
+.editOptionsBox button:nth-of-type(2) {
+    grid-area: cancel;
+}
+
+.editOptionsBox button:nth-of-type(3) {
+    grid-area: return;
+}
