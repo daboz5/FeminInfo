@@ -1,11 +1,11 @@
-import { useForm, SubmitHandler } from "react-hook-form"
 import { useEffect } from "react";
-import { Film, FilmGenre } from "../../../type";
+import { Film } from "../../../type";
+import { useForm } from "react-hook-form";
+import useFemStore from "../../../useFemStore";
 import useFilm from "./useFilm";
-import toast from "react-hot-toast";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
-import useComponent from "./useComponent";
+import PopupNote from "../../../utils/PopupNote";
 
 export default function EditFilm(
     { film, setEditor, setFilm }:
@@ -16,31 +16,16 @@ export default function EditFilm(
         }
 ) {
 
-    const filmTypes: FilmGenre[] = [
-        "Akcija",
-        "Avantura",
-        "Drama",
-        "Dokumentarec",
-        "Fantazija",
-        "Grozljivka",
-        "Isekai",
-        "Komedija",
-        "Kriminalka",
-        "Misterija",
-        "Romantika",
-        "Satira",
-        "Triler",
-        "Zgodovina",
-        "Znanstvena fantastika"
-    ]
-
-    const {
-        splitInput
-    } = useComponent();
+    const { year } = useFemStore()
 
     const {
         pic,
+        filmTypes,
         setPic,
+        handleType,
+        handlePicChange,
+        onSubmit,
+        defFormValues
     } = useFilm();
 
     const {
@@ -48,155 +33,39 @@ export default function EditFilm(
         handleSubmit,
         watch,
         setValue,
-        reset,
-        formState: { errors }
     } = useForm({
-        defaultValues: {
-            title: film?.title,
-            start: film?.year.start ?
-                film?.year.start :
-                undefined,
-            finish: film?.year.finish ?
-                film?.year.finish :
-                undefined,
-            unfinished: film?.year.unfinished ? true : false,
-            average: film?.length.average,
-            episodes: film?.length.episodes,
-            femType: film?.femType ? film.femType : undefined,
-            akcija: film?.genre.find(gen => gen === "Akcija") ? true : false,
-            avantura: film?.genre.find(gen => gen === "Avantura") ? true : false,
-            drama: film?.genre.find(gen => gen === "Drama") ? true : false,
-            dokumentarec: film?.genre.find(gen => gen === "Dokumentarec") ? true : false,
-            fantazija: film?.genre.find(gen => gen === "Fantazija") ? true : false,
-            grozljivka: film?.genre.find(gen => gen === "Grozljivka") ? true : false,
-            isekai: film?.genre.find(gen => gen === "Isekai") ? true : false,
-            komedija: film?.genre.find(gen => gen === "Komedija") ? true : false,
-            kriminalka: film?.genre.find(gen => gen === "Kriminalka") ? true : false,
-            misterija: film?.genre.find(gen => gen === "Misterija") ? true : false,
-            romantika: film?.genre.find(gen => gen === "Romantika") ? true : false,
-            satira: film?.genre.find(gen => gen === "Satira") ? true : false,
-            scifi: film?.genre.find(gen => gen === "Znanstvena fantastika") ? true : false,
-            triler: film?.genre.find(gen => gen === "Triler") ? true : false,
-            zgodovina: film?.genre.find(gen => gen === "Zgodovina") ? true : false,
-            direction: film?.director.join(", "),
-            actors: film?.actors.join(", "),
-            others: film?.others.join(", "),
-            explanation: film?.explanation,
-            description: film?.description,
-        }
+        defaultValues: defFormValues(film),
     });
 
-    const onSubmit: SubmitHandler = (data) => {
-
-        const genreFilter = () => {
-            const result: FilmGenre[] = [];
-            data.akcija ? result.push("Akcija") : {};
-            data.avantura ? result.push("Avantura") : {};
-            data.drama ? result.push("Drama") : {};
-            data.dokumentarec ? result.push("Dokumentarec") : {};
-            data.fantazija ? result.push("Fantazija") : {};
-            data.grozljivka ? result.push("Grozljivka") : {};
-            data.isekai ? result.push("Isekai") : {};
-            data.komedija ? result.push("Komedija") : {};
-            data.kriminalka ? result.push("Kriminalka") : {};
-            data.misterija ? result.push("Misterija") : {};
-            data.romantika ? result.push("Romantika") : {};
-            data.satira ? result.push("Satira") : {};
-            data.scifi ? result.push("Znanstvena fantastika") : {};
-            data.triler ? result.push("Triler") : {};
-            data.zgodovina ? result.push("Zgodovina") : {};
-            return result;
-        }
-
-        const result: Film = {
-            title: data.title,
-            year: {
-                start: data.start,
-                finish: data.finish === "" ? undefined : data.finish,
-                unfinished: true
-            },
-            length: {
-                average: data.average === "" ? undefined : data.average,
-                episodes: data.episodes === "" ? undefined : data.episodes
-            },
-            img: pic ? pic : undefined,
-            director: splitInput(data.direction),
-            actors: splitInput(data.actors),
-            others: splitInput(data.others),
-            femType: data.femType === false ? undefined : data.femType,
-            genre: genreFilter(),
-            explanation: data.explanation,
-            description: data.description,
-            ratings: film?.ratings ?
-                film.ratings :
-                {
-                    hates: 0,
-                    dislikes: 0,
-                    oks: 0,
-                    likes: 0,
-                    loves: 0
-                }
-            /*KASNEJE LOČI RATING, SICER BO ZADNJA SHRANJENA VERZIJA NADPISALA AKTIVNO VERZIJO*/
-        }
-
-        /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
-        console.log(result);
-
-    };
-    const currentYear = new Date().getFullYear();
-
     useEffect(() => {
-        handleType(watch("femType"), watch("femType") ? true : false);
+        handleType(watch("femType"), watch("femType") ? true : false, setValue);
         setPic(film?.img);
     }, [])
-
-    const handleType = (
-        elValue: string | undefined,
-        elCheck: boolean
-    ) => {
-        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
-            return;
-        }
-        const els: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
-        for (let i = 0; i < 3; i++) {
-            els[i].style.boxShadow = "0 0 0 0 black";
-        }
-        elCheck ? setValue("femType", elValue) : setValue("femType", undefined)
-        elCheck ?
-            elValue === "soc" ?
-                els[0].style.boxShadow = "0 0 10px 5px black" :
-                elValue === "woke" ?
-                    els[1].style.boxShadow = "0 0 10px 5px black" :
-                    elValue === "lib" ?
-                        els[2].style.boxShadow = "0 0 10px 5px black" :
-                        {} :
-            {}
-    }
-
-    const handlePicChange = (file: File) => {
-        if (!file) { return }
-        if (file.size > 2000000) {
-            toast.error(
-                `Največja dovoljena velikost je 2 Mb.`
-            );
-        } else {
-            const imgPreview = URL.createObjectURL(file);
-            setPic(imgPreview);
-        }
-    }
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
             <h2>Filmski podatki</h2>
-            <h3>Naslov</h3>
+            <div className="popBox">
+                <h3>Naslov</h3>
+                <PopupNote
+                    id="filmTitle"
+                    notes={["Naslov naj ne bo daljši od 200 znakov."]}
+                />
+            </div>
             <input
                 type="text"
                 {...register("title", { required: true, minLength: 1, maxLength: 200 })}>
             </input>
 
-            <h3>Izšel</h3>
+            <div className="popBox">
+                <h3>Izšel</h3>
+                <PopupNote
+                    id="filmYear"
+                    notes={["Film je izšel / izhajal OD leta ____.", "Izhajal je več let in se zaključil DO leta ____.", "Če še izhaja, je še V PRODUKCIJI."]}
+                />
+            </div>
             <div id="editYearBox" className="colFlex">
                 <div className="inBlock">
                     <label>
@@ -204,8 +73,8 @@ export default function EditFilm(
                         <input
                             type="number"
                             min={1888}
-                            max={currentYear}
-                            {...register("start", { min: 1888, max: currentYear })}>
+                            max={year}
+                            {...register("start", { min: 1888, max: year })}>
                         </input>
                     </label>
                 </div>
@@ -215,8 +84,8 @@ export default function EditFilm(
                         <input
                             type="number"
                             min={1888}
-                            max={currentYear}
-                            {...register("finish", { min: 1888, max: currentYear })}>
+                            max={year}
+                            {...register("finish", { min: 1888, max: year })}>
                         </input>
                     </label>
                 </div>
@@ -229,7 +98,13 @@ export default function EditFilm(
                 />
             </div>
 
-            <h3>Trajanje ogleda</h3>
+            <div className="popBox">
+                <h3>Trajanje ogleda</h3>
+                <PopupNote
+                    id="filmLength"
+                    notes={["Film traja ___ minut. Če je epizod več, posamična epizoda traja ___ minut.", "Sezone vsebujejo ___ epizod."]}
+                />
+            </div>
             <div>
                 <label id="editAverage">
                     <input
@@ -251,7 +126,13 @@ export default function EditFilm(
                 </label>
             </div>
 
-            <h3>Naslovna slika</h3>
+            <div className="popBox">
+                <h3>Naslovna slika</h3>
+                <PopupNote
+                    id="filmPicture"
+                    notes={["Slika naj ne bo večja od 2 Mb."]}
+                />
+            </div>
             <div
                 className="editPicBox colFlex">
                 <img
@@ -278,7 +159,20 @@ export default function EditFilm(
                 </label>
             </div>
 
-            <h3>Tip feminizma</h3>
+            <div className="popBox">
+                <h3>Tip feminizma</h3>
+                <PopupNote
+                    id="filmFemType"
+                    notes={
+                        ["Družbeni, Woke ali Liberalni feminizem.",
+                            "Družbeni označuje, da se film osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se film osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Woke je kategorija za vmesno in ostalo. Je film tako sistemska kot individualna? Woke. Se ne moreš odločiti? Woke.",
+                            "Film ni o ženskah in ni za ženske? Ne objavi."
+                        ]
+                    }
+                />
+            </div>
             <div className="editFemTypeBox">
                 <label
                     htmlFor="editSoc">
@@ -294,7 +188,8 @@ export default function EditFilm(
                         value="soc"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
@@ -313,7 +208,8 @@ export default function EditFilm(
                         value="woke"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
@@ -332,14 +228,21 @@ export default function EditFilm(
                         value="lib"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
                 </label>
             </div>
 
-            <h3>Žanri</h3>
+            <div className="popBox">
+                <h3>Žanri</h3>
+                <PopupNote
+                    id="filmGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo film."]}
+                />
+            </div>
             <div className="editGenreBox colFlex">
                 {filmTypes.map((type, index) => {
                     const num = index + 1;
@@ -368,31 +271,55 @@ export default function EditFilm(
                 })}
             </div>
 
-            <h3>Direkcija</h3>
+            <div className="popBox">
+                <h3>Direkcija</h3>
+                <PopupNote
+                    id="filmDirection"
+                    notes={["Kdo je vodja / odgovorni za nastanek filma.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                />
+            </div>
             <TextArea
                 id="editFilmDirection"
                 name="direction"
-                maxLength={1000}
+                maxLength={500}
                 register={register}
             />
 
-            <h3>Igralci</h3>
+            <div className="popBox">
+                <h3>Igralci</h3>
+                <PopupNote
+                    id="filmActors"
+                    notes={["Kdo vse nastopa v filmu.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                />
+            </div>
             <TextArea
                 id="editFilmActors"
                 name="actors"
-                maxLength={1000}
+                maxLength={500}
                 register={register}
             />
 
-            <h3>Ostali sodelujoči</h3>
+            <div className="popBox">
+                <h3>Ostali sodelujoči</h3>
+                <PopupNote
+                    id="filmOthers"
+                    notes={["Kdo razen direktorja in igralcev je še sodeloval.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                />
+            </div>
             <TextArea
                 id="editFilmOthers"
                 name="others"
-                maxLength={1000}
+                maxLength={500}
                 register={register}
             />
 
-            <h3>Objasnilo ustreznosti</h3>
+            <div className="popBox">
+                <h3>Objasnilo ustreznosti</h3>
+                <PopupNote
+                    id="filmExplanation"
+                    notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
+                />
+            </div>
             <TextArea
                 id="editFilmExplanation"
                 name="explanation"
@@ -400,7 +327,13 @@ export default function EditFilm(
                 register={register}
             />
 
-            <h3>Povzetek vsebine</h3>
+            <div className="popBox">
+                <h3>Povzetek vsebine</h3>
+                <PopupNote
+                    id="filmSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi film poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                />
+            </div>
             <TextArea
                 id="editFilmDescription"
                 name="description"

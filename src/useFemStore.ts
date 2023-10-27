@@ -2,6 +2,7 @@ import { create } from 'zustand';
 import { Film, Igra } from './type';
 
 type State = {
+    year: number,
     pageSize: number,
     footOpened: boolean,
     libFilm: [] | Film[],
@@ -20,6 +21,8 @@ type Action = {
 }
 
 const useFemStore = create<State & Action>(set => ({
+    year: new Date().getFullYear(),
+
     pageSize: 0,
     registerSize: (newSize) => set(() => ({
         pageSize: newSize

@@ -3,6 +3,7 @@
 }
 
 .editForm h3 {
+    display: inline-block;
     text-indent: 0;
     margin: 10px auto 0;
 }

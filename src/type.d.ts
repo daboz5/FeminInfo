@@ -28,7 +28,7 @@ type IgraGenre =
     "Grozljivka" |
     "Igra vlog" |
     "Karte" |
-    "Miselne igre" |
+    "Miselnica" |
     "Misterija" |
     "MMO" |
     "Preživetvena" |
@@ -44,10 +44,13 @@ type IgraGenre =
     "Zgodbovnica" |
     "Zmenkarjenje"
 
+type AllGenreTypes = IgraGenre | FilmGenre;
+
 type GamePlatform =
     "Windows" |
     "OS X" |
     "Linux" |
+    "PlayStation 5" |
     "PlayStation 4" |
     "PlayStation 3" |
     "PlayStation 2" |
@@ -89,6 +92,36 @@ type Film = {
     ratings: Ratings
 }
 
+type FilmForm = {
+    title: string;
+    start: number;
+    finish: number | undefined;
+    unfinished: boolean;
+    average: number | undefined;
+    episodes: number;
+    femType: string;
+    akcija: boolean;
+    avantura: boolean;
+    drama: boolean;
+    dokumentarec: boolean;
+    fantazija: boolean;
+    grozljivka: boolean;
+    isekai: boolean;
+    komedija: boolean;
+    kriminalka: boolean;
+    misterija: boolean;
+    romantika: boolean;
+    satira: boolean;
+    triler: boolean;
+    zgodovina: boolean;
+    znanstvena_fantastika: boolean;
+    direction: string;
+    actors: string;
+    others: string;
+    explanation: string;
+    description: string;
+}
+
 type Igra = {
     title: string;
     year: number;
@@ -116,8 +149,10 @@ type Igra = {
 export {
     Film,
     FilmGenre,
+    FilmForm,
     Igra,
     IgraGenre,
+    AllGenreTypes,
     FemType,
     Ratings,
 };

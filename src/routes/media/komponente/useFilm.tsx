@@ -1,10 +1,29 @@
+import { UseFormSetValue } from "react-hook-form"
 import { useState } from "react";
-import { Film } from "../../../type";
+import { Film, FilmForm, FilmGenre } from "../../../type";
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
 export default function useFilm() {
+
+    const filmTypes: FilmGenre[] = [
+        "Akcija",
+        "Avantura",
+        "Drama",
+        "Dokumentarec",
+        "Fantazija",
+        "Grozljivka",
+        "Isekai",
+        "Komedija",
+        "Kriminalka",
+        "Misterija",
+        "Romantika",
+        "Satira",
+        "Triler",
+        "Zgodovina",
+        "Znanstvena fantastika"
+    ]
 
     const testLib: Film[] = [
         {
@@ -90,9 +109,12 @@ export default function useFilm() {
         }
     ]
 
-    const { setLibFilm, backupLibFilm } = useFemStore();
+    const {
+        backupLibFilm,
+        setLibFilm
+    } = useFemStore();
 
-    const { calcFame } = useComponent();
+    const { calcFame, splitInput } = useComponent();
 
     const [selected, setSelected] = useState<Film | null>(null);
     const [pic, setPic] = useState(selected?.img);
@@ -448,10 +470,134 @@ export default function useFilm() {
         return 0
     }
 
+    const handleType = (
+        elValue: string | undefined,
+        elCheck: boolean,
+        setValue: UseFormSetValue<FilmForm>
+    ) => {
+        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
+            return;
+        }
+        const els: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
+        for (let i = 0; i < 3; i++) {
+            els[i].style.boxShadow = "0 0 0 0 black";
+        }
+        elCheck ? setValue("femType", elValue) : setValue("femType", "")
+        elCheck ?
+            elValue === "soc" ?
+                els[0].style.boxShadow = "0 0 10px 5px black" :
+                elValue === "woke" ?
+                    els[1].style.boxShadow = "0 0 10px 5px black" :
+                    elValue === "lib" ?
+                        els[2].style.boxShadow = "0 0 10px 5px black" :
+                        {} :
+            {}
+    }
+
+    const handlePicChange = (file: File) => {
+        if (!file) { return }
+        if (file.size > 2000000) {
+            toast.error(
+                `Največja dovoljena velikost je 2 Mb.`
+            );
+        } else {
+            const imgPreview = URL.createObjectURL(file);
+            setPic(imgPreview);
+        }
+    }
+
+    const defFormValues = (film: Film | null): FilmForm | undefined => {
+        if (!film) return;
+
+        const defValues = {
+            title: film.title,
+            start: film.year.start,
+            finish: film.year.finish ? film.year.finish : undefined,
+            unfinished: film.year.unfinished ? true : false,
+            average: film.length.average ? film.length.average : undefined,
+            episodes: film.length.episodes ? film.length.episodes : 1,
+            femType: film.femType ? film.femType : "",
+            direction: film.director.join(", "),
+            actors: film.actors.join(", "),
+            others: film.others.join(", "),
+            explanation: film.explanation,
+            description: film.description,
+        };
+
+        filmTypes.forEach(
+            type => {
+                const key = type.replace(" ", "_").replace("-", "").toLowerCase();
+                const value = film.genre.find(gen => gen === type) ? true : false;
+                defValues[key] = value;
+            }
+        );
+        return defValues;
+    }
+
+    const onSubmit = (data) => {
+
+        const genreFilter = () => {
+            const result: FilmGenre[] = [];
+            data.akcija ? result.push("Akcija") : {};
+            data.avantura ? result.push("Avantura") : {};
+            data.drama ? result.push("Drama") : {};
+            data.dokumentarec ? result.push("Dokumentarec") : {};
+            data.fantazija ? result.push("Fantazija") : {};
+            data.grozljivka ? result.push("Grozljivka") : {};
+            data.isekai ? result.push("Isekai") : {};
+            data.komedija ? result.push("Komedija") : {};
+            data.kriminalka ? result.push("Kriminalka") : {};
+            data.misterija ? result.push("Misterija") : {};
+            data.romantika ? result.push("Romantika") : {};
+            data.satira ? result.push("Satira") : {};
+            data.scifi ? result.push("Znanstvena fantastika") : {};
+            data.triler ? result.push("Triler") : {};
+            data.zgodovina ? result.push("Zgodovina") : {};
+            return result;
+        }
+
+        const result: Film = {
+            title: data.title,
+            year: {
+                start: data.start,
+                finish: data.finish === "" ? undefined : data.finish,
+                unfinished: true
+            },
+            length: {
+                average: data.average === "" ? undefined : data.average,
+                episodes: data.episodes === "" ? undefined : data.episodes
+            },
+            img: pic ? pic : undefined,
+            director: splitInput(data.direction),
+            actors: splitInput(data.actors),
+            others: splitInput(data.others),
+            femType: data.femType === false ? undefined : data.femType,
+            genre: genreFilter(),
+            explanation: data.explanation,
+            description: data.description,
+            ratings: selected?.ratings ?
+                selected.ratings :
+                {
+                    hates: 0,
+                    dislikes: 0,
+                    oks: 0,
+                    likes: 0,
+                    loves: 0
+                }
+            /*KASNEJE LOČI RATING, SICER BO ZADNJA SHRANJENA VERZIJA NADPISALA AKTIVNO VERZIJO*/
+        }
+
+        /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
+        console.log(result);
+    };
+
     return {
         pic,
         selected,
         testLib,
+        filmTypes,
+        defFormValues,
+        onSubmit,
         setPic,
         setSelected,
         omniFilter,
@@ -467,5 +613,7 @@ export default function useFilm() {
         sort19Fame,
         sort91Fame,
         setGrid,
+        handleType,
+        handlePicChange,
     }
 }
