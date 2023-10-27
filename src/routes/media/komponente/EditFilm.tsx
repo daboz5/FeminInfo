@@ -167,7 +167,7 @@ export default function EditFilm(
                         ["Družbeni, Woke ali Liberalni feminizem.",
                             "Družbeni označuje, da se film osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
                             "Liberalni označuje, da se film osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
-                            "Woke je kategorija za vmesno in ostalo. Je film tako sistemska kot individualna? Woke. Se ne moreš odločiti? Woke.",
+                            "Woke označuje vmesno, oboje in ostalo.",
                             "Film ni o ženskah in ni za ženske? Ne objavi."
                         ]
                     }
