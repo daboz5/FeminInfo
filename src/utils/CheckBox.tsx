@@ -21,7 +21,7 @@ export default function Checkbox(
     let mouseOver = false;
 
     const unseenId = checkId + "_checkbox"
-    const unseenStyle = { display: "none" } //change to see true checkbox
+    const unseenStyle = { display: "" } //change to see true checkbox
 
     const seenStyle = {
         alignSelf: "center",

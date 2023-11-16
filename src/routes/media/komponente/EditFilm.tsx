@@ -246,17 +246,17 @@ export default function EditFilm(
             <div className="editGenreBox colFlex">
                 {filmTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = type.toLowerCase().replace("znanstvena fantastika", "scifi");
+                    const label = type.name.toLowerCase().replace("znanstvena fantastika", "scifi");
                     const group = "editGenreCheckbox"
                     return (
                         <Checkbox
                             boxClass="editGenre"
                             checkId={label}
                             checkClass={group}
-                            afterText={type}
+                            afterText={type.name}
                             preChecked={
                                 film?.genre &&
-                                    film.genre.find((gen) => gen === type) ?
+                                    film.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -264,7 +264,7 @@ export default function EditFilm(
                                 context: group,
                                 max: 5
                             }}
-                            key={"genre" + num}
+                            key={"filmGenre" + num}
                             register={register}
                         />
                     )

@@ -122,6 +122,63 @@ type FilmForm = {
     description: string;
 }
 
+type IgraForm = {
+    title: string | undefined;
+    year: number | undefined;
+    kratka: boolean;
+    dolga: boolean;
+    brezkončna: boolean;
+    dlc: boolean | undefined;
+    mikrotranzakcije: boolean | undefined;
+    film: boolean | undefined;
+    publikacije: boolean | undefined;
+    femType: string;
+    windows: boolean | undefined;
+    osx: boolean | undefined;
+    linux: boolean | undefined;
+    ps: boolean | undefined;
+    ps2: boolean | undefined;
+    ps3: boolean | undefined;
+    ps4: boolean | undefined;
+    ps5: boolean | undefined;
+    xboxone: boolean | undefined;
+    ninswitch: boolean | undefined;
+    mobitel: boolean | undefined;
+    drugo: boolean | undefined;
+    fourx: boolean | undefined;
+    akcija: boolean | undefined;
+    anime: boolean | undefined;
+    arkadna: boolean | undefined;
+    avantura: boolean | undefined;
+    bojevanje: boolean | undefined;
+    coop: boolean | undefined;
+    fantazija: boolean | undefined;
+    golota: boolean | undefined;
+    grozljivka: boolean | undefined;
+    rpg: boolean | undefined;
+    karte: boolean | undefined;
+    miselnice: boolean | undefined;
+    misterija: boolean | undefined;
+    mmo: boolean | undefined;
+    preživetvena: boolean | undefined;
+    simulator: boolean | undefined;
+    slovanska: boolean | undefined;
+    sproščena: boolean | undefined;
+    strategija: boolean | undefined;
+    streljanje: boolean | undefined;
+    športna: boolean | undefined;
+    upravljanje: boolean | undefined;
+    vesolje: boolean | undefined;
+    novel: boolean | undefined;
+    zgodbovnica: boolean | undefined;
+    zmenkarjenje: boolean | undefined;
+    direction: string | undefined;
+    actors: string | undefined;
+    others: string | undefined;
+    explanation: string | undefined;
+    description: string | undefined;
+}
+
 type Igra = {
     title: string;
     year: number;
@@ -152,6 +209,7 @@ export {
     FilmForm,
     Igra,
     IgraGenre,
+    IgraForm,
     AllGenreTypes,
     FemType,
     Ratings,

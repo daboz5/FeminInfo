@@ -1,10 +1,138 @@
+import { UseFormSetValue } from "react-hook-form";
 import { useState } from "react";
-import { Igra } from "../../../type"
+import { Igra, IgraForm, IgraGenre } from "../../../type"
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
 export default function useIgra() {
+
+    const igraTypes: {
+        name: IgraGenre;
+        register: string;
+    }[] = [
+            {
+                name: "4X",
+                register: "fourx"
+            },
+            {
+                name: "Akcija",
+                register: "akcija"
+            },
+            {
+                name: "Anime",
+                register: "anime"
+            },
+            {
+                name: "Arkadna",
+                register: "arkadna"
+            },
+            {
+                name: "Avantura",
+                register: "avantura"
+            },
+            {
+                name: "Bojevanje",
+                register: "bojevanje"
+            },
+            {
+                name: "Co-op",
+                register: "coop"
+            },
+            {
+                name: "Fantazija",
+                register: "fantazija"
+            },
+            {
+                name: "Golota",
+                register: "golota"
+            },
+            {
+                name: "Grozljivka",
+                register: "grozljivka"
+            },
+            {
+                name: "Igra vlog",
+                register: "rpg"
+            },
+            {
+                name: "Karte",
+                register: "karte"
+            },
+            {
+                name: "Miselnica",
+                register: "miselnica"
+            },
+            {
+                name: "Misterija",
+                register: "misterija"
+            },
+            {
+                name: "MMO",
+                register: "mmo"
+            },
+            {
+                name: "Preživetvena",
+                register: "preživetvena"
+            },
+            {
+                name: "Simulator",
+                register: "simulator"
+            },
+            {
+                name: "Slovanska",
+                register: "slovanska"
+            },
+            {
+                name: "Sproščena",
+                register: "sproscena"
+            },
+            {
+                name: "Strategija",
+                register: "strategija"
+            },
+            {
+                name: "Streljanje",
+                register: "streljanje"
+            },
+            {
+                name: "Športna",
+                register: "sportna"
+            },
+            {
+                name: "Upravljanje",
+                register: "upravljanje"
+            },
+            {
+                name: "Vesolje",
+                register: "vesolje"
+            },
+            {
+                name: "Virtualni roman",
+                register: "vnovel"
+            },
+            {
+                name: "Zgodbovnica",
+                register: "zgodbovnica"
+            },
+            {
+                name: "Zmenkarjenje",
+                register: "zmenkarjenje"
+            },
+        ]
+
+    const igraLenghts = [
+        "kratka",
+        "dolga",
+        "brezkončna"
+    ]
+
+    const igraExtra = [
+        "DLC",
+        "film",
+        "publikacije",
+        "mikrotranzakcije",
+    ]
 
     const testLib: Igra[] = [
         {
@@ -103,7 +231,8 @@ export default function useIgra() {
     } = useFemStore();
 
     const {
-        calcFame
+        calcFame,
+        splitInput
     } = useComponent();
 
     const sortAZ = (content?: Igra[]) => {
@@ -468,10 +597,153 @@ export default function useIgra() {
         }
     }
 
+    const handleType = (
+        elValue: string | undefined,
+        elCheck: boolean,
+        setValue: UseFormSetValue<IgraForm>
+    ) => {
+        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
+            return;
+        }
+        const els: HTMLCollectionOf<HTMLImageElement> = document.getElementsByClassName("editFemTypeImg");
+
+        for (let i = 0; i < els.length; i++) {
+            els[i].style.boxShadow = "0 0 0 0 black";
+        }
+        elCheck ? setValue("femType", elValue) : setValue("femType", "")
+        elCheck ?
+            elValue === "soc" ?
+                els[0].style.boxShadow = "0 0 10px 5px black" :
+                elValue === "woke" ?
+                    els[1].style.boxShadow = "0 0 10px 5px black" :
+                    elValue === "lib" ?
+                        els[2].style.boxShadow = "0 0 10px 5px black" :
+                        {} :
+            {}
+    }
+
+    const defFormValues = (igra: Igra | null): IgraForm | undefined => {
+        if (!igra) return;
+
+        const defValues = {
+            title: igra.title,
+            year: igra.year,
+            kratka: igra.content.length === "kratka" ? true : false,
+            dolga: igra.content.length === "dolga" ? true : false,
+            brezkončna: igra.content.length === "brezkončna" ? true : false,
+            dlc: igra.content.bonus_content.dlc,
+            mikrotranzakcije: igra.content.bonus_content.microtransactions,
+            film: igra.content.bonus_content.movie,
+            publikacije: igra.content.bonus_content.publication,
+            femType: igra.femType ? igra.femType : undefined,
+            windows: igra?.platforms.find(gen => gen === "Windows") ? true : false,
+            osx: igra?.platforms.find(gen => gen === "OS X") ? true : false,
+            linux: igra?.platforms.find(gen => gen === "Linux") ? true : false,
+            ps: igra?.platforms.find(gen => gen === "PlayStation") ? true : false,
+            ps2: igra?.platforms.find(gen => gen === "PlayStation 2") ? true : false,
+            ps3: igra?.platforms.find(gen => gen === "PlayStation 3") ? true : false,
+            ps4: igra?.platforms.find(gen => gen === "PlayStation 4") ? true : false,
+            ps5: igra?.platforms.find(gen => gen === "PlayStation 5") ? true : false,
+            xboxone: igra?.platforms.find(gen => gen === "Xbox One") ? true : false,
+            ninswitch: igra?.platforms.find(gen => gen === "Nintendo Switch") ? true : false,
+            mobitel: igra?.platforms.find(gen => gen === "Mobitel") ? true : false,
+            drugo: igra?.platforms.find(gen => gen === "Drugo") ? true : false,
+            direction: igra?.developer,
+            actors: igra?.publisher,
+            others: igra?.others.join(", "),
+            explanation: igra?.explanation,
+            description: igra?.description,
+        };
+
+        igraTypes.forEach(
+            type => {
+                const value = igra.genre.find(gen => gen === type.name) ? true : false;
+                defValues[type.register] = value;
+            }
+        );
+        return defValues;
+    }
+
+    const handlePicChange = (file: File) => {
+        if (!file) { return }
+        if (file.size > 2000000) {
+            toast.error(
+                `Največja dovoljena velikost je 2 Mb.`
+            );
+        } else {
+            const imgPreview = URL.createObjectURL(file);
+            setPic(imgPreview);
+        }
+    }
+
+    const onSubmit = (data) => {
+
+        const genreFilter = () => {
+            const result: IgraGenre[] = [];
+            data.akcija ? result.push("Akcija") : {};
+            data.avantura ? result.push("Avantura") : {};
+            data.drama ? result.push("Drama") : {};
+            data.dokumentarec ? result.push("Dokumentarec") : {};
+            data.fantazija ? result.push("Fantazija") : {};
+            data.grozljivka ? result.push("Grozljivka") : {};
+            data.isekai ? result.push("Isekai") : {};
+            data.komedija ? result.push("Komedija") : {};
+            data.kriminalka ? result.push("Kriminalka") : {};
+            data.misterija ? result.push("Misterija") : {};
+            data.romantika ? result.push("Romantika") : {};
+            data.satira ? result.push("Satira") : {};
+            data.scifi ? result.push("Znanstvena fantastika") : {};
+            data.triler ? result.push("Triler") : {};
+            data.zgodovina ? result.push("Zgodovina") : {};
+            return result;
+        }
+
+        const result: Igra = {
+            title: data.title,
+            year: {
+                start: data.start,
+                finish: data.finish === "" ? undefined : data.finish,
+                unfinished: true
+            },
+            length: {
+                average: data.average === "" ? undefined : data.average,
+                episodes: data.episodes === "" ? undefined : data.episodes
+            },
+            img: pic ? pic : undefined,
+            director: splitInput(data.direction),
+            actors: splitInput(data.actors),
+            others: splitInput(data.others),
+            femType: data.femType === false ? undefined : data.femType,
+            genre: genreFilter(),
+            explanation: data.explanation,
+            description: data.description,
+            ratings: selected?.ratings ?
+                selected.ratings :
+                {
+                    hates: 0,
+                    dislikes: 0,
+                    oks: 0,
+                    likes: 0,
+                    loves: 0
+                }
+            /*KASNEJE LOČI RATING, SICER BO ZADNJA SHRANJENA VERZIJA NADPISALA AKTIVNO VERZIJO*/
+        }
+
+        /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
+        console.log(result);
+    };
+
     return {
         pic,
         selected,
         testLib,
+        igraTypes,
+        igraExtra,
+        igraLenghts,
+        handlePicChange,
+        onSubmit,
+        handleType,
+        defFormValues,
         setPic,
         setSelected,
         sortAZ,

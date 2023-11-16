@@ -7,23 +7,71 @@ import toast from "react-hot-toast";
 
 export default function useFilm() {
 
-    const filmTypes: FilmGenre[] = [
-        "Akcija",
-        "Avantura",
-        "Drama",
-        "Dokumentarec",
-        "Fantazija",
-        "Grozljivka",
-        "Isekai",
-        "Komedija",
-        "Kriminalka",
-        "Misterija",
-        "Romantika",
-        "Satira",
-        "Triler",
-        "Zgodovina",
-        "Znanstvena fantastika"
-    ]
+    const filmTypes: {
+        name: FilmGenre;
+        register: string;
+    }[] = [
+            {
+                name: "Akcija",
+                register: "action"
+            },
+            {
+                name: "Avantura",
+                register: "avantura"
+            },
+            {
+                name: "Drama",
+                register: "drama"
+            },
+            {
+                name: "Dokumentarec",
+                register: "dokumentarec"
+            },
+            {
+                name: "Fantazija",
+                register: "fantazija"
+            },
+            {
+                name: "Grozljivka",
+                register: "grozljivka"
+            },
+            {
+                name: "Isekai",
+                register: "isekai"
+            },
+            {
+                name: "Komedija",
+                register: "komedija"
+            },
+            {
+                name: "Kriminalka",
+                register: "kriminalka"
+            },
+            {
+                name: "Misterija",
+                register: "misterija"
+            },
+            {
+                name: "Romantika",
+                register: "romantika"
+            },
+            {
+                name: "Satira",
+                register: "satira"
+            },
+            {
+                name: "Triler",
+                register: "triler"
+            },
+            {
+                name: "Zgodovina",
+                register: "zgodovina"
+            },
+            {
+                name: "Znanstvena fantastika",
+                register: "scifi"
+            },
+        ]
 
     const testLib: Film[] = [
         {
@@ -478,8 +526,9 @@ export default function useFilm() {
         if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
             return;
         }
-        const els: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
-        for (let i = 0; i < 3; i++) {
+        const els: HTMLCollectionOf<HTMLImageElement> = document.getElementsByClassName("editFemTypeImg");
+
+        for (let i = 0; i < els.length; i++) {
             els[i].style.boxShadow = "0 0 0 0 black";
         }
         elCheck ? setValue("femType", elValue) : setValue("femType", "")
@@ -526,9 +575,8 @@ export default function useFilm() {
 
         filmTypes.forEach(
             type => {
-                const key = type.replace(" ", "_").replace("-", "").toLowerCase();
-                const value = film.genre.find(gen => gen === type) ? true : false;
-                defValues[key] = value;
+                const value = film.genre.find(gen => gen === type.name) ? true : false;
+                defValues[type.register] = value;
             }
         );
         return defValues;

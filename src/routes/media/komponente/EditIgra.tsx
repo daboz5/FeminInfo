@@ -1,11 +1,11 @@
-import { useForm, SubmitHandler } from "react-hook-form"
+import { useForm } from "react-hook-form"
 import { useEffect } from "react";
-import { Igra, IgraGenre } from "../../../type";
-import useComponent from "./useComponent";
+import { Igra } from "../../../type";
 import useIgra from "./useIgra";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
-import toast from "react-hot-toast";
+import PopupNote from "../../../utils/PopupNote";
+import useFemStore from "../../../useFemStore";
 
 export default function EditIgra(
     { igra, setEditor, setIgra }:
@@ -16,43 +16,18 @@ export default function EditIgra(
         }
 ) {
 
-    const igraTypes: IgraGenre[] = [
-        "4X",
-        "Akcija",
-        "Anime",
-        "Arkadna",
-        "Avantura",
-        "Bojevanje",
-        "Co-op",
-        "Fantazija",
-        "Golota",
-        "Grozljivka",
-        "Igra vlog",
-        "Karte",
-        "Miselne igre",
-        "Misterija",
-        "MMO",
-        "Preživetvena",
-        "Simulator",
-        "Slovanska",
-        "Sproščena",
-        "Strategija",
-        "Streljanje",
-        "Športna",
-        "Upravljanje",
-        "Vesolje",
-        "Virtualni roman",
-        "Zgodbovnica",
-        "Zmenkarjenje"
-    ]
-
-    const {
-        splitInput
-    } = useComponent();
+    const { year } = useFemStore()
 
     const {
         pic,
+        igraTypes,
+        igraExtra,
+        igraLenghts,
         setPic,
+        handleType,
+        handlePicChange,
+        onSubmit,
+        defFormValues
     } = useIgra();
 
     const {
@@ -60,229 +35,126 @@ export default function EditIgra(
         handleSubmit,
         watch,
         setValue,
-        reset,
-        formState: { errors }
     } = useForm({
-        defaultValues: {
-            title: igra?.title,
-            year: igra?.year,
-            length: igra?.content.length,
-            dlc: igra?.content.bonus_content.dlc,
-            microtransactions: igra?.content.bonus_content.microtransactions,
-            movie: igra?.content.bonus_content.movie,
-            publication: igra?.content.bonus_content.publication,
-            femType: igra?.femType ? igra.femType : undefined,
-            windows: igra?.platforms.find(gen => gen === "Windows") ? true : false,
-            osx: igra?.platforms.find(gen => gen === "OS X") ? true : false,
-            linux: igra?.platforms.find(gen => gen === "Linux") ? true : false,
-            ps: igra?.platforms.find(gen => gen === "PlayStation") ? true : false,
-            ps2: igra?.platforms.find(gen => gen === "PlayStation 2") ? true : false,
-            ps3: igra?.platforms.find(gen => gen === "PlayStation 3") ? true : false,
-            ps4: igra?.platforms.find(gen => gen === "PlayStation 4") ? true : false,
-            ps5: igra?.platforms.find(gen => gen === "PlayStation 5") ? true : false,
-            xboxone: igra?.platforms.find(gen => gen === "Xbox One") ? true : false,
-            ninswitch: igra?.platforms.find(gen => gen === "Nintendo Switch") ? true : false,
-            mobitel: igra?.platforms.find(gen => gen === "Mobitel") ? true : false,
-            drugo: igra?.platforms.find(gen => gen === "Drugo") ? true : false,
-            fourx: igra?.genre.find(gen => gen === "4X") ? true : false,
-            akcija: igra?.genre.find(gen => gen === "Akcija") ? true : false,
-            anime: igra?.genre.find(gen => gen === "Anime") ? true : false,
-            arkade: igra?.genre.find(gen => gen === "Arkadna") ? true : false,
-            avantura: igra?.genre.find(gen => gen === "Avantura") ? true : false,
-            bojevanje: igra?.genre.find(gen => gen === "Bojevanje") ? true : false,
-            coop: igra?.genre.find(gen => gen === "Co-op") ? true : false,
-            fantazija: igra?.genre.find(gen => gen === "Fantazija") ? true : false,
-            golota: igra?.genre.find(gen => gen === "Golota") ? true : false,
-            grozljivka: igra?.genre.find(gen => gen === "Grozljivka") ? true : false,
-            rpg: igra?.genre.find(gen => gen === "Igra vlog") ? true : false,
-            karte: igra?.genre.find(gen => gen === "Karte") ? true : false,
-            miselnice: igra?.genre.find(gen => gen === "Miselnica") ? true : false,
-            misterija: igra?.genre.find(gen => gen === "Misterija") ? true : false,
-            mmo: igra?.genre.find(gen => gen === "MMO") ? true : false,
-            prezivetvena: igra?.genre.find(gen => gen === "Preživetvena") ? true : false,
-            simulator: igra?.genre.find(gen => gen === "Simulator") ? true : false,
-            slovanska: igra?.genre.find(gen => gen === "Slovanska") ? true : false,
-            sproscena: igra?.genre.find(gen => gen === "Sproščena") ? true : false,
-            strategija: igra?.genre.find(gen => gen === "Strategija") ? true : false,
-            streljanje: igra?.genre.find(gen => gen === "Streljanje") ? true : false,
-            sportna: igra?.genre.find(gen => gen === "Športna") ? true : false,
-            upravljanje: igra?.genre.find(gen => gen === "Upravljanje") ? true : false,
-            vesolje: igra?.genre.find(gen => gen === "Vesolje") ? true : false,
-            virtualnovel: igra?.genre.find(gen => gen === "Virtualni roman") ? true : false,
-            zgodbovnica: igra?.genre.find(gen => gen === "Zgodbovnica") ? true : false,
-            zmenkarjenje: igra?.genre.find(gen => gen === "Zmenkarjenje") ? true : false,
-            direction: igra?.developer,
-            actors: igra?.publisher,
-            others: igra?.others.join(", "),
-            explanation: igra?.explanation,
-            description: igra?.description,
-        }
+        defaultValues: defFormValues(igra),
     });
 
-    const onSubmit: SubmitHandler = (data) => {
-
-        const genreFilter = () => {
-            const result: IgraGenre[] = [];
-            data.akcija ? result.push("Akcija") : {};
-            data.avantura ? result.push("Avantura") : {};
-            data.drama ? result.push("Drama") : {};
-            data.dokumentarec ? result.push("Dokumentarec") : {};
-            data.fantazija ? result.push("Fantazija") : {};
-            data.grozljivka ? result.push("Grozljivka") : {};
-            data.isekai ? result.push("Isekai") : {};
-            data.komedija ? result.push("Komedija") : {};
-            data.kriminalka ? result.push("Kriminalka") : {};
-            data.misterija ? result.push("Misterija") : {};
-            data.romantika ? result.push("Romantika") : {};
-            data.satira ? result.push("Satira") : {};
-            data.scifi ? result.push("Znanstvena fantastika") : {};
-            data.triler ? result.push("Triler") : {};
-            data.zgodovina ? result.push("Zgodovina") : {};
-            return result;
-        }
-
-        const result: Igra = {
-            title: data.title,
-            year: {
-                start: data.start,
-                finish: data.finish === "" ? undefined : data.finish,
-                unfinished: true
-            },
-            length: {
-                average: data.average === "" ? undefined : data.average,
-                episodes: data.episodes === "" ? undefined : data.episodes
-            },
-            img: pic ? pic : undefined,
-            director: splitInput(data.direction),
-            actors: splitInput(data.actors),
-            others: splitInput(data.others),
-            femType: data.femType === false ? undefined : data.femType,
-            genre: genreFilter(),
-            explanation: data.explanation,
-            description: data.description,
-            ratings: igra?.ratings ?
-                igra.ratings :
-                {
-                    hates: 0,
-                    dislikes: 0,
-                    oks: 0,
-                    likes: 0,
-                    loves: 0
-                }
-            /*KASNEJE LOČI RATING, SICER BO ZADNJA SHRANJENA VERZIJA NADPISALA AKTIVNO VERZIJO*/
-        }
-
-        /* TUKAJ PRIDE KOMANDA ZA POŠILJANJE V PODATKOVNO BAZO */
-        console.log(result);
-
-    };
-    const currentYear = new Date().getFullYear();
-
     useEffect(() => {
-        handleType(watch("femType"), watch("femType") ? true : false);
+        handleType(watch("femType"), watch("femType") ? true : false, setValue);
         setPic(igra?.img);
     }, [])
-
-    const handleType = (
-        elValue: string | undefined,
-        elCheck: boolean
-    ) => {
-        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
-            return;
-        }
-        const els: HTMLInputElement[] = document.getElementsByClassName("editFemTypeImg");
-        for (let i = 0; i < 3; i++) {
-            els[i].style.boxShadow = "0 0 0 0 black";
-        }
-        elCheck ? setValue("femType", elValue) : setValue("femType", undefined)
-        elCheck ?
-            elValue === "soc" ?
-                els[0].style.boxShadow = "0 0 10px 5px black" :
-                elValue === "woke" ?
-                    els[1].style.boxShadow = "0 0 10px 5px black" :
-                    elValue === "lib" ?
-                        els[2].style.boxShadow = "0 0 10px 5px black" :
-                        {} :
-            {}
-    }
-
-    const handlePicChange = (file: File) => {
-        if (!file) { return }
-        if (file.size > 2000000) {
-            toast.error(
-                `Največja dovoljena velikost je 2 Mb.`
-            );
-        } else {
-            const imgPreview = URL.createObjectURL(file);
-            setPic(imgPreview);
-        }
-    }
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
             <h2>Filmski podatki</h2>
-            <h3>Naslov</h3>
+            <div className="popBox">
+                <h3>Naslov</h3>
+                <PopupNote
+                    id="igraTitle"
+                    notes={["Naslov naj ne bo daljši od 200 znakov."]}
+                />
+            </div>
             <input
                 type="text"
                 {...register("title", { required: true, minLength: 1, maxLength: 200 })}>
             </input>
 
-            <h3>Izšel</h3>
+            <div className="popBox">
+                <h3>Izdana leta</h3>
+                <PopupNote
+                    id="igraYear"
+                    notes={["Datum uradne izdaje, ne predizdaje."]}
+                />
+            </div>
             <div id="editYearBox" className="colFlex">
                 <div className="inBlock">
                     <label>
-                        <p>od</p>
                         <input
                             type="number"
-                            min={1888}
-                            max={currentYear}
-                            {...register("start", { min: 1888, max: currentYear })}>
+                            min={1958}
+                            max={year}
+                            {...register("year", { min: 1958, max: year })}>
                         </input>
                     </label>
                 </div>
-                <div className="editYear">
-                    <label>
-                        <p>do</p>
-                        <input
-                            type="number"
-                            min={1888}
-                            max={currentYear}
-                            {...register("finish", { min: 1888, max: currentYear })}>
-                        </input>
-                    </label>
-                </div>
-                <Checkbox
-                    boxClass="editYear"
-                    checkId="unfinished"
-                    checkClass="editUnfinished"
-                    afterText="v produkciji"
-                    register={register}
-                />
             </div>
 
-            <h3>Trajanje ogleda</h3>
-            <div>
-                <label id="editAverage">
-                    <input
-                        min={1}
-                        max={5000}
-                        type="number"
-                        {...register("average", { min: 1, max: 5000 })}>
-                    </input>
-                    <p>min</p>
-                </label>
-                <label id="editSeasons">
-                    <input
-                        min={1}
-                        max={5000}
-                        type="number"
-                        {...register("episodes", { min: 1, max: 5000 })}>
-                    </input>
-                    <p>št. epizod</p>
-                </label>
+            <div className="popBox">
+                <h3>Dolžina</h3>
+                <PopupNote
+                    id="igraLength"
+                    notes={["Povprečna dolžina igre. Kratka, manj kot 6 ur. Dolga, več kot 6 ur. Neskončna, konec slabo definiran."]}
+                />
             </div>
+            <label id="editAverage" className="colFlex">
+                {igraLenghts.map((el, index) => {
+                    const num = index + 1;
+                    const group = "editContentCheckbox"
+                    return <Checkbox
+                        boxClass="editLength"
+                        checkId={el}
+                        checkClass={group}
+                        afterText={el}
+                        preChecked={
+                            igra?.content.length &&
+                                igra.content.length === el ?
+                                true :
+                                false
+                        }
+                        limit={{
+                            context: group,
+                            max: 1
+                        }}
+                        key={"length" + num}
+                        register={register}
+                    />
+                }
+                )}
+            </label>
+
+            <div className="popBox">
+                <h3>Dodatne vsebine</h3>
+                <PopupNote
+                    id="igraExtra"
+                    notes={["Vsebine igre izven zakupa osnovne igre. Film označuje, da je mogoče najti uradno dodatno filmsko gradivo. Publikacije označujejo, da je mogoče najti dodatno zgodbovno gradivo."]}
+                />
+            </div>
+            <label id="editExtra" className="colFlex">
+                {igraExtra.map((el, index) => {
+                    const num = index + 1;
+                    const label = el.toLowerCase();
+                    const group = "editContentCheckbox";
+                    const bonus = igra?.content.bonus_content
+                    let checkmark = false;
+                    switch (label) {
+                        case "dlc":
+                            checkmark = bonus?.dlc === true ? true : false;
+                            break;
+                        case "mikrotranzakcije":
+                            checkmark = bonus?.microtransactions === true ? true : false;
+                            break;
+                        case "publikacije":
+                            checkmark = bonus?.publication === true ? true : false;
+                            break;
+                        case "film":
+                            checkmark = bonus?.movie === true ? true : false;
+                            break;
+                        default: checkmark = false;
+                    }
+                    return <Checkbox
+                        boxClass="editLength"
+                        checkId={label}
+                        checkClass={group}
+                        afterText={el}
+                        preChecked={checkmark}
+                        key={"extra" + num}
+                        register={register}
+                    />
+                }
+                )}
+            </label>
 
             <h3>Naslovna slika</h3>
             <div
@@ -311,7 +183,20 @@ export default function EditIgra(
                 </label>
             </div>
 
-            <h3>Tip feminizma</h3>
+            <div className="popBox">
+                <h3>Tip feminizma</h3>
+                <PopupNote
+                    id="igraFemType"
+                    notes={
+                        ["Družbeni, Woke ali Liberalni feminizem.",
+                            "Družbeni označuje, da se film osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se film osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Woke označuje vmesno, oboje in ostalo.",
+                            "Film ni o ženskah in ni za ženske? Ne objavi."
+                        ]
+                    }
+                />
+            </div>
             <div className="editFemTypeBox">
                 <label
                     htmlFor="editSoc">
@@ -327,7 +212,8 @@ export default function EditIgra(
                         value="soc"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
@@ -346,7 +232,8 @@ export default function EditIgra(
                         value="woke"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
@@ -365,7 +252,8 @@ export default function EditIgra(
                         value="lib"
                         onClick={(el) => handleType(
                             el.currentTarget.value,
-                            el.currentTarget.checked
+                            el.currentTarget.checked,
+                            setValue
                         )}
                         {...register("femType")}
                     />
@@ -376,17 +264,17 @@ export default function EditIgra(
             <div className="editGenreBox colFlex">
                 {igraTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = type.toLowerCase().replace("znanstvena fantastika", "scifi");
+                    const label = type.register
                     const group = "editGenreCheckbox"
                     return (
                         <Checkbox
                             boxClass="editGenre"
                             checkId={label}
                             checkClass={group}
-                            afterText={type}
+                            afterText={type.name}
                             preChecked={
                                 igra?.genre &&
-                                    igra.genre.find((gen) => gen === type) ?
+                                    igra.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -394,7 +282,7 @@ export default function EditIgra(
                                 context: group,
                                 max: 5
                             }}
-                            key={"genre" + num}
+                            key={"igraGenre" + num}
                             register={register}
                         />
                     )
