@@ -44,8 +44,6 @@ type IgraGenre =
     "Zgodbovnica" |
     "Zmenkarjenje"
 
-type AllGenreTypes = IgraGenre | FilmGenre;
-
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -157,7 +155,7 @@ type IgraForm = {
     grozljivka: boolean | undefined;
     rpg: boolean | undefined;
     karte: boolean | undefined;
-    miselnice: boolean | undefined;
+    miselnica: boolean | undefined;
     misterija: boolean | undefined;
     mmo: boolean | undefined;
     preživetvena: boolean | undefined;
@@ -210,7 +208,7 @@ export {
     Igra,
     IgraGenre,
     IgraForm,
-    AllGenreTypes,
+    GamePlatform,
     FemType,
     Ratings,
 };

@@ -583,6 +583,7 @@ export default function useFilm() {
     }
 
     const onSubmit = (data) => {
+        if (!data) { return }
 
         const genreFilter = () => {
             const result: FilmGenre[] = [];

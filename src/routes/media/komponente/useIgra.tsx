@@ -1,6 +1,6 @@
 import { UseFormSetValue } from "react-hook-form";
 import { useState } from "react";
-import { Igra, IgraForm, IgraGenre } from "../../../type"
+import { GamePlatform, Igra, IgraForm, IgraGenre } from "../../../type"
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
@@ -97,7 +97,7 @@ export default function useIgra() {
             },
             {
                 name: "Športna",
-                register: "sportna"
+                register: "športna"
             },
             {
                 name: "Upravljanje",
@@ -131,8 +131,62 @@ export default function useIgra() {
         "DLC",
         "film",
         "publikacije",
-        "mikrotranzakcije",
+        "mikrotransakcije",
     ]
+
+    const igraPlatforms: {
+        name: GamePlatform,
+        register: string
+    }[] = [
+            {
+                name: "Windows",
+                register: "windows"
+            },
+            {
+                name: "OS X",
+                register: "osx"
+            },
+            {
+                name: "Linux",
+                register: "linux"
+            },
+            {
+                name: "PlayStation 5",
+                register: "ps5"
+            },
+            {
+                name: "PlayStation 4",
+                register: "ps4"
+            },
+            {
+                name: "PlayStation 3",
+                register: "ps3"
+            },
+            {
+                name: "PlayStation 2",
+                register: "ps2"
+            },
+            {
+                name: "PlayStation",
+                register: "ps"
+            },
+            {
+                name: "Xbox One",
+                register: "xboxone"
+            },
+            {
+                name: "Nintendo Switch",
+                register: "ninswitch"
+            },
+            {
+                name: "Mobitel",
+                register: "mobitel"
+            },
+            {
+                name: "Drugo",
+                register: "drugo"
+            },
+        ]
 
     const testLib: Igra[] = [
         {
@@ -151,7 +205,7 @@ export default function useIgra() {
             platforms: ["Windows", "PlayStation 4", "PlayStation 3"],
             developer: "BANDAI NAMCO Studios Inc.",
             publisher: "BANDAI NAMCO Entertainment",
-            others: ["Direktor Yoshimasa Tanaka", "Producent Yasuhiro Fukaya", "Snovalec Tatsuro Udo", "Umetnik Mutsumi Inomata", "Umetnik Kōsuke Fujishima", "Umetnik Minoru Iwamoto", "Umetnik Daigo Okumura", "Writer Naoki Yamamoto", "Composer	Motoi Sakuraba"],
+            others: ["Direktor Yoshimasa Tanaka", "Producent Yasuhiro Fukaya", "Snovalec Tatsuro Udo", "Umetnik Mutsumi Inomata", "Umetnik Kōsuke Fujishima", "Umetnik Minoru Iwamoto", "Umetnik Daigo Okumura", "Writer Naoki Yamamoto", "Composer Motoi Sakuraba"],
             genre: ["Anime", "Igra vlog", "Zgodbovnica", "Akcija", "Avantura"],
             femType: "lib",
             explanation: "Protagonistki je odvzeto vse in namerava se maščevati. Med iskanjem načina za maščevanje mora ugotoviti koliko je pripravljena žrtvovati in kaj bo od nje po maščevanju ostalo. Odlikuje jo moč, volja ter odločnost.",
@@ -163,7 +217,8 @@ export default function useIgra() {
                 dislikes: 0,
                 hates: 0
             }
-        }, {
+        },
+        {
             title: "Black Book",
             year: 2021,
             content: {
@@ -191,7 +246,8 @@ export default function useIgra() {
                 dislikes: 0,
                 hates: 0
             }
-        }, {
+        },
+        {
             title: "UNSIGHTED",
             year: 2021,
             content: {
@@ -632,7 +688,7 @@ export default function useIgra() {
             dolga: igra.content.length === "dolga" ? true : false,
             brezkončna: igra.content.length === "brezkončna" ? true : false,
             dlc: igra.content.bonus_content.dlc,
-            mikrotranzakcije: igra.content.bonus_content.microtransactions,
+            mikrotransakcije: igra.content.bonus_content.microtransactions,
             film: igra.content.bonus_content.movie,
             publikacije: igra.content.bonus_content.publication,
             femType: igra.femType ? igra.femType : undefined,
@@ -648,8 +704,8 @@ export default function useIgra() {
             ninswitch: igra?.platforms.find(gen => gen === "Nintendo Switch") ? true : false,
             mobitel: igra?.platforms.find(gen => gen === "Mobitel") ? true : false,
             drugo: igra?.platforms.find(gen => gen === "Drugo") ? true : false,
-            direction: igra?.developer,
-            actors: igra?.publisher,
+            developer: igra?.developer,
+            publisher: igra?.publisher,
             others: igra?.others.join(", "),
             explanation: igra?.explanation,
             description: igra?.description,
@@ -677,41 +733,67 @@ export default function useIgra() {
     }
 
     const onSubmit = (data) => {
+        if (!data) { return }
 
         const genreFilter = () => {
             const result: IgraGenre[] = [];
+            data.fourx ? result.push("4X") : {};
             data.akcija ? result.push("Akcija") : {};
+            data.anime ? result.push("Anime") : {};
+            data.arkadna ? result.push("Arkadna") : {};
             data.avantura ? result.push("Avantura") : {};
-            data.drama ? result.push("Drama") : {};
-            data.dokumentarec ? result.push("Dokumentarec") : {};
+            data.bojevanje ? result.push("Bojevanje") : {};
+            data.coop ? result.push("Co-op") : {};
             data.fantazija ? result.push("Fantazija") : {};
+            data.golota ? result.push("Golota") : {};
             data.grozljivka ? result.push("Grozljivka") : {};
-            data.isekai ? result.push("Isekai") : {};
-            data.komedija ? result.push("Komedija") : {};
-            data.kriminalka ? result.push("Kriminalka") : {};
+            data.rpg ? result.push("Igra vlog") : {};
+            data.karte ? result.push("Karte") : {};
+            data.miselnica ? result.push("Miselnica") : {};
             data.misterija ? result.push("Misterija") : {};
-            data.romantika ? result.push("Romantika") : {};
-            data.satira ? result.push("Satira") : {};
-            data.scifi ? result.push("Znanstvena fantastika") : {};
-            data.triler ? result.push("Triler") : {};
-            data.zgodovina ? result.push("Zgodovina") : {};
+            data.mmo ? result.push("MMO") : {};
+            data.preživetvena ? result.push("Preživetvena") : {};
+            data.simulator ? result.push("Simulator") : {};
+            data.slovanska ? result.push("Slovanska") : {};
+            data.sproščena ? result.push("Sproščena") : {};
+            data.strategija ? result.push("Strategija") : {};
+            data.streljanje ? result.push("Streljanje") : {};
+            data.športna ? result.push("Športna") : {};
+            data.upravljanje ? result.push("Upravljanje") : {};
+            data.vesolje ? result.push("Vesolje") : {};
+            data.vnovel ? result.push("Virtualni roman") : {};
+            data.zgodbovnica ? result.push("Zgodbovnica") : {};
+            data.zmenkarjenje ? result.push("Zmenkarjenje") : {};
             return result;
+        }
+
+        const lengthFilter = () => {
+            if (data.kratka) {
+                return "kratka"
+            } else if (data.dolga) {
+                return "dolga"
+            } else if (data.brezkončna) {
+                return "brezkončna"
+            } else {
+                return undefined
+            }
         }
 
         const result: Igra = {
             title: data.title,
-            year: {
-                start: data.start,
-                finish: data.finish === "" ? undefined : data.finish,
-                unfinished: true
-            },
-            length: {
-                average: data.average === "" ? undefined : data.average,
-                episodes: data.episodes === "" ? undefined : data.episodes
+            year: data.year,
+            content: {
+                length: lengthFilter(),
+                bonus_content: {
+                    dlc: data.dlc ? true : false,
+                    microtransactions: data.mikrotransakcije ? true : false,
+                    movie: data.film ? true : false,
+                    publication: data.publikacije ? true : false,
+                }
             },
             img: pic ? pic : undefined,
-            director: splitInput(data.direction),
-            actors: splitInput(data.actors),
+            developer: data.developer,
+            publisher: data.publisher,
             others: splitInput(data.others),
             femType: data.femType === false ? undefined : data.femType,
             genre: genreFilter(),
@@ -740,6 +822,7 @@ export default function useIgra() {
         igraTypes,
         igraExtra,
         igraLenghts,
+        igraPlatforms,
         handlePicChange,
         onSubmit,
         handleType,

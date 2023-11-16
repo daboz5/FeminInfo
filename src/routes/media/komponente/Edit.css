@@ -118,9 +118,12 @@ input[type='number']::-webkit-outer-spin-button {
 }
 
 .editGenreBox {
-    margin-top: 7px;
+    margin: 7px;
     gap: 12px;
-    width: 100%;
+}
+
+.editGenre span {
+    margin: 0 5px 0 3px;
 }
 
 .editTextArea {

@@ -26,7 +26,8 @@ export default function PopupNote(
             onClick={() => popupToggle()}>
             <span>?</span>
             <span
-                id={id + "Pop"}
+                id={id + "PopId"}
+                key={id + "Key"}
                 className="popup">
                 {notes.map(
                     (note, index, thisArr) => {

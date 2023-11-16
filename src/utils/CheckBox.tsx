@@ -21,17 +21,14 @@ export default function Checkbox(
     let mouseOver = false;
 
     const unseenId = checkId + "_checkbox"
-    const unseenStyle = { display: "" } //change to see true checkbox
+    const unseenStyle = { display: "none" } //change to see true checkbox
 
     const seenStyle = {
-        alignSelf: "center",
-        height: "20px",
-        minHeight: "20px",
-        width: "20px",
-        minWidth: "20px",
-        lineHeight: "1.1",
-        margin: "3px 5px 0 3px",
-        borderRadius: "6px",
+        height: "25px",
+        minHeight: "25px",
+        width: "25px",
+        minWidth: "25px",
+        borderRadius: "8px",
         transition: "0.3s"
     }
 
@@ -117,7 +114,7 @@ export default function Checkbox(
 
     return (
         <div className={boxClass}>
-            <label style={{ cursor: "pointer" }}>
+            <label style={{ cursor: "pointer", alignItems: "center" }}>
                 {
                     beforeText ?
                         <p style={{ cursor: "pointer" }}

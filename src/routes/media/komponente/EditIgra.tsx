@@ -23,6 +23,7 @@ export default function EditIgra(
         igraTypes,
         igraExtra,
         igraLenghts,
+        igraPlatforms,
         setPic,
         handleType,
         handlePicChange,
@@ -91,7 +92,7 @@ export default function EditIgra(
             <label id="editAverage" className="colFlex">
                 {igraLenghts.map((el, index) => {
                     const num = index + 1;
-                    const group = "editContentCheckbox"
+                    const group = "editLengthCheckbox"
                     return <Checkbox
                         boxClass="editLength"
                         checkId={el}
@@ -132,7 +133,7 @@ export default function EditIgra(
                         case "dlc":
                             checkmark = bonus?.dlc === true ? true : false;
                             break;
-                        case "mikrotranzakcije":
+                        case "mikrotransakcije":
                             checkmark = bonus?.microtransactions === true ? true : false;
                             break;
                         case "publikacije":
@@ -156,7 +157,45 @@ export default function EditIgra(
                 )}
             </label>
 
-            <h3>Naslovna slika</h3>
+            <div className="popBox">
+                <h3>Platforme</h3>
+                <PopupNote
+                    id="igraPlatforms"
+                    notes={["Izberi platforme, na katerih je mogoče igro izbrati.",
+                        "Če platforme ne najdeš, izberi DRUGO."]}
+                />
+            </div>
+            <div className="colFlex">
+                {igraPlatforms.map((type, index) => {
+                    const num = index + 1;
+                    const label = type.register
+                    const group = "editPlatformsCheckbox"
+                    return (
+                        <Checkbox
+                            boxClass="editPlatforms"
+                            checkId={label}
+                            checkClass={group}
+                            afterText={type.name}
+                            preChecked={
+                                igra?.platforms &&
+                                    igra.platforms.find((gen) => gen === type.name) ?
+                                    true :
+                                    false
+                            }
+                            key={"igraPlatform" + num}
+                            register={register}
+                        />
+                    )
+                })}
+            </div>
+
+            <div className="popBox">
+                <h3>Naslovna slika</h3>
+                <PopupNote
+                    id="igraPicture"
+                    notes={["Slika naj ne bo večja od 2 Mb."]}
+                />
+            </div>
             <div
                 className="editPicBox colFlex">
                 <img
@@ -260,7 +299,13 @@ export default function EditIgra(
                 </label>
             </div>
 
-            <h3>Žanri</h3>
+            <div className="popBox">
+                <h3>Žanri</h3>
+                <PopupNote
+                    id="igraGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo igro."]}
+                />
+            </div>
             <div className="editGenreBox colFlex">
                 {igraTypes.map((type, index) => {
                     const num = index + 1;
@@ -289,41 +334,71 @@ export default function EditIgra(
                 })}
             </div>
 
-            <h3>Direkcija</h3>
+            <div className="popBox">
+                <h3>Naredil</h3>
+                <PopupNote
+                    id="igraDeveloper"
+                    notes={["Kdo je vodja / odgovorni za nastanek igre.", "Ne več kot 250 znakov."]}
+                />
+            </div>
             <TextArea
-                id="editFilmDirection"
-                name="direction"
-                maxLength={1000}
+                id="editIgraDeveloper"
+                name="developer"
+                maxLength={250}
                 register={register}
             />
 
-            <h3>Igralci</h3>
+            <div className="popBox">
+                <h3>Založba</h3>
+                <PopupNote
+                    id="igraPublisher"
+                    notes={["Katera založba je imela projekt čez.", "Ne več kot 250 znakov."]}
+                />
+            </div>
             <TextArea
-                id="editFilmActors"
-                name="actors"
-                maxLength={1000}
+                id="editIgraPublisher"
+                name="publisher"
+                maxLength={250}
                 register={register}
             />
 
-            <h3>Ostali sodelujoči</h3>
+            <div className="popBox">
+                <h3>Ostali sodelujoči</h3>
+                <PopupNote
+                    id="igraOthers"
+                    notes={["Kdo vse je še sodeloval v projektu.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 750 znakov."]}
+                />
+            </div>
             <TextArea
-                id="editFilmOthers"
+                id="editIgraOthers"
                 name="others"
-                maxLength={1000}
+                maxLength={750}
                 register={register}
             />
 
-            <h3>Objasnilo ustreznosti</h3>
+            <div className="popBox">
+                <h3>Objasnilo ustreznosti</h3>
+                <PopupNote
+                    id="igraExplanation"
+                    notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
+                />
+            </div>
             <TextArea
-                id="editFilmExplanation"
+                id="editIgraExplanation"
                 name="explanation"
                 maxLength={750}
                 register={register}
             />
 
-            <h3>Povzetek vsebine</h3>
+            <div className="popBox">
+                <h3>Povzetek vsebine</h3>
+                <PopupNote
+                    id="igraSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi film poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                />
+            </div>
             <TextArea
-                id="editFilmDescription"
+                id="editIgraDescription"
                 name="description"
                 required={true}
                 maxLength={1500}

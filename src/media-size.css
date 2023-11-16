@@ -122,17 +122,23 @@
 
     .editGenreBox {
         flex-wrap: wrap;
-        gap: 15px 25px;
-        max-height: 350px;
+        flex-direction: row;
+        gap: 15px 0px;
+        max-width: 495px;
+        margin: 0 0 0 50px;
     }
 
     .editGenre {
         width: 50%;
     }
 
+    .editGenre span {
+        margin: 0 5px 0 3px;
+    }
+
     .editGenre p {
         line-height: 1.25;
-        padding-right: 15px;
+        padding-right: 25px;
     }
 
     .editOptionsBox {
@@ -286,12 +292,7 @@
     }
 
     .editGenreBox {
-        max-height: 250px;
-        max-width: 575px;
-    }
-
-    .editGenre {
-        width: 33%;
+        margin: 0 0 0 70px;
     }
 
     .editGenre p {
@@ -347,6 +348,15 @@
 
     .mOrdered {
         font-size: 1.3rem;
+    }
+
+    .editGenreBox {
+        max-width: 640px;
+        margin-left: 100px;
+    }
+
+    .editGenre {
+        width: 33%;
     }
 
     .editTextArea {
