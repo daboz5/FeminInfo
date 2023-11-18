@@ -1,3 +1,13 @@
+type Library =
+    "film" |
+    "igra" |
+    "kanal" |
+    "knjiga" |
+    "oddaja" |
+    "org" |
+    "revija" |
+    "stran"
+
 type FilmGenre =
     "Akcija" |
     "Avantura" |
@@ -202,6 +212,7 @@ type Igra = {
 }
 
 export {
+    Library,
     Film,
     FilmGenre,
     FilmForm,

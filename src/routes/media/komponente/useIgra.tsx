@@ -1,7 +1,5 @@
-import { UseFormSetValue } from "react-hook-form";
 import { useState } from "react";
 import { GamePlatform, Igra, IgraForm, IgraGenre } from "../../../type"
-import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
@@ -282,159 +280,23 @@ export default function useIgra() {
     const [pic, setPic] = useState(selected?.img);
 
     const {
-        backupLibIgra,
-        setLibIgra,
-    } = useFemStore();
-
-    const {
-        calcFame,
-        splitInput
+        splitInput,
+        selectBackup,
+        selectSetLibrary,
+        searchRegexCreator,
     } = useComponent();
 
-    const sortAZ = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const titleA = a.title.toUpperCase();
-                const titleB = b.title.toUpperCase();
-                if (titleA < titleB) {
-                    return -1;
-                }
-                if (titleA > titleB) {
-                    return 1;
-                }
-                return 0;
-            })
-    }
+    const omniFilter = (querry: string) => {
+        if (!querry) { return toast.error(`Neveljaven vnos.`) }
 
-    const sortZA = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const titleA = a.title.toUpperCase();
-                const titleB = b.title.toUpperCase();
-                if (titleA < titleB) {
-                    return 1;
-                }
-                if (titleA > titleB) {
-                    return -1;
-                }
-                return 0;
-            })
-    }
-
-    const sort19Fame = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const fameA = calcFame(a.ratings);
-                const fameB = calcFame(b.ratings);
-                if (typeof fameA === "number" && typeof fameB === "number") {
-                    return fameB - fameA;
-                } else if (typeof fameA === "undefined" && typeof fameB === "undefined") {
-                    return 1;
-                } else if (typeof fameA === "number") {
-                    return -1;
-                } else if (typeof fameB === "number") {
-                    return 1;
-                } else {
-                    return 1;
-                }
-            })
-    }
-
-    const sort91Fame = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const fameA = calcFame(a.ratings);
-                const fameB = calcFame(b.ratings);
-                if (typeof fameA === "number" && typeof fameB === "number") {
-                    return fameA - fameB;
-                } else if (typeof fameA === "undefined" && typeof fameB === "undefined") {
-                    return -1;
-                } else if (typeof fameA === "number") {
-                    return 1;
-                } else if (typeof fameB === "number") {
-                    return -1;
-                } else {
-                    return -1;
-                }
-            })
-    }
-
-    const sort19Year = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const yearA = a.year;
-                const yearB = b.year;
-                if (typeof yearA === "number" && typeof yearB === "number") {
-                    return yearB - yearA;
-                } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
-                    return 1;
-                } else if (typeof yearA === "number") {
-                    return -1;
-                } else if (typeof yearB === "number") {
-                    return 1;
-                } else {
-                    return 1;
-                }
-            })
-    }
-
-    const sort91Year = (content?: Igra[]) => {
-        const selection: Igra[] = content ? content : backupLibIgra;
-        return selection.sort(
-            (a, b) => {
-                const yearA = a.year;
-                const yearB = b.year;
-                if (typeof yearA === "number" && typeof yearB === "number") {
-                    return yearA - yearB;
-                } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
-                    return -1;
-                } else if (typeof yearA === "number") {
-                    return 1;
-                } else if (typeof yearB === "number") {
-                    return -1;
-                } else {
-                    return -1;
-                }
-            })
-    }
-
-    const searchRegexCreator = (querry: string) => {
-        const regArr: string[] = [];
-        for (let i = 0; i < querry.length; i++) {
-            const part1 = querry.slice(0, i);
-            const part2 = querry.slice(i + 1, querry.length);
-            const newRegex = part1 + "." + part2;
-            regArr.unshift(newRegex.toUpperCase());
-        }
-        return regArr;
-    }
-
-    const searchRegexTitleFilter = (regArr: string[]) => {
-        const filtered = backupLibIgra?.filter(
-            (igra) => {
-                const title = igra.title.toUpperCase();
-                const maches: string[] = [];
-                regArr.forEach((regex) => {
-                    const result = title.search(new RegExp(regex));
-                    if (result > -1) {
-                        maches.push(regex);
-                    }
-                })
-                if (maches.length > 0) {
-                    return igra;
-                }
-            }
-        );
-        return filtered;
+        const regArr = searchRegexCreator(querry);
+        const result = searchRegexOmniFilter(regArr);
+        if (result) { selectSetLibrary("igra", result) }
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const filtered = backupLibIgra.filter(
+        const selection: Igra[] = selectBackup("igra");
+        const filtered = selection.filter(
             (igra) => {
                 const title = igra.title.toUpperCase();
                 const year = igra.year;
@@ -464,51 +326,6 @@ export default function useIgra() {
             }
         );
         return filtered;
-    }
-
-    const omniFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const regArr = searchRegexCreator(querry);
-        const result = searchRegexOmniFilter(regArr);
-        result ? setLibIgra(result) : {}
-    }
-
-    const simpleFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const regArr = searchRegexCreator(querry);
-        const result = searchRegexTitleFilter(regArr);
-        result ? setLibIgra(result) : {}
-    }
-
-    const complexFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const checkRegex = /[^\w\sčžšćđ,]/
-        const error = querry.search(checkRegex);
-        if (error > -1) {
-            return toast.error(`Neveljaven vnos.`);
-        }
-
-        const querryArr = querry.toUpperCase().split("");
-        const filteredArr = querryArr.filter((el) => el !== ",");
-        const noRepeats = filteredArr.filter(
-            (el, index) => {
-                return filteredArr.indexOf(el) === index;
-            });
-
-        const result = backupLibIgra?.filter(
-            (el) => {
-                const match = el.title[0];
-                for (let i = 0; i < noRepeats.length; i++) {
-                    if (match === noRepeats[i]) {
-                        return el;
-                    }
-                }
-            }
-        );
-        result ? setLibIgra(result) : {}
     }
 
     const yearFilter = (querry1?: string, querry2?: string) => {
@@ -574,48 +391,7 @@ export default function useIgra() {
                     }
                 }
             })
-            setLibIgra(result);
-        }
-    }
-
-    const typeFilter = (querry: string, content?: Igra[]) => {
-        const selection = content ? content : testLib;
-        const result = selection.filter((igra) => igra.femType === querry);
-        setLibIgra(result);
-    }
-
-    const fameFilter = (querry1?: string, querry2?: string) => {
-        if (!querry1 && !querry2) { return }
-        const invalidInput1 = querry1?.search(/[.]/);
-        const invalidInput2 = querry2?.search(/[.]/);
-        if (invalidInput1 !== -1 || invalidInput2 !== -1) {
-            toast.error("Dovoljena so le cela števila.");
-            return;
-        }
-
-        const min = querry1 ? Number(querry1) : undefined;
-        const max = querry2 ? Number(querry2) : undefined;
-
-        if (min || max) {
-            const result = testLib.filter((igra) => {
-                const fame = calcFame(igra.ratings);
-                if (fame) {
-                    if (min && max) {
-                        if (min && max && min > max && fame <= min && fame >= max) {
-                            return igra;
-                        } else if (fame >= min && fame <= max) {
-                            return igra;
-                        }
-                    }
-                    if (min && !max && fame >= min) {
-                        return igra;
-                    }
-                    if (!min && max && fame <= max) {
-                        return igra;
-                    }
-                }
-            })
-            setLibIgra(result);
+            if (result) { selectSetLibrary("igra", result) }
         }
     }
 
@@ -651,31 +427,6 @@ export default function useIgra() {
         } else {
             return false
         }
-    }
-
-    const handleType = (
-        elValue: string | undefined,
-        elCheck: boolean,
-        setValue: UseFormSetValue<IgraForm>
-    ) => {
-        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
-            return;
-        }
-        const els: HTMLCollectionOf<HTMLImageElement> = document.getElementsByClassName("editFemTypeImg");
-
-        for (let i = 0; i < els.length; i++) {
-            els[i].style.boxShadow = "0 0 0 0 black";
-        }
-        elCheck ? setValue("femType", elValue) : setValue("femType", "")
-        elCheck ?
-            elValue === "soc" ?
-                els[0].style.boxShadow = "0 0 10px 5px black" :
-                elValue === "woke" ?
-                    els[1].style.boxShadow = "0 0 10px 5px black" :
-                    elValue === "lib" ?
-                        els[2].style.boxShadow = "0 0 10px 5px black" :
-                        {} :
-            {}
     }
 
     const defFormValues = (igra: Igra | null): IgraForm | undefined => {
@@ -718,18 +469,6 @@ export default function useIgra() {
             }
         );
         return defValues;
-    }
-
-    const handlePicChange = (file: File) => {
-        if (!file) { return }
-        if (file.size > 2000000) {
-            toast.error(
-                `Največja dovoljena velikost je 2 Mb.`
-            );
-        } else {
-            const imgPreview = URL.createObjectURL(file);
-            setPic(imgPreview);
-        }
     }
 
     const onSubmit = (data) => {
@@ -823,23 +562,11 @@ export default function useIgra() {
         igraExtra,
         igraLenghts,
         igraPlatforms,
-        handlePicChange,
         onSubmit,
-        handleType,
         defFormValues,
         setPic,
         setSelected,
-        sortAZ,
-        sortZA,
-        sort19Year,
-        sort91Year,
-        sort19Fame,
-        sort91Fame,
         yearFilter,
-        typeFilter,
-        fameFilter,
-        simpleFilter,
-        complexFilter,
         omniFilter,
         setGrid,
         bonusContentCheck,

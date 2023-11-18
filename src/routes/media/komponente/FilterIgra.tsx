@@ -1,5 +1,5 @@
 import ArrowUp from "../../../assets/ArrowUp";
-import useFemStore from "../../../useFemStore";
+import useComponent from "./useComponent";
 import useIgra from "./useIgra";
 
 export default function FilterIgra(
@@ -11,23 +11,25 @@ export default function FilterIgra(
 ) {
 
     const {
-        setLibIgra
-    } = useFemStore();
-
-    const {
+        selectSetLibrary,
         sortAZ,
         sortZA,
         sort19Year,
         sort91Year,
         sort19Fame,
         sort91Fame,
-        yearFilter,
         typeFilter,
         fameFilter,
         simpleFilter,
         complexFilter,
+    } = useComponent();
+
+    const {
+        yearFilter,
         omniFilter,
     } = useIgra();
+
+    const lib = "igra";
 
     const search = <>
         <div className="mediaFilter colFlex">
@@ -52,12 +54,12 @@ export default function FilterIgra(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibIgra(sortAZ())}>
+                onClick={() => selectSetLibrary(lib, sortAZ(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibIgra(sortZA())}>
+                onClick={() => selectSetLibrary(lib, sortZA(lib))}>
                 <ArrowUp />
             </button>
         </div>
@@ -72,7 +74,7 @@ export default function FilterIgra(
             <button
                 onClick={() => {
                     const el: HTMLInputElement | null = document.getElementById("titleLetterFilter");
-                    el ? complexFilter(el.value) : {}
+                    el ? complexFilter("igra", el.value) : {}
                 }}>
                 Potrdi
             </button>
@@ -88,7 +90,7 @@ export default function FilterIgra(
             <button
                 onClick={() => {
                     const el: HTMLInputElement | null = document.getElementById("titleWordFilter");
-                    el ? simpleFilter(el.value) : {}
+                    el ? simpleFilter(lib, el.value) : {}
                 }}>
                 Potrdi
             </button>
@@ -100,12 +102,12 @@ export default function FilterIgra(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibIgra(sort91Year())}>
+                onClick={() => selectSetLibrary(lib, sort91Year(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibIgra(sort19Year())}>
+                onClick={() => selectSetLibrary(lib, sort19Year(lib))}>
                 <ArrowUp />
             </button>
         </div>
@@ -137,19 +139,19 @@ export default function FilterIgra(
             <img
                 className="filterType"
                 src="type-society.svg"
-                onClick={() => typeFilter("soc")}
+                onClick={() => typeFilter(lib, "soc")}
                 alt="družbeni"
             />
             <img
                 className="filterType"
                 src="type-woke.svg"
-                onClick={() => typeFilter("woke")}
+                onClick={() => typeFilter(lib, "woke")}
                 alt="woke"
             />
             <img
                 className="filterType"
                 src="type-liberal.svg"
-                onClick={() => typeFilter("lib")}
+                onClick={() => typeFilter(lib, "lib")}
                 alt="liberalni"
             />
         </div>
@@ -159,12 +161,12 @@ export default function FilterIgra(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibIgra(sort91Fame())}>
+                onClick={() => selectSetLibrary(lib, sort91Fame(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibIgra(sort19Fame())}>
+                onClick={() => selectSetLibrary(lib, sort19Fame(lib))}>
                 <ArrowUp />
             </button>
         </div>

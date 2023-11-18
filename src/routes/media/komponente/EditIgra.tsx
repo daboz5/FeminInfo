@@ -6,6 +6,7 @@ import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 import PopupNote from "../../../utils/PopupNote";
 import useFemStore from "../../../useFemStore";
+import useComponent from "./useComponent";
 
 export default function EditIgra(
     { igra, setEditor, setIgra }:
@@ -16,7 +17,12 @@ export default function EditIgra(
         }
 ) {
 
-    const { year } = useFemStore()
+    const { year } = useFemStore();
+
+    const {
+        handleType,
+        handlePicChange,
+    } = useComponent();
 
     const {
         pic,
@@ -25,8 +31,6 @@ export default function EditIgra(
         igraLenghts,
         igraPlatforms,
         setPic,
-        handleType,
-        handlePicChange,
         onSubmit,
         defFormValues
     } = useIgra();
@@ -216,7 +220,7 @@ export default function EditIgra(
                         type="file"
                         id="picBtn"
                         className="editPicBtn"
-                        onChange={(event) => handlePicChange(event.currentTarget.files![0])}
+                        onChange={(event) => handlePicChange(event.currentTarget.files![0], setPic)}
                         accept="image/png, image/jpeg, image/webp">
                     </input>
                 </label>
