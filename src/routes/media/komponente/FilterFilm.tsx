@@ -1,5 +1,5 @@
 import ArrowUp from "../../../assets/ArrowUp";
-import useFemStore from "../../../useFemStore";
+import useComponent from "./useComponent";
 import useFilm from "./useFilm";
 
 export default function FilterFilm(
@@ -10,22 +10,26 @@ export default function FilterFilm(
         }
 ) {
 
-    const { setLibFilm } = useFemStore();
-
     const {
-        simpleFilter,
-        complexFilter,
-        yearFilter,
-        typeFilter,
-        fameFilter,
+        selectSetLibrary,
         sortAZ,
         sortZA,
         sort19Year,
         sort91Year,
         sort19Fame,
         sort91Fame,
+        typeFilter,
+        fameFilter,
+        simpleFilter,
+        complexFilter,
+    } = useComponent();
+
+    const {
+        yearFilter,
         omniFilter
     } = useFilm();
+
+    const lib = "film";
 
     const search = <>
         <div className="mediaFilter colFlex">
@@ -50,17 +54,17 @@ export default function FilterFilm(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibFilm(sortAZ())}>
+                onClick={() => selectSetLibrary(lib, sortAZ(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibFilm(sortZA())}>
+                onClick={() => selectSetLibrary(lib, sortZA(lib))}>
                 <ArrowUp />
             </button>
         </div>
         <div className="mediaFilter colFlex">
-            <p>Iskani nabor</p>
+            <p>Prva črka</p>
             <input
                 id="titleLetterFilter"
                 type="text"
@@ -70,7 +74,7 @@ export default function FilterFilm(
             <button
                 onClick={() => {
                     const el: HTMLInputElement | null = document.getElementById("titleLetterFilter");
-                    el ? complexFilter(el.value) : {}
+                    el ? complexFilter(lib, el.value) : {}
                 }}>
                 Potrdi
             </button>
@@ -86,7 +90,7 @@ export default function FilterFilm(
             <button
                 onClick={() => {
                     const el: HTMLInputElement | null = document.getElementById("titleWordFilter");
-                    el ? simpleFilter(el.value) : {}
+                    el ? simpleFilter(lib, el.value) : {}
                 }}>
                 Potrdi
             </button>
@@ -98,12 +102,12 @@ export default function FilterFilm(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibFilm(sort91Year())}>
+                onClick={() => selectSetLibrary(lib, sort91Year(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibFilm(sort19Year())}>
+                onClick={() => selectSetLibrary(lib, sort19Year(lib))}>
                 <ArrowUp />
             </button>
         </div>
@@ -135,19 +139,19 @@ export default function FilterFilm(
             <img
                 className="filterType"
                 src="type-society.svg"
-                onClick={() => typeFilter("soc")}
+                onClick={() => typeFilter(lib, "soc")}
                 alt="družbeni"
             />
             <img
                 className="filterType"
                 src="type-woke.svg"
-                onClick={() => typeFilter("woke")}
+                onClick={() => typeFilter(lib, "woke")}
                 alt="woke"
             />
             <img
                 className="filterType"
                 src="type-liberal.svg"
-                onClick={() => typeFilter("lib")}
+                onClick={() => typeFilter(lib, "lib")}
                 alt="liberalni"
             />
         </div>
@@ -157,12 +161,12 @@ export default function FilterFilm(
         <div className="mediaFilter flex">
             <button
                 className="downBtn"
-                onClick={() => setLibFilm(sort91Fame())}>
+                onClick={() => selectSetLibrary(lib, sort91Fame(lib))}>
                 <ArrowUp />
             </button>
             <button
                 className="upBtn"
-                onClick={() => setLibFilm(sort19Fame())}>
+                onClick={() => selectSetLibrary(lib, sort19Fame(lib))}>
                 <ArrowUp />
             </button>
         </div>
@@ -174,7 +178,7 @@ export default function FilterFilm(
                 onClick={() => {
                     const elMin: HTMLInputElement | null = document.getElementById("filmFameMinFilter");
                     const elMax: HTMLInputElement | null = document.getElementById("filmFameMaxFilter");
-                    elMin && elMax ? fameFilter(elMin.value, elMax.value) : {}
+                    elMin && elMax ? fameFilter(lib, elMin.value, elMax.value) : {}
                 }}>
                 Potrdi
             </button>

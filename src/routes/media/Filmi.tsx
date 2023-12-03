@@ -12,8 +12,8 @@ export default function Filmi() {
     const { setLibFilm, setBackupLibFilm } = useFemStore();
 
     const {
-        selected,
         testLib,
+        selected,
         setSelected,
     } = useFilm();
 
@@ -59,7 +59,7 @@ export default function Filmi() {
                 /> :
                 !selected ?
                     <>
-                        <h2>Filmske vsebine</h2>
+                        <h2>Seznam filmov</h2>
                         <TableFilm
                             setFilter={setFilter}
                             setFilm={setSelected}

@@ -1,19 +1,19 @@
 import { useEffect } from "react";
-import { Film } from "../../../type";
+import { Kanal } from "../../../type";
 import { useForm } from "react-hook-form";
 import useFemStore from "../../../useFemStore";
-import useFilm from "./useFilm";
+import useKanal from "./useKanal";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 import PopupNote from "../../../utils/PopupNote";
 import useComponent from "./useComponent";
 
-export default function EditFilm(
-    { film, setEditor, setFilm }:
+export default function EditKanal(
+    { kanal, setEditor, setKanal }:
         {
-            film: Film | null,
+            kanal: Kanal | null,
             setEditor(newState: boolean): void,
-            setFilm(newState: null): void
+            setKanal(newState: null): void
         }
 ) {
 
@@ -26,11 +26,11 @@ export default function EditFilm(
 
     const {
         pic,
-        filmTypes,
+        kanalTypes,
         setPic,
         onSubmit,
         defFormValues
-    } = useFilm();
+    } = useKanal();
 
     const {
         register,
@@ -38,12 +38,12 @@ export default function EditFilm(
         watch,
         setValue,
     } = useForm({
-        defaultValues: defFormValues(film),
+        defaultValues: defFormValues(kanal),
     });
 
     useEffect(() => {
         handleType(watch("femType"), watch("femType") ? true : false, setValue);
-        setPic(film?.img);
+        setPic(kanal?.img);
     }, [])
 
     return (
@@ -54,7 +54,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Naslov</h3>
                 <PopupNote
-                    id="filmTitle"
+                    id="kanalTitle"
                     notes={["Naslov naj ne bo daljši od 200 znakov."]}
                 />
             </div>
@@ -66,7 +66,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Izšel</h3>
                 <PopupNote
-                    id="filmYear"
+                    id="kanalYear"
                     notes={["Film je izšel / izhajal OD leta ____.", "Izhajal je več let in se zaključil DO leta ____.", "Če še izhaja, je še V PRODUKCIJI."]}
                 />
             </div>
@@ -105,7 +105,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Trajanje ogleda</h3>
                 <PopupNote
-                    id="filmLength"
+                    id="kanalLength"
                     notes={["Film traja ___ minut. Če je epizod več, posamična epizoda traja ___ minut.", "Sezone vsebujejo ___ epizod."]}
                 />
             </div>
@@ -133,7 +133,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Naslovna slika</h3>
                 <PopupNote
-                    id="filmPicture"
+                    id="kanalPicture"
                     notes={["Slika naj ne bo večja od 2 Mb."]}
                 />
             </div>
@@ -143,8 +143,8 @@ export default function EditFilm(
                     className="editPic"
                     src={pic ?
                         pic :
-                        film?.img ?
-                            film.img :
+                        kanal?.img ?
+                            kanal.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -166,11 +166,11 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Tip feminizma</h3>
                 <PopupNote
-                    id="filmFemType"
+                    id="kanalFemType"
                     notes={
                         ["Družbeni, Woke ali Liberalni feminizem.",
-                            "Družbeni označuje, da se film osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
-                            "Liberalni označuje, da se film osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Družbeni označuje, da se kanal osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se kanal osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
                             "Woke označuje vmesno, oboje in ostalo.",
                             "Film ni o ženskah in ni za ženske? Ne objavi."
                         ]
@@ -243,12 +243,12 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Žanri</h3>
                 <PopupNote
-                    id="filmGenre"
-                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo film."]}
+                    id="kanalGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo kanal."]}
                 />
             </div>
             <div className="editGenreBox colFlex">
-                {filmTypes.map((type, index) => {
+                {kanalTypes.map((type, index) => {
                     const num = index + 1;
                     const label = type.name.toLowerCase().replace("znanstvena fantastika", "scifi");
                     const group = "editGenreCheckbox"
@@ -259,8 +259,8 @@ export default function EditFilm(
                             checkClass={group}
                             afterText={type.name}
                             preChecked={
-                                film?.genre &&
-                                    film.genre.find((gen) => gen === type.name) ?
+                                kanal?.genre &&
+                                    kanal.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -268,7 +268,7 @@ export default function EditFilm(
                                 context: group,
                                 max: 5
                             }}
-                            key={"filmGenre" + num}
+                            key={"kanalGenre" + num}
                             register={register}
                         />
                     )
@@ -278,8 +278,8 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Direkcija</h3>
                 <PopupNote
-                    id="filmDirection"
-                    notes={["Kdo je vodja / odgovorni za nastanek filma.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="kanalDirection"
+                    notes={["Kdo je vodja / odgovorni za nastanek kanala.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
@@ -292,8 +292,8 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Igralci</h3>
                 <PopupNote
-                    id="filmActors"
-                    notes={["Kdo vse nastopa v filmu.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="kanalActors"
+                    notes={["Kdo vse nastopa v kanalu.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
@@ -306,7 +306,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Ostali sodelujoči</h3>
                 <PopupNote
-                    id="filmOthers"
+                    id="kanalOthers"
                     notes={["Kdo razen direktorja in igralcev je še sodeloval.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
@@ -320,7 +320,7 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Objasnilo ustreznosti</h3>
                 <PopupNote
-                    id="filmExplanation"
+                    id="kanalExplanation"
                     notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
                 />
             </div>
@@ -334,8 +334,8 @@ export default function EditFilm(
             <div className="popBox">
                 <h3>Povzetek vsebine</h3>
                 <PopupNote
-                    id="filmSummary"
-                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi film poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                    id="kanalSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi kanal poskuša presenetiti.", "Ne več kot 1000 znakov."]}
                 />
             </div>
             <TextArea
@@ -357,12 +357,12 @@ export default function EditFilm(
                     onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {film ?
+                {kanal ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            setFilm(null)
+                            setKanal(null)
                             setEditor(false)
                         }}>
                         Nazaj na tabelo

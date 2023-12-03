@@ -1,8 +1,8 @@
 import ArrowUp from "../../../assets/ArrowUp";
 import useComponent from "./useComponent";
-import useIgra from "./useIgra";
+import useKanal from "./useKanal";
 
-export default function FilterIgra(
+export default function FilterKanal(
     { filter, setFilter }:
         {
             filter: string,
@@ -26,10 +26,10 @@ export default function FilterIgra(
 
     const {
         yearFilter,
-        omniFilter,
-    } = useIgra();
+        omniFilter
+    } = useKanal();
 
-    const lib = "igra";
+    const lib = "kanal";
 
     const search = <>
         <div className="mediaFilter colFlex">
@@ -172,13 +172,13 @@ export default function FilterIgra(
         </div>
         <div className="mediaFilter colFlex">
             <p>Iskani nabor</p>
-            <input id="fameMinFilter" type="number" placeholder="od ocene"></input>
-            <input id="fameMaxFilter" type="number" placeholder="do ocene"></input>
+            <input id="filmFameMinFilter" type="number" placeholder="od ocene"></input>
+            <input id="filmFameMaxFilter" type="number" placeholder="do ocene"></input>
             <button
                 onClick={() => {
-                    const elMin: HTMLInputElement | null = document.getElementById("fameMinFilter");
-                    const elMax: HTMLInputElement | null = document.getElementById("fameMaxFilter");
-                    elMin && elMax ? fameFilter(elMin.value, elMax.value) : {}
+                    const elMin: HTMLInputElement | null = document.getElementById("filmFameMinFilter");
+                    const elMax: HTMLInputElement | null = document.getElementById("filmFameMaxFilter");
+                    elMin && elMax ? fameFilter(lib, elMin.value, elMax.value) : {}
                 }}>
                 Potrdi
             </button>

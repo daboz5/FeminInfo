@@ -57,7 +57,7 @@ export default function Igre() {
                 /> :
                 !selected ?
                     <>
-                        <h2>Igralne vsebine</h2>
+                        <h2>Seznam iger</h2>
                         <TabeleIgra
                             setFilter={setFilter}
                             setIgra={setSelected}

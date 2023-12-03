@@ -54,6 +54,28 @@ type IgraGenre =
     "Zgodbovnica" |
     "Zmenkarjenje"
 
+type KanalGenre =
+    "Animacija" |
+    "Doživetja" |
+    "Filmi" |
+    "Hrana" |
+    "Igre" |
+    "Izobraževalno" |
+    "Knjige" |
+    "Kultura" |
+    "Lepotičenje" |
+    "Nasveti" |
+    "Potrošnja" |
+    "Priročniki" |
+    "Sprostitev" |
+    "Radijska oddaja" |
+    "Reakcije" |
+    "Vadba" |
+    "V živo" |
+    "Video eseji" |
+    "Zabava" |
+    "Znanost"
+
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -130,6 +152,30 @@ type FilmForm = {
     description: string;
 }
 
+type Igra = {
+    title: string;
+    year: number;
+    content: {
+        length: "kratka" | "dolga" | "brezkončna" | undefined;
+        bonus_content: {
+            dlc: boolean,
+            microtransactions: boolean,
+            movie: boolean,
+            publication: boolean
+        }
+    };
+    img: string | undefined;
+    platforms: GamePlatform[];
+    developer: string;
+    publisher: string;
+    others: string[];
+    genre: IgraGenre[];
+    femType: FemType | undefined;
+    explanation: string,
+    description: string;
+    ratings: Ratings
+}
+
 type IgraForm = {
     title: string | undefined;
     year: number | undefined;
@@ -187,26 +233,22 @@ type IgraForm = {
     description: string | undefined;
 }
 
-type Igra = {
+type Kanal = {
     title: string;
-    year: number;
-    content: {
-        length: "kratka" | "dolga" | "brezkončna" | undefined;
-        bonus_content: {
-            dlc: boolean,
-            microtransactions: boolean,
-            movie: boolean,
-            publication: boolean
-        }
-    };
+    firstAir: number | undefined;
+    lastAir: number | undefined;
+    length: {
+        minmax: [number | undefined, number | undefined];
+        episodes: number | undefined;
+    },
     img: string | undefined;
-    platforms: GamePlatform[];
-    developer: string;
-    publisher: string;
+    platforms: string[];
+    hosts: string[];
+    guests: string[];
     others: string[];
-    genre: IgraGenre[];
+    genre: KanalGenre[];
     femType: FemType | undefined;
-    explanation: string,
+    explanation: string;
     description: string;
     ratings: Ratings
 }
@@ -219,6 +261,8 @@ export {
     Igra,
     IgraGenre,
     IgraForm,
+    Kanal,
+    KanalGenre,
     GamePlatform,
     FemType,
     Ratings,

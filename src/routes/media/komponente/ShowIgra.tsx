@@ -17,7 +17,7 @@ export default function ShowIgra(
 
     return (igra ?
         <div
-            className={`igraBox igraGrid${setGrid(igra)} container"`}>
+            className={`gridBox grid${setGrid(igra)} container"`}>
             <div className="titleBox">
                 <h3
                     className="title">

@@ -1,96 +1,96 @@
-import { Film } from "../../../type";
-import useFilm from "./useFilm";
+import { Kanal } from "../../../type";
+import useKanal from "./useKanal";
 
-export default function ShowFilm(
-    { film, setFilm, setEditor }:
+export default function ShowKanal(
+    { kanal, setKanal, setEditor }:
         {
-            film: Film | null,
-            setFilm(newState: null): void,
+            kanal: Kanal | null,
+            setKanal(newState: null): void,
             setEditor(newState: boolean): void
         }
 ) {
 
-    const { setGrid } = useFilm();
+    const { setGrid } = useKanal();
 
-    return (film ?
+    return (kanal ?
         <div
-            className={`gridBox grid${setGrid(film)} container`}>
+            className={`gridBox grid${setGrid(kanal)} container`}>
             <div className="titleBox">
                 <h3
                     className="title">
-                    {film.title}
+                    {kanal.title}
                 </h3>
                 <div
                     className="fInfo">
                     <p>
                         {
-                            film.year?.start +
-                            `${film?.year?.unfinished ?
-                                "-" :
-                                film.year?.finish ?
-                                    `-${film.year?.finish}` :
-                                    ""}`
+                            kanal.firstAir +
+                            `${kanal.lastAir ?
+                                `-${kanal.lastAir}` :
+                                "-"}`
                         }
                     </p>
-                    {film.length.average &&
+                    {kanal.length.minmax &&
                         <p
                             className="trajanje">
-                            {`${film.length.average > 59 ?
-                                Math.floor(film.length.average / 60) + " h" :
-                                ""} ${film.length.average > 59 ?
-                                    film.length.average % 60 + " min" :
-                                    film.length.average + " min"}`
+                            {kanal.length.minmax[0] ?
+                                `Traja ${kanal.length.minmax[0]} min` :
+                                ""
                             }
-                            {film.length.episodes ?
-                                film.length.episodes > 1 ?
+                            {kanal.length.minmax[1] ?
+                                `Traja ${kanal.length.minmax[1]} min` :
+                                ""
+                            }
+                            {kanal.length.episodes ?
+                                kanal.length.episodes > 1 ?
                                     "/ep" :
                                     "" :
                                 ""
                             }
                         </p>
                     }
-                    {film.length.episodes &&
-                        film.length.episodes > 1 &&
+                    {kanal.length.episodes &&
+                        kanal.length.episodes > 1 &&
                         <p
                             className="epizode">
-                            {`${film.length.episodes} epizod`}
+                            {`${kanal.length.episodes} epizod`}
                         </p>
                     }
                 </div>
             </div>
             <div className="image flex">
                 <img
-                    src={film.img ?
-                        film.img :
+                    src={kanal.img ?
+                        kanal.img :
                         "femininfoEyeIcon.png"
                     }
-                    style={film.img ?
+                    style={kanal.img ?
                         {} :
                         {
                             filter: "grayscale(100%)",
                             maxWidth: "90%"
                         }
                     }
-                    alt={film.img ?
-                        `Slika ${film.title}` :
+                    alt={kanal.img ?
+                        `Slika ${kanal.title}` :
                         "FeminInfo ikona"
                     }
                 />
             </div>
             {
-                film.femType || film.genre.length > 0 ?
+                kanal.femType || kanal.genre.length > 0 ?
                     <div className="genreBox colFlex">
-                        {film.femType ?
-                            film.femType === "lib" ?
+                        {kanal.femType ?
+                            kanal.femType === "lib" ?
                                 <img className="femType" src={"type-liberal.svg"} alt="liberalni feminizem" /> :
-                                film.femType === "soc" ?
+                                kanal.femType === "soc" ?
                                     <img className="femType" src={"type-society.svg"} alt="družbeni feminizem" /> :
                                     <img className="femType" src={"type-woke.svg"} alt="woke feminizem" /> :
                             <></>
                         }
-                        {film.genre &&
+                        {kanal.genre &&
                             <div className="data genreType">
-                                {film.genre.sort().map(el => {
+                                {kanal.genre.sort().map(el => {
                                     return <p key={"genre" + el}>{el}</p>;
                                 })}
                             </div>
@@ -100,15 +100,15 @@ export default function ShowFilm(
             }
 
             {
-                film.director.length > 0 || film.actors.length > 0 || film.others.length > 0 ?
+                kanal.platforms.length > 0 || kanal.hosts.length > 0 || kanal.others.length > 0 ?
                     <div className="peopleBox">
-                        {film.director.length > 0 &&
+                        {kanal.platforms.length > 0 &&
                             <div className="directorsBox">
-                                <h3 className="dataType">Direkcija</h3>
+                                <h3 className="dataType">Platforma</h3>
                                 <p className="data">
-                                    {film.director.sort().map(
+                                    {kanal.platforms.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === film.director?.length) {
+                                            if (index + 1 === kanal.platforms?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -118,13 +118,13 @@ export default function ShowFilm(
                                 </p>
                             </div>
                         }
-                        {film.actors.length > 0 &&
+                        {kanal.hosts.length > 0 &&
                             <div className="actorsBox">
-                                <h3 className="dataType">Igralci</h3>
+                                <h3 className="dataType">Vodja</h3>
                                 <p className="data">
-                                    {film.actors.sort().map(
+                                    {kanal.hosts.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === film.actors?.length) {
+                                            if (index + 1 === kanal.hosts?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -134,13 +134,29 @@ export default function ShowFilm(
                                 </p>
                             </div>
                         }
-                        {film.others.length > 0 &&
+                        {kanal.guests.length > 0 &&
+                            <div className="actorsBox">
+                                <h3 className="dataType">Gostje</h3>
+                                <p className="data">
+                                    {kanal.guests.sort().map(
+                                        (el, index) => {
+                                            if (index + 1 === kanal.guests?.length) {
+                                                return el + "."
+                                            } else {
+                                                return el + ", "
+                                            }
+                                        }
+                                    )}
+                                </p>
+                            </div>
+                        }
+                        {kanal.others.length > 0 &&
                             <div className="staffBox">
                                 <h3 className="dataType">Ostali</h3>
                                 <p className="data">
-                                    {film.others.sort().map(
+                                    {kanal.others.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === film.others?.length) {
+                                            if (index + 1 === kanal.others?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -155,42 +171,42 @@ export default function ShowFilm(
             }
 
             {
-                film.explanation &&
+                kanal.explanation &&
                 <div className="explanationBox">
                     <h3 className="dataType">Pojasnilo</h3>
-                    <p className="data">{film.explanation}</p>
+                    <p className="data">{kanal.explanation}</p>
                 </div>
             }
 
             {
-                film.description &&
+                kanal.description &&
                 <div className="descriptionBox">
                     <h3 className="dataType">Opis</h3>
-                    <p className="data">{film.description}</p>
+                    <p className="data">{kanal.description}</p>
                 </div>
             }
 
             {
-                film.ratings &&
+                kanal.ratings &&
                 <div className="pollBox">
                     <span className="rating">
-                        <p className="defMouse">{film.ratings.hates}</p>
+                        <p className="defMouse">{kanal.ratings.hates}</p>
                         <p className="rIcon">💀</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{film.ratings.dislikes}</p>
+                        <p className="defMouse">{kanal.ratings.dislikes}</p>
                         <p className="rIcon">👎</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{film.ratings.oks}</p>
+                        <p className="defMouse">{kanal.ratings.oks}</p>
                         <p className="rIcon">⭐</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{film.ratings.likes}</p>
+                        <p className="defMouse">{kanal.ratings.likes}</p>
                         <p className="rIcon">👍</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{film.ratings.loves}</p>
+                        <p className="defMouse">{kanal.ratings.loves}</p>
                         <p className="rIcon">💜</p>
                     </span>
                 </div>
@@ -204,7 +220,7 @@ export default function ShowFilm(
                 </button>
                 <button
                     className="actMouse"
-                    onClick={() => setFilm(null)}>
+                    onClick={() => setKanal(null)}>
                     Zapri
                 </button>
             </div>

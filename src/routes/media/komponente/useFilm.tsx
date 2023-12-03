@@ -1,7 +1,5 @@
-import { UseFormSetValue } from "react-hook-form"
-import { useState } from "react";
 import { Film, FilmForm, FilmGenre } from "../../../type";
-import useFemStore from "../../../useFemStore";
+import { useState } from "react";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
@@ -158,159 +156,27 @@ export default function useFilm() {
     ]
 
     const {
-        backupLibFilm,
-        setLibFilm
-    } = useFemStore();
-
-    const { calcFame, splitInput } = useComponent();
+        splitInput,
+        selectBackup,
+        selectSetLibrary,
+        searchRegexCreator,
+    } = useComponent();
 
     const [selected, setSelected] = useState<Film | null>(null);
     const [pic, setPic] = useState(selected?.img);
 
-    const sortAZ = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const titleA = a.title.toUpperCase();
-                const titleB = b.title.toUpperCase();
-                if (titleA < titleB) {
-                    return -1;
-                }
-                if (titleA > titleB) {
-                    return 1;
-                }
-                return 0;
-            })
-    }
+    const omniFilter = (querry: string) => {
+        if (!querry) { return toast.error(`Neveljaven vnos.`) }
 
-    const sortZA = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const titleA = a.title.toUpperCase();
-                const titleB = b.title.toUpperCase();
-                if (titleA < titleB) {
-                    return 1;
-                }
-                if (titleA > titleB) {
-                    return -1;
-                }
-                return 0;
-            })
-    }
-
-    const sort19Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const fameA = calcFame(a.ratings);
-                const fameB = calcFame(b.ratings);
-                if (typeof fameA === "number" && typeof fameB === "number") {
-                    return fameB - fameA;
-                } else if (typeof fameA === "undefined" && typeof fameB === "undefined") {
-                    return 1;
-                } else if (typeof fameA === "number") {
-                    return -1;
-                } else if (typeof fameB === "number") {
-                    return 1;
-                } else {
-                    return 1;
-                }
-            })
-    }
-
-    const sort91Fame = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const fameA = calcFame(a.ratings);
-                const fameB = calcFame(b.ratings);
-                if (typeof fameA === "number" && typeof fameB === "number") {
-                    return fameA - fameB;
-                } else if (typeof fameA === "undefined" && typeof fameB === "undefined") {
-                    return -1;
-                } else if (typeof fameA === "number") {
-                    return 1;
-                } else if (typeof fameB === "number") {
-                    return -1;
-                } else {
-                    return -1;
-                }
-            })
-    }
-
-    const sort19Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const yearA = a.year?.start;
-                const yearB = b.year?.start;
-                if (typeof yearA === "number" && typeof yearB === "number") {
-                    return yearB - yearA;
-                } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
-                    return 1;
-                } else if (typeof yearA === "number") {
-                    return -1;
-                } else if (typeof yearB === "number") {
-                    return 1;
-                } else {
-                    return 1;
-                }
-            })
-    }
-
-    const sort91Year = (content?: Film[]) => {
-        const selection: Film[] = content ? content : backupLibFilm;
-        return selection.sort(
-            (a, b) => {
-                const yearA = a.year?.start;
-                const yearB = b.year?.start;
-                if (typeof yearA === "number" && typeof yearB === "number") {
-                    return yearA - yearB;
-                } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
-                    return -1;
-                } else if (typeof yearA === "number") {
-                    return 1;
-                } else if (typeof yearB === "number") {
-                    return -1;
-                } else {
-                    return -1;
-                }
-            })
-    }
-
-    const searchRegexCreator = (querry: string) => {
-        const regArr: string[] = [];
-        for (let i = 0; i < querry.length; i++) {
-            const part1 = querry.slice(0, i);
-            const part2 = querry.slice(i + 1, querry.length);
-            const newRegex = part1 + "." + part2;
-            regArr.unshift(newRegex.toUpperCase());
-        }
-        return regArr;
-    }
-
-    const searchRegexTitleFilter = (regArr: string[]) => {
-        const filtered = backupLibFilm?.filter(
-            (film) => {
-                const title = film.title.toUpperCase();
-                const maches: string[] = [];
-                regArr.forEach((regex) => {
-                    const result = title.search(new RegExp(regex));
-                    if (result > -1) {
-                        maches.push(regex);
-                    }
-                })
-                if (maches.length > 0) {
-                    return film;
-                }
-            }
-        );
-        return filtered;
+        const regArr = searchRegexCreator(querry);
+        const result = searchRegexOmniFilter(regArr);
+        console.log(querry, result)
+        if (result) { selectSetLibrary("film", result) }
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const filtered = backupLibFilm?.filter(
+        const selection: Film[] = selectBackup("film");
+        const filtered = selection.filter(
             (film) => {
                 const title = film.title.toUpperCase();
                 const yearStart = film.year?.start;
@@ -318,6 +184,7 @@ export default function useFilm() {
                 const directors = film.director?.join(",").toUpperCase();
                 const actors = film.actors?.join(",").toUpperCase();
                 const others = film.others?.join(",").toUpperCase();
+                const genre = film.genre?.join(",").toUpperCase();
                 const explanation = film.explanation?.toUpperCase();
                 const description = film.description.toUpperCase();
                 const joined = `
@@ -327,66 +194,22 @@ export default function useFilm() {
                     ${directors ? directors : ""};
                     ${actors ? actors : ""};
                     ${others ? others : ""};
+                    ${genre ? genre : ""};
                     ${explanation ? explanation : ""};
                     ${description ? description : ""}`
-                const maches: string[] = [];
+                const matches: string[] = [];
                 regArr.forEach((regex) => {
                     const result = joined.search(new RegExp(regex));
                     if (result > -1) {
-                        maches.push(regex);
+                        matches.push(regex);
                     }
                 })
-                if (maches.length > 0) {
+                if (matches.length > 0) {
                     return film;
                 }
             }
         );
         return filtered;
-    }
-
-    const omniFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const regArr = searchRegexCreator(querry);
-        const result = searchRegexOmniFilter(regArr);
-        result ? setLibFilm(result) : {}
-    }
-
-    const simpleFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const regArr = searchRegexCreator(querry);
-        const result = searchRegexTitleFilter(regArr);
-        result ? setLibFilm(result) : {}
-    }
-
-    const complexFilter = (querry: string) => {
-        if (!querry) { return toast.error(`Neveljaven vnos.`) }
-
-        const checkRegex = /[^\w\sčžšćđ,]/
-        const error = querry.search(checkRegex);
-        if (error > -1) {
-            return toast.error(`Neveljaven vnos.`);
-        }
-
-        const querryArr = querry.toUpperCase().split("");
-        const filteredArr = querryArr.filter((el) => el !== ",");
-        const noRepeats = filteredArr.filter(
-            (el, index) => {
-                return filteredArr.indexOf(el) === index;
-            });
-
-        const result = backupLibFilm?.filter(
-            (el) => {
-                const match = el.title[0];
-                for (let i = 0; i < noRepeats.length; i++) {
-                    if (match === noRepeats[i]) {
-                        return el;
-                    }
-                }
-            }
-        );
-        result ? setLibFilm(result) : {}
     }
 
     const yearFilter = (querry1?: string, querry2?: string) => {
@@ -452,48 +275,7 @@ export default function useFilm() {
                     }
                 }
             })
-            setLibFilm(result);
-        }
-    }
-
-    const typeFilter = (querry: string, content?: Film[]) => {
-        const selection = content ? content : testLib;
-        const result = selection.filter((film) => film.femType === querry);
-        setLibFilm(result);
-    }
-
-    const fameFilter = (querry1?: string, querry2?: string) => {
-        if (!querry1 && !querry2) { return }
-        const invalidInput1 = querry1?.search(/[.]/);
-        const invalidInput2 = querry2?.search(/[.]/);
-        if (invalidInput1 !== -1 || invalidInput2 !== -1) {
-            toast.error("Dovoljena so le cela števila.");
-            return;
-        }
-
-        const min = querry1 ? Number(querry1) : undefined;
-        const max = querry2 ? Number(querry2) : undefined;
-
-        if (min || max) {
-            const result = testLib.filter((film) => {
-                const fame = calcFame(film.ratings);
-                if (fame) {
-                    if (min && max) {
-                        if (min && max && min > max && fame <= min && fame >= max) {
-                            return film;
-                        } else if (fame >= min && fame <= max) {
-                            return film;
-                        }
-                    }
-                    if (min && !max && fame >= min) {
-                        return film;
-                    }
-                    if (!min && max && fame <= max) {
-                        return film;
-                    }
-                }
-            })
-            setLibFilm(result);
+            if (result) { selectSetLibrary("film", result) }
         }
     }
 
@@ -516,43 +298,6 @@ export default function useFilm() {
             if (!type && !creators && !explain) { return 7 }
         }
         return 0
-    }
-
-    const handleType = (
-        elValue: string | undefined,
-        elCheck: boolean,
-        setValue: UseFormSetValue<FilmForm>
-    ) => {
-        if (!elValue || elValue !== "soc" && elValue !== "woke" && elValue !== "lib") {
-            return;
-        }
-        const els: HTMLCollectionOf<HTMLImageElement> = document.getElementsByClassName("editFemTypeImg");
-
-        for (let i = 0; i < els.length; i++) {
-            els[i].style.boxShadow = "0 0 0 0 black";
-        }
-        elCheck ? setValue("femType", elValue) : setValue("femType", "")
-        elCheck ?
-            elValue === "soc" ?
-                els[0].style.boxShadow = "0 0 10px 5px black" :
-                elValue === "woke" ?
-                    els[1].style.boxShadow = "0 0 10px 5px black" :
-                    elValue === "lib" ?
-                        els[2].style.boxShadow = "0 0 10px 5px black" :
-                        {} :
-            {}
-    }
-
-    const handlePicChange = (file: File) => {
-        if (!file) { return }
-        if (file.size > 2000000) {
-            toast.error(
-                `Največja dovoljena velikost je 2 Mb.`
-            );
-        } else {
-            const imgPreview = URL.createObjectURL(file);
-            setPic(imgPreview);
-        }
     }
 
     const defFormValues = (film: Film | null): FilmForm | undefined => {
@@ -646,23 +391,11 @@ export default function useFilm() {
         testLib,
         filmTypes,
         defFormValues,
-        onSubmit,
         setPic,
         setSelected,
         omniFilter,
-        simpleFilter,
-        complexFilter,
         yearFilter,
-        typeFilter,
-        fameFilter,
-        sortAZ,
-        sortZA,
-        sort19Year,
-        sort91Year,
-        sort19Fame,
-        sort91Fame,
         setGrid,
-        handleType,
-        handlePicChange,
+        onSubmit,
     }
 }

@@ -303,24 +303,26 @@ export default function useIgra() {
                 const developer = igra.developer;
                 const publisher = igra.publisher;
                 const others = igra.others.join(",").toUpperCase();
+                const genre = igra.genre?.join(",").toUpperCase();
                 const explanation = igra.explanation.toUpperCase();
                 const description = igra.description.toUpperCase();
                 const joined = `
-                    ${title ? title : ""};
-                    ${year ? year : ""};
-                    ${developer ? developer : ""};
-                    ${publisher ? publisher : ""};
-                    ${others ? others : ""};
+                ${title ? title : ""};
+                ${year ? year : ""};
+                ${developer ? developer : ""};
+                ${publisher ? publisher : ""};
+                ${others ? others : ""};
+                ${genre ? genre : ""};
                     ${explanation ? explanation : ""};
                     ${description ? description : ""}`
-                const maches: string[] = [];
+                const matches: string[] = [];
                 regArr.forEach((regex) => {
                     const result = joined.search(new RegExp(regex));
                     if (result > -1) {
-                        maches.push(regex);
+                        matches.push(regex);
                     }
                 })
-                if (maches.length > 0) {
+                if (matches.length > 0) {
                     return igra;
                 }
             }
@@ -474,6 +476,23 @@ export default function useIgra() {
     const onSubmit = (data) => {
         if (!data) { return }
 
+        const platformFilter = () => {
+            const result: GamePlatform[] = [];
+            data.windows ? result.push("Windows") : {};
+            data.osx ? result.push("OS X") : {};
+            data.linux ? result.push("Linux") : {};
+            data.ps5 ? result.push("PlayStation 5") : {};
+            data.ps4 ? result.push("PlayStation 4") : {};
+            data.ps3 ? result.push("PlayStation 3") : {};
+            data.ps2 ? result.push("PlayStation 2") : {};
+            data.ps ? result.push("PlayStation") : {};
+            data.xboxone ? result.push("Xbox One") : {};
+            data.ninswitch ? result.push("Nintendo Switch") : {};
+            data.mobitel ? result.push("Mobitel") : {};
+            data.drugo ? result.push("Drugo") : {};
+            return result
+        }
+
         const genreFilter = () => {
             const result: IgraGenre[] = [];
             data.fourx ? result.push("4X") : {};
@@ -531,6 +550,7 @@ export default function useIgra() {
                 }
             },
             img: pic ? pic : undefined,
+            platforms: platformFilter(),
             developer: data.developer,
             publisher: data.publisher,
             others: splitInput(data.others),

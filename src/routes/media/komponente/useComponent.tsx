@@ -1,15 +1,20 @@
-import { useState } from "react";
 import { Library, Ratings } from "../../../type";
+import { useState } from "react";
 import useFemStore from "../../../useFemStore";
 import toast from "react-hot-toast";
 
 export default function useComponent() {
 
     const {
+        libFilm,
+        libIgra,
+        libKanal,
         backupLibFilm,
         backupLibIgra,
+        backupLibKanal,
         setLibFilm,
         setLibIgra,
+        setLibKanal,
     } = useFemStore();
 
     const [filter, setFilter] = useState("");
@@ -100,7 +105,7 @@ export default function useComponent() {
             case "igra":
                 return backupLibIgra;
             case "kanal":
-                return backupLibIgra;
+                return backupLibKanal;
             case "knjiga":
                 return backupLibIgra;
             case "oddaja":
@@ -114,6 +119,27 @@ export default function useComponent() {
         }
     }
 
+    const selectLib = (lib: Library) => {
+        switch (lib) {
+            case "film":
+                return libFilm;
+            case "igra":
+                return libIgra;
+            case "kanal":
+                return libKanal;
+            case "knjiga":
+                return libIgra;
+            case "oddaja":
+                return libIgra;
+            case "org":
+                return libIgra;
+            case "revija":
+                return libIgra;
+            case "stran":
+                return libIgra;
+        }
+    }
+
     const selectSetLibrary = (lib: Library, content) => {
         switch (lib) {
             case "film":
@@ -123,7 +149,7 @@ export default function useComponent() {
                 setLibIgra(content);
                 break;
             case "kanal":
-                setLibFilm(content);
+                setLibKanal(content);
                 break;
             case "knjiga":
                 setLibFilm(content);
@@ -179,8 +205,28 @@ export default function useComponent() {
         const selection = selectBackup(lib);
         return selection.sort(
             (a, b) => {
-                const yearA = a.year;
-                const yearB = b.year;
+
+                let yearA: number;
+                let yearB: number;
+                switch (lib) {
+                    case "film":
+                        yearA = a.year.start;
+                        yearB = b.year.start;
+                        break;
+                    case "igra":
+                        yearA = a.year;
+                        yearB = b.year;
+                        break;
+                    case "kanal":
+                        yearA = a.firstAir;
+                        yearB = b.firstAir;
+                        break;
+                    default:
+                        yearA = 1;
+                        yearB = 2;
+                        break;
+                }
+
                 if (typeof yearA === "number" && typeof yearB === "number") {
                     return yearB - yearA;
                 } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
@@ -199,8 +245,28 @@ export default function useComponent() {
         const selection = selectBackup(lib);
         return selection.sort(
             (a, b) => {
-                const yearA = a.year;
-                const yearB = b.year;
+
+                let yearA: number;
+                let yearB: number;
+                switch (lib) {
+                    case "film":
+                        yearA = a.year.start;
+                        yearB = b.year.start;
+                        break;
+                    case "igra":
+                        yearA = a.year;
+                        yearB = b.year;
+                        break;
+                    case "kanal":
+                        yearA = a.firstAir;
+                        yearB = b.firstAir;
+                        break;
+                    default:
+                        yearA = 1;
+                        yearB = 2;
+                        break;
+                }
+
                 if (typeof yearA === "number" && typeof yearB === "number") {
                     return yearA - yearB;
                 } else if (typeof yearA === "undefined" && typeof yearB === "undefined") {
@@ -277,14 +343,14 @@ export default function useComponent() {
         const filtered = selection.filter(
             (el) => {
                 const title = el.title.toUpperCase();
-                const maches: string[] = [];
+                const matches: string[] = [];
                 regArr.forEach((regex) => {
                     const result = title.search(new RegExp(regex));
                     if (result > -1) {
-                        maches.push(regex);
+                        matches.push(regex);
                     }
                 })
-                if (maches.length > 0) {
+                if (matches.length > 0) {
                     return el;
                 }
             }
@@ -342,6 +408,7 @@ export default function useComponent() {
 
         const min = querry1 ? Number(querry1) : undefined;
         const max = querry2 ? Number(querry2) : undefined;
+        console.log(min, max)
 
         if (min || max) {
             const selection = selectBackup(lib);

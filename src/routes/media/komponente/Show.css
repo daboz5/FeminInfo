@@ -1,102 +1,4 @@
-/*FILM GRID*/
-
-.filmBox {
-    display: grid;
-    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-    grid-template-rows:
-        min-content min-content;
-    align-items: center;
-    gap: 15px;
-}
-
-.filmBox p {
-    margin: 5px;
-}
-
-.filmGrid0 {
-    grid-template-areas:
-        "title title"
-        "image type"
-        "people people"
-        "explain explain"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid1 {
-    grid-template-areas:
-        "title title"
-        "image image"
-        "people people"
-        "explain explain"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid2 {
-    grid-template-areas:
-        "title title"
-        "image type"
-        "explain explain"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid3 {
-    grid-template-areas:
-        "title title"
-        "image type"
-        "people people"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid4 {
-    grid-template-areas:
-        "title title"
-        "image image"
-        "people people"
-        "explain explain"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid5 {
-    grid-template-areas:
-        "title title"
-        "image type"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid6 {
-    grid-template-areas:
-        "title title"
-        "image image"
-        "people people"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-.filmGrid7 {
-    grid-template-areas:
-        "title title"
-        "image image"
-        "describe describe"
-        "result result"
-        "options options";
-}
-
-/*IGRA GRID*/
-
-.igraBox {
+.gridBox {
     display: grid;
     grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     grid-template-rows:
@@ -114,11 +16,11 @@
     gap: 15px;
 }
 
-.igraBox p {
+.gridBox p {
     margin: 5px;
 }
 
-.igraGrid0 {
+.grid0 {
     grid-template-areas:
         "title title"
         "image type"
@@ -129,7 +31,7 @@
         "options options";
 }
 
-.igraGrid1 {
+.grid1 {
     grid-template-areas:
         "title title"
         "image image"
@@ -140,7 +42,7 @@
         "options options";
 }
 
-.igraGrid2 {
+.grid2 {
     grid-template-areas:
         "title title"
         "image type"
@@ -150,7 +52,7 @@
         "options options";
 }
 
-.igraGrid3 {
+.grid3 {
     grid-template-areas:
         "title title"
         "image type"
@@ -160,7 +62,7 @@
         "options options";
 }
 
-.igraGrid4 {
+.grid4 {
     grid-template-areas:
         "title title"
         "image image"
@@ -171,7 +73,7 @@
         "options options";
 }
 
-.igraGrid5 {
+.grid5 {
     grid-template-areas:
         "title title"
         "image type"
@@ -180,7 +82,7 @@
         "options options";
 }
 
-.igraGrid6 {
+.grid6 {
     grid-template-areas:
         "title title"
         "image image"
@@ -190,7 +92,7 @@
         "options options";
 }
 
-.igraGrid7 {
+.grid7 {
     grid-template-areas:
         "title title"
         "image image"
@@ -198,13 +100,6 @@
         "result result"
         "options options";
 }
-
-.vsebina {
-    font-size: 1.3rem;
-    font-weight: 600;
-}
-
-/*COMMON CONTENT*/
 
 .titleBox {
     grid-area: title;
@@ -350,4 +245,9 @@
 
 .optionsBox button {
     width: 75vw;
+}
+
+.vsebina {
+    font-size: 1.3rem;
+    font-weight: 600;
 }

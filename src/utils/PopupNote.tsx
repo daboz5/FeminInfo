@@ -5,44 +5,55 @@ export default function PopupNote(
     }
 ) {
 
-    const popupToggle = () => {
-        const el = document.getElementById(id + "Pop");
-        if (el) {
-            if (el.style.visibility === "visible") {
-                el.style.visibility = "hidden";
-                el.style.pointerEvents = "none";
-                el.style.animation = "fadeOut 0.5s";
-            } else {
-                el.style.visibility = "visible";
-                el.style.pointerEvents = "auto";
-                el.style.animation = "fadeIn 0.5s";
-            }
+    const turnOn = () => {
+        const target = document.getElementById(id + "Pop");
+        if (target) {
+            target.style.visibility = "visible";
+            target.style.pointerEvents = "auto";
+            target.style.animation = "fadeIn 0.5s";
         }
     }
+
+    const turnOff = () => {
+        const target = document.getElementById(id + "Pop");
+        if (target) {
+            target.style.visibility = "hidden";
+            target.style.pointerEvents = "none";
+            target.style.animation = "fadeOut 0.5s";
+        }
+    }
+
+    const content = notes.map(
+        (note, index, thisArr) => {
+            if (thisArr.length !== index + 1) {
+                return (
+                    <span
+                        key={id + index + "PopCon"}>
+                        {note}
+                        <br />
+                    </span>
+                )
+            } else {
+                return (
+                    <span
+                        key={id + index + "PopCon"}>
+                        {note}
+                    </span>
+                )
+            }
+        });
 
     return (
         <div
             className="popupBtn"
-            onClick={() => popupToggle()}>
+            onMouseEnter={() => turnOn()}
+            onMouseLeave={() => turnOff()}>
             <span>?</span>
             <span
-                id={id + "PopId"}
+                id={id + "Pop"}
                 key={id + "Key"}
                 className="popup">
-                {notes.map(
-                    (note, index, thisArr) => {
-                        if (thisArr.length === index + 1) {
-                            return <>
-                                <>{note}</>
-                            </>
-                        } else {
-                            return <>
-                                <>{note}</>
-                                <br />
-                            </>
-                        }
-                    })
-                }
+                {content}
             </span>
         </div>
     )
