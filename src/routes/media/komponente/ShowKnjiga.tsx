@@ -1,88 +1,85 @@
-import { Kanal } from "../../../type";
-import useKanal from "./useKanal";
+import { Knjiga } from "../../../type";
+import useKnjiga from "./useKnjiga";
 
-export default function ShowKanal(
-    { kanal, setKanal, setEditor }:
+export default function ShowKnjiga(
+    { knjiga, setKnjiga, setEditor }:
         {
-            kanal: Kanal | null,
-            setKanal(newState: null): void,
+            knjiga: Knjiga | null,
+            setKnjiga(newState: null): void,
             setEditor(newState: boolean): void
         }
 ) {
 
-    const { setGrid } = useKanal();
+    const { setGrid } = useKnjiga();
 
-    return (kanal ?
+    const sumPageNum = () => {
+        if (knjiga) {
+            let pageCount = 0;
+            for (let i = 0; i < knjiga.zbirka.length; i++) {
+                if (knjiga.zbirka[i].count) {
+                    pageCount = pageCount + knjiga.zbirka[i].count;
+                }
+            }
+            return pageCount;
+        }
+    }
+
+    return (knjiga ?
         <div
-            className={`gridBox grid${setGrid(kanal)} container`}>
+            className={`gridBox grid${setGrid(knjiga)} container`}>
             <div className="titleBox">
                 <h3
                     className="title">
-                    {kanal.title}
+                    {knjiga.title}
                 </h3>
                 <div
                     className="fInfo">
-                    <p>
-                        {
-                            kanal.firstAir +
-                            `${kanal.lastAir ?
-                                ` - ${kanal.lastAir}` :
-                                " -"}`
-                        }
-                    </p>
-                    {kanal.length.minmax[0] &&
-                        <p
-                            className="trajanje">
-                            {kanal.length.minmax[0] ?
-                                kanal.length.minmax[1] ?
-                                    `Video med ${kanal.length.minmax[0] + " in " + kanal.length.minmax[1]} min` :
-                                    `Video okoli ${kanal.length.minmax[0]} min` :
-                                ""
-                            }
+                    <p>{knjiga.published}</p>
+                    {sumPageNum() &&
+                        <p className="trajanje">
+                            {`${sumPageNum()} strani`}
                         </p>
                     }
-                    {kanal.length.episodes &&
-                        kanal.length.episodes > 1 &&
-                        <p
-                            className="epizode">
-                            {`${kanal.length.episodes}${!kanal.lastAir ? " +" : ""} videov`}
+                    {knjiga.zbirka.length > 1 &&
+                        <p className="epizode">
+                            {`${knjiga.zbirka.length} knjig`}
                         </p>
                     }
                 </div>
             </div>
             <div className="image flex">
                 <img
-                    src={kanal.img ?
-                        kanal.img :
+                    src={knjiga.img ?
+                        knjiga.img :
                         "femininfoEyeIcon.png"
                     }
-                    style={kanal.img ?
+                    style={knjiga.img ?
                         {} :
                         {
                             filter: "grayscale(100%)",
                             maxWidth: "90%"
                         }
                     }
-                    alt={kanal.img ?
-                        `Slika ${kanal.title}` :
+                    alt={knjiga.img ?
+                        `Slika ${knjiga.title}` :
                         "FeminInfo ikona"
                     }
                 />
             </div>
             {
-                kanal.femType || kanal.genre.length > 0 ?
+                knjiga.femType || knjiga.genre.length > 0 ?
                     <div className="genreBox colFlex">
-                        {kanal.femType ?
-                            kanal.femType === "lib" ?
+                        {knjiga.femType ?
+                            knjiga.femType === "lib" ?
                                 <img className="femType" src={"type-liberal.svg"} alt="liberalni feminizem" /> :
-                                kanal.femType === "soc" ?
+                                knjiga.femType === "soc" ?
                                     <img className="femType" src={"type-society.svg"} alt="družbeni feminizem" /> :
                                     <img className="femType" src={"type-woke.svg"} alt="woke feminizem" /> :
                             <></>
                         }
-                        {kanal.genre &&
+                        {knjiga.genre &&
                             <div className="data genreType">
-                                {kanal.genre.sort().map(el => {
+                                {knjiga.genre.sort().map(el => {
                                     return <p key={"genre" + el}>{el}</p>;
                                 })}
                             </div>
@@ -92,15 +89,15 @@ export default function ShowKanal(
             }
 
             {
-                kanal.platforms.length > 0 || kanal.hosts.length > 0 || kanal.others.length > 0 ?
+                knjiga.publishers.length > 0 || knjiga.authors.length > 0 || knjiga.others.length > 0 || knjiga.characters.length > 0 ?
                     <div className="peopleBox">
-                        {kanal.platforms.length > 0 &&
+                        {knjiga.publishers.length > 0 &&
                             <div className="directorsBox">
-                                <h3 className="dataType">Platforma</h3>
+                                <h3 className="dataType">Direkcija</h3>
                                 <p className="data">
-                                    {kanal.platforms.sort().map(
+                                    {knjiga.publishers.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === kanal.platforms?.length) {
+                                            if (index + 1 === knjiga.publishers?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -110,13 +107,13 @@ export default function ShowKanal(
                                 </p>
                             </div>
                         }
-                        {kanal.hosts.length > 0 &&
+                        {knjiga.authors.length > 0 &&
                             <div className="actorsBox">
-                                <h3 className="dataType">Vodja</h3>
+                                <h3 className="dataType">Igralci</h3>
                                 <p className="data">
-                                    {kanal.hosts.sort().map(
+                                    {knjiga.authors.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === kanal.hosts?.length) {
+                                            if (index + 1 === knjiga.authors?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -126,29 +123,29 @@ export default function ShowKanal(
                                 </p>
                             </div>
                         }
-                        {kanal.guests.length > 0 &&
-                            <div className="actorsBox">
-                                <h3 className="dataType">Gostje</h3>
-                                <p className="data">
-                                    {kanal.guests.sort().map(
-                                        (el, index) => {
-                                            if (index + 1 === kanal.guests?.length) {
-                                                return el + "."
-                                            } else {
-                                                return el + ", "
-                                            }
-                                        }
-                                    )}
-                                </p>
-                            </div>
-                        }
-                        {kanal.others.length > 0 &&
+                        {knjiga.others.length > 0 &&
                             <div className="staffBox">
                                 <h3 className="dataType">Ostali</h3>
                                 <p className="data">
-                                    {kanal.others.sort().map(
+                                    {knjiga.others.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === kanal.others?.length) {
+                                            if (index + 1 === knjiga.others?.length) {
+                                                return el + "."
+                                            } else {
+                                                return el + ", "
+                                            }
+                                        }
+                                    )}
+                                </p>
+                            </div>
+                        }
+                        {knjiga.characters.length > 0 &&
+                            <div className="directorsBox">
+                                <h3 className="dataType">Direkcija</h3>
+                                <p className="data">
+                                    {knjiga.characters.sort().map(
+                                        (el, index) => {
+                                            if (index + 1 === knjiga.characters?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -163,42 +160,42 @@ export default function ShowKanal(
             }
 
             {
-                kanal.explanation &&
+                knjiga.explanation &&
                 <div className="explanationBox">
                     <h3 className="dataType">Pojasnilo</h3>
-                    <p className="data">{kanal.explanation}</p>
+                    <p className="data">{knjiga.explanation}</p>
                 </div>
             }
 
             {
-                kanal.description &&
+                knjiga.description &&
                 <div className="descriptionBox">
                     <h3 className="dataType">Opis</h3>
-                    <p className="data">{kanal.description}</p>
+                    <p className="data">{knjiga.description}</p>
                 </div>
             }
 
             {
-                kanal.ratings &&
+                knjiga.ratings &&
                 <div className="pollBox">
                     <span className="rating">
-                        <p className="defMouse">{kanal.ratings.hates}</p>
+                        <p className="defMouse">{knjiga.ratings.hates}</p>
                         <p className="rIcon">💀</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{kanal.ratings.dislikes}</p>
+                        <p className="defMouse">{knjiga.ratings.dislikes}</p>
                         <p className="rIcon">👎</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{kanal.ratings.oks}</p>
+                        <p className="defMouse">{knjiga.ratings.oks}</p>
                         <p className="rIcon">⭐</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{kanal.ratings.likes}</p>
+                        <p className="defMouse">{knjiga.ratings.likes}</p>
                         <p className="rIcon">👍</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{kanal.ratings.loves}</p>
+                        <p className="defMouse">{knjiga.ratings.loves}</p>
                         <p className="rIcon">💜</p>
                     </span>
                 </div>
@@ -212,7 +209,7 @@ export default function ShowKanal(
                 </button>
                 <button
                     className="actMouse"
-                    onClick={() => setKanal(null)}>
+                    onClick={() => setKnjiga(null)}>
                     Zapri
                 </button>
             </div>

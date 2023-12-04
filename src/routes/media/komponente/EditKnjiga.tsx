@@ -1,19 +1,19 @@
 import { useEffect } from "react";
-import { Kanal } from "../../../type";
+import { Knjiga } from "../../../type";
 import { useForm } from "react-hook-form";
 import useFemStore from "../../../useFemStore";
-import useKanal from "./useKanal";
+import useKnjiga from "./useKnjiga";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 import PopupNote from "../../../utils/PopupNote";
 import useComponent from "./useComponent";
 
-export default function EditKanal(
-    { kanal, setEditor, setKanal }:
+export default function EditKnjiga(
+    { knjiga, setEditor, setKnjiga }:
         {
-            kanal: Kanal | null,
+            knjiga: Knjiga | null,
             setEditor(newState: boolean): void,
-            setKanal(newState: null): void
+            setKnjiga(newState: null): void
         }
 ) {
 
@@ -26,11 +26,11 @@ export default function EditKanal(
 
     const {
         pic,
-        kanalTypes,
+        knjigaTypes,
         setPic,
         onSubmit,
         defFormValues
-    } = useKanal();
+    } = useKnjiga();
 
     const {
         register,
@@ -38,25 +38,24 @@ export default function EditKanal(
         watch,
         setValue,
     } = useForm({
-        defaultValues: defFormValues(kanal),
+        defaultValues: defFormValues(knjiga),
     });
 
     useEffect(() => {
         handleType(watch("femType"), watch("femType") ? true : false, setValue);
-        setPic(kanal?.img);
+        setPic(knjiga?.img);
     }, [])
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
-            <h2>Podatki kanala</h2>
+            <h2>Podatki knjigaa</h2>
             <div className="popBox">
                 <h3>Naslov</h3>
                 <PopupNote
-                    id="kanalTitle"
-                    notes={["Naslov naj ne bo daljši od 200 znakov.", "Če je vmes menjal ime, omeni v povzetku."]}
-                    direction="down"
+                    id="knjigaTitle"
+                    notes={["Naslov naj ne bo daljši od 200 znakov."]}
                 />
             </div>
             <input
@@ -65,10 +64,10 @@ export default function EditKanal(
             </input>
 
             <div className="popBox">
-                <h3>Produkcija</h3>
+                <h3>Izšel</h3>
                 <PopupNote
-                    id="kanalYear"
-                    notes={["Objavlja OD leta ____.", "Objavljal DO leta ____.", "Če še objavlja ali tega ne veš, pusti drugo polje prazno."]}
+                    id="knjigaYear"
+                    notes={["Knjiga je izšel / izhajal OD leta ____.", "Izhajal je več let in se zaključil DO leta ____.", "Če še izhaja, je še V PRODUKCIJI."]}
                 />
             </div>
             <div id="editYearBox" className="colFlex">
@@ -77,9 +76,9 @@ export default function EditKanal(
                         <p>od</p>
                         <input
                             type="number"
-                            min={1993}
+                            min={1888}
                             max={year}
-                            {...register("start", { min: 1993, max: year })}>
+                            {...register("start", { min: 1888, max: year })}>
                         </input>
                     </label>
                 </div>
@@ -88,57 +87,53 @@ export default function EditKanal(
                         <p>do</p>
                         <input
                             type="number"
-                            min={1993}
+                            min={1888}
                             max={year}
-                            {...register("finish", { min: 1993, max: year })}>
+                            {...register("finish", { min: 1888, max: year })}>
                         </input>
                     </label>
                 </div>
+                <Checkbox
+                    boxClass="editYear"
+                    checkId="unfinished"
+                    checkClass="editUnfinished"
+                    afterText="v produkciji"
+                    register={register}
+                />
             </div>
 
             <div className="popBox">
                 <h3>Trajanje ogleda</h3>
                 <PopupNote
-                    id="kanalLength"
-                    notes={["Krajši video traja ___ minut.", "Daljši video traja ___ minut.", "Kanal ima objavljenih ___ videov."]}
+                    id="knjigaLength"
+                    notes={["Knjiga traja ___ minut. Če je epizod več, posamična epizoda traja ___ minut.", "Sezone vsebujejo ___ epizod."]}
                 />
             </div>
-            <div className="colFlex">
-                <label id="editMin">
-                    <p>od</p>
+            <div>
+                <label id="editAverage">
                     <input
                         min={1}
-                        max={1000}
+                        max={5000}
                         type="number"
-                        {...register("minLength", { min: 1, max: 1000 })}>
-                    </input>
-                    <p>min</p>
-                </label>
-                <label id="editMax">
-                    <p>do</p>
-                    <input
-                        min={1}
-                        max={1000}
-                        type="number"
-                        {...register("maxLength", { min: 1, max: 1000 })}>
+                        {...register("average", { min: 1, max: 5000 })}>
                     </input>
                     <p>min</p>
                 </label>
                 <label id="editSeasons">
                     <input
                         min={1}
-                        max={10000}
+                        max={5000}
                         type="number"
-                        {...register("episodes", { min: 1, max: 10000 })}>
+                        {...register("episodes", { min: 1, max: 5000 })}>
                     </input>
-                    <p>št. videov</p>
+                    <p>št. epizod</p>
                 </label>
             </div>
 
             <div className="popBox">
                 <h3>Naslovna slika</h3>
                 <PopupNote
-                    id="kanalPicture"
+                    id="knjigaPicture"
                     notes={["Slika naj ne bo večja od 2 Mb."]}
                 />
             </div>
@@ -148,8 +143,8 @@ export default function EditKanal(
                     className="editPic"
                     src={pic ?
                         pic :
-                        kanal?.img ?
-                            kanal.img :
+                        knjiga?.img ?
+                            knjiga.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -171,13 +166,13 @@ export default function EditKanal(
             <div className="popBox">
                 <h3>Tip feminizma</h3>
                 <PopupNote
-                    id="kanalFemType"
+                    id="knjigaFemType"
                     notes={
                         ["Družbeni, Woke ali Liberalni feminizem.",
-                            "Družbeni označuje, da se kanal osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
-                            "Liberalni označuje, da se kanal osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Družbeni označuje, da se knjiga osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se knjiga osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
                             "Woke označuje vmesno, oboje in ostalo.",
-                            "Film ni o ženskah in ni za ženske? Ne objavi."
+                            "Knjiga ni o ženskah in ni za ženske? Ne objavi."
                         ]
                     }
                 />
@@ -248,14 +243,14 @@ export default function EditKanal(
             <div className="popBox">
                 <h3>Žanri</h3>
                 <PopupNote
-                    id="kanalGenre"
-                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo kanal."]}
+                    id="knjigaGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo knjiga."]}
                 />
             </div>
             <div className="editGenreBox colFlex">
-                {kanalTypes.map((type, index) => {
+                {knjigaTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = kanalTypes.find(genre => {
+                    const label = knjigaTypes.find(genre => {
                         if (type.name === genre.name) {
                             return genre.register
                         }
@@ -268,8 +263,8 @@ export default function EditKanal(
                             checkClass={group}
                             afterText={type.name}
                             preChecked={
-                                kanal?.genre &&
-                                    kanal.genre.find((gen) => gen === type.name) ?
+                                knjiga?.genre &&
+                                    knjiga.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -277,7 +272,7 @@ export default function EditKanal(
                                 context: group,
                                 max: 5
                             }}
-                            key={"kanalGenre" + num}
+                            key={"knjigaGenre" + num}
                             register={register}
                         />
                     )
@@ -285,56 +280,42 @@ export default function EditKanal(
             </div>
 
             <div className="popBox">
-                <h3>Platforme</h3>
+                <h3>Direkcija</h3>
                 <PopupNote
-                    id="kanalPlatforme"
-                    notes={["Na katerih platformah jih je mogoče najti.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="knjigaDirection"
+                    notes={["Kdo je vodja / odgovorni za nastanek knjigaa.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKanalPlatforms"
-                name="platforms"
+                id="editKnjigaDirection"
+                name="direction"
                 maxLength={500}
                 register={register}
             />
 
             <div className="popBox">
-                <h3>Gostitelj</h3>
+                <h3>Igralci</h3>
                 <PopupNote
-                    id="kanalGostitelj"
-                    notes={["Kdo vodi oddajo oz. gosti goste.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="knjigaActors"
+                    notes={["Kdo vse nastopa v knjigau.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKanalGostitelj"
-                name="hosts"
+                id="editKnjigaActors"
+                name="actors"
                 maxLength={500}
-                register={register}
-            />
-
-            <div className="popBox">
-                <h3>Gostje</h3>
-                <PopupNote
-                    id="kanalGostje"
-                    notes={["Kdo je že nastopal oz. bil gost.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 1000 znakov."]}
-                />
-            </div>
-            <TextArea
-                id="editKanalGostje"
-                name="guests"
-                maxLength={1000}
                 register={register}
             />
 
             <div className="popBox">
                 <h3>Ostali sodelujoči</h3>
                 <PopupNote
-                    id="kanalOthers"
-                    notes={["Kdo je še sodeloval kako drugače.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="knjigaOthers"
+                    notes={["Kdo razen direktorja in igralcev je še sodeloval.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKanalOthers"
+                id="editKnjigaOthers"
                 name="others"
                 maxLength={500}
                 register={register}
@@ -343,12 +324,12 @@ export default function EditKanal(
             <div className="popBox">
                 <h3>Objasnilo ustreznosti</h3>
                 <PopupNote
-                    id="kanalExplanation"
+                    id="knjigaExplanation"
                     notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKanalExplanation"
+                id="editKnjigaExplanation"
                 name="explanation"
                 maxLength={750}
                 register={register}
@@ -357,12 +338,12 @@ export default function EditKanal(
             <div className="popBox">
                 <h3>Povzetek vsebine</h3>
                 <PopupNote
-                    id="kanalSummary"
-                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi kanal poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                    id="knjigaSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi knjiga poskuša presenetiti.", "Ne več kot 1000 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKanalDescription"
+                id="editKnjigaDescription"
                 name="description"
                 required={true}
                 maxLength={1500}
@@ -380,12 +361,12 @@ export default function EditKanal(
                     onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {kanal ?
+                {knjiga ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            setKanal(null)
+                            setKnjiga(null)
                             setEditor(false)
                         }}>
                         Nazaj na tabelo

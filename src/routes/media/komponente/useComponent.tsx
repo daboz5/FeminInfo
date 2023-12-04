@@ -9,12 +9,15 @@ export default function useComponent() {
         libFilm,
         libIgra,
         libKanal,
+        libKnjiga,
         backupLibFilm,
         backupLibIgra,
         backupLibKanal,
+        backupLibKnjiga,
         setLibFilm,
         setLibIgra,
         setLibKanal,
+        setLibKnjiga,
     } = useFemStore();
 
     const [filter, setFilter] = useState("");
@@ -107,7 +110,7 @@ export default function useComponent() {
             case "kanal":
                 return backupLibKanal;
             case "knjiga":
-                return backupLibIgra;
+                return backupLibKnjiga;
             case "oddaja":
                 return backupLibIgra;
             case "org":
@@ -128,7 +131,7 @@ export default function useComponent() {
             case "kanal":
                 return libKanal;
             case "knjiga":
-                return libIgra;
+                return libKnjiga;
             case "oddaja":
                 return libIgra;
             case "org":
@@ -152,7 +155,7 @@ export default function useComponent() {
                 setLibKanal(content);
                 break;
             case "knjiga":
-                setLibFilm(content);
+                setLibKnjiga(content);
                 break;
             case "oddaja":
                 setLibFilm(content);
@@ -220,6 +223,10 @@ export default function useComponent() {
                     case "kanal":
                         yearA = a.firstAir;
                         yearB = b.firstAir;
+                        break;
+                    case "knjiga":
+                        yearA = a.published;
+                        yearB = b.published;
                         break;
                     default:
                         yearA = 1;

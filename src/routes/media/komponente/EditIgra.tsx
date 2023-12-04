@@ -53,7 +53,7 @@ export default function EditIgra(
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
-            <h2>Filmski podatki</h2>
+            <h2>Podatki igre</h2>
             <div className="popBox">
                 <h3>Naslov</h3>
                 <PopupNote
@@ -313,12 +313,16 @@ export default function EditIgra(
             <div className="editGenreBox colFlex">
                 {igraTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = type.register
+                    const label = igraTypes.find(genre => {
+                        if (type.name === genre.name) {
+                            return genre.register
+                        }
+                    })?.register;
                     const group = "editGenreCheckbox"
                     return (
                         <Checkbox
                             boxClass="editGenre"
-                            checkId={label}
+                            checkId={label ? label : "error_register_" + "type.name" + "_not_found"}
                             checkClass={group}
                             afterText={type.name}
                             preChecked={

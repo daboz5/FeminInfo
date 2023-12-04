@@ -76,6 +76,28 @@ type KanalGenre =
     "Zabava" |
     "Znanost"
 
+type KnjigaGenre =
+    "Akcija" |
+    "Avantura" |
+    "Biografija" |
+    "Distopija" |
+    "Drama" |
+    "Fantazija" |
+    "Grafični roman" |
+    "Grozljivka" |
+    "Komedija" |
+    "Misterija" |
+    "Otroška" |
+    "Prehrana" |
+    "Romantika" |
+    "Satira" |
+    "Strip" |
+    "Strokovna" |
+    "Triler" |
+    "Umetnost" |
+    "Zgodovina" |
+    "Znanstvena fantastika"
+
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -89,6 +111,12 @@ type GamePlatform =
     "Nintendo Switch" |
     "Mobitel" |
     "Drugo"
+
+type Skupina = {
+    id: number,
+    title: string,
+    count?: number
+}
 
 type Ratings = {
     loves: number;
@@ -253,6 +281,91 @@ type Kanal = {
     ratings: Ratings
 }
 
+type KanalForm = {
+    title: string;
+    start: number | undefined;
+    finish: number | undefined;
+    minLength: number | undefined;
+    maxLength: number | undefined;
+    episodes: number;
+    femType: string;
+    animacija: boolean | undefined;
+    dozivetja: boolean | undefined;
+    filmi: boolean | undefined;
+    hrana: boolean | undefined;
+    igre: boolean | undefined;
+    izobrazevalno: boolean | undefined;
+    knjige: boolean | undefined;
+    kultura: boolean | undefined;
+    lepoticenje: boolean | undefined;
+    nasveti: boolean | undefined;
+    potrosnja: boolean | undefined;
+    prirocniki: boolean | undefined;
+    sprostitev: boolean | undefined;
+    oddaja: boolean | undefined;
+    reakcije: boolean | undefined;
+    vadba: boolean | undefined;
+    vzivo: boolean | undefined;
+    videoeseji: boolean | undefined;
+    zabava: boolean | undefined;
+    znanost: boolean | undefined;
+    platforms: string;
+    hosts: string;
+    guests: string;
+    others: string;
+    explanation: string;
+    description: string;
+}
+
+type Knjiga = {
+    title: string;
+    published: number | undefined;
+    zbirka: Skupina[];
+    img: string | undefined;
+    publishers: string[];
+    authors: string[];
+    others: string[];
+    characters: string[];
+    genre: KnjigaGenre[];
+    femType: FemType | undefined;
+    explanation: string;
+    description: string;
+    ratings: Ratings
+}
+
+type KnjigaForm = {
+    title: string;
+    published: number | undefined;
+    zbirka: Skupina[] | undefined;
+    femType: string;
+    akcija: boolean;
+    avantura: boolean;
+    biografija: boolean;
+    distopija: boolean;
+    drama: boolean;
+    fantazija: boolean;
+    graficna: boolean;
+    grozljivka: boolean;
+    komedija: boolean;
+    misterija: boolean;
+    otroska: boolean;
+    prehrana: boolean;
+    romantika: boolean;
+    satira: boolean;
+    strip: boolean;
+    strokovna: boolean;
+    triler: boolean;
+    umetnost: boolean;
+    zgodovina: boolean;
+    scifi: boolean;
+    publishers: string;
+    authors: string;
+    others: string;
+    characters: string;
+    explanation: string;
+    description: string;
+}
+
 export {
     Library,
     Film,
@@ -263,6 +376,10 @@ export {
     IgraForm,
     Kanal,
     KanalGenre,
+    KanalForm,
+    Knjiga,
+    KnjigaGenre,
+    KnjigaForm,
     GamePlatform,
     FemType,
     Ratings,

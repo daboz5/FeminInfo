@@ -1,5 +1,5 @@
 import { create } from 'zustand';
-import { Film, Igra, Kanal } from './type';
+import { Film, Igra, Kanal, Knjiga } from './type';
 
 type State = {
     year: number,
@@ -11,6 +11,8 @@ type State = {
     backupLibIgra: [] | Igra[],
     libKanal: [] | Kanal[],
     backupLibKanal: [] | Kanal[],
+    libKnjiga: [] | Knjiga[],
+    backupLibKnjiga: [] | Knjiga[],
 }
 
 type Action = {
@@ -22,6 +24,8 @@ type Action = {
     setBackupLibIgra(newLib: Igra[]): void,
     setLibKanal(newLib: Kanal[]): void,
     setBackupLibKanal(newLib: Kanal[]): void,
+    setLibKnjiga(newLib: Knjiga[]): void,
+    setBackupLibKnjiga(newLib: Knjiga[]): void,
 }
 
 const useFemStore = create<State & Action>(set => ({
@@ -62,6 +66,15 @@ const useFemStore = create<State & Action>(set => ({
     })),
     setBackupLibKanal: (newLib) => set(() => ({
         backupLibKanal: newLib
+    })),
+
+    libKnjiga: [],
+    backupLibKnjiga: [],
+    setLibKnjiga: (newLib) => set(() => ({
+        libKnjiga: newLib
+    })),
+    setBackupLibKnjiga: (newLib) => set(() => ({
+        backupLibKnjiga: newLib
     })),
 }))
 

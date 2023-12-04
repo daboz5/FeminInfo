@@ -93,6 +93,10 @@
         font-size: 1.5rem;
     }
 
+    .rIcon:hover {
+        font-size: 1.6rem;
+    }
+
     .optionsBox {
         flex-direction: row;
         justify-content: center;
@@ -152,10 +156,14 @@
     }
 
     .popupBtn .popup {
-        left: -145%;
+        left: -29px;
         width: 250px;
         font-size: 1.2rem;
         padding: 10px 20px;
+    }
+
+    .popupBtn .popDown::after {
+        top: -15%;
     }
 
 }
@@ -309,7 +317,7 @@
     }
 
     .popupBtn .popup {
-        left: -245%;
+        left: -53px;
         width: 300px;
         font-size: 1.2rem;
         padding: 10px 20px;

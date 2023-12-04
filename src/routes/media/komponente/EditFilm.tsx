@@ -50,7 +50,7 @@ export default function EditFilm(
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
-            <h2>Filmski podatki</h2>
+            <h2>Podatki filma</h2>
             <div className="popBox">
                 <h3>Naslov</h3>
                 <PopupNote
@@ -250,12 +250,16 @@ export default function EditFilm(
             <div className="editGenreBox colFlex">
                 {filmTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = type.name.toLowerCase().replace("znanstvena fantastika", "scifi");
+                    const label = filmTypes.find(genre => {
+                        if (type.name === genre.name) {
+                            return genre.register
+                        }
+                    })?.register;
                     const group = "editGenreCheckbox"
                     return (
                         <Checkbox
                             boxClass="editGenre"
-                            checkId={label}
+                            checkId={label ? label : "error_register_" + "type.name" + "_not_found"}
                             checkClass={group}
                             afterText={type.name}
                             preChecked={

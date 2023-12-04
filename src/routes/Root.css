@@ -182,7 +182,6 @@ button:active {
     font-weight: 600;
     bottom: 13px;
     margin-left: 8px;
-    border: 2px solid rebeccapurple;
     border-radius: 50%;
     text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
     box-shadow: inset 0 0 5px 2px hotpink;
@@ -191,15 +190,11 @@ button:active {
     transition: 0.5s;
 }
 
-.popupBtn:hover {
-    box-shadow: inset 0 0 5px 2px hotpink, 0 0 3px 2px hotpink;
-}
-
 .popupBtn .popup {
     position: absolute;
-    left: 50%;
-    bottom: 130%;
-    width: 175px;
+    left: 6px;
+    bottom: 132%;
+    width: 180px;
     color: #fff;
     text-align: center;
     margin-left: -88px;
@@ -207,21 +202,31 @@ button:active {
     border-radius: 7px;
     padding: 8px 10px;
     background-color: purple;
-    z-index: 100;
     visibility: hidden;
     pointer-events: none;
     transition: 0.5s;
+    z-index: 3;
 }
 
 .popupBtn .popup::after {
     content: "";
     position: absolute;
-    top: 100%;
+    top: 99%;
     left: 50%;
     margin-left: -7px;
-    border-width: 7px;
+    border-width: 10px;
     border-style: solid;
     border-color: purple transparent transparent transparent;
+}
+
+.popupBtn .popDown {
+    top: 140%;
+    bottom: auto;
+}
+
+.popupBtn .popDown::after {
+    top: -18%;
+    border-color: transparent transparent purple transparent;
 }
 
 @-webkit-keyframes fadeIn {

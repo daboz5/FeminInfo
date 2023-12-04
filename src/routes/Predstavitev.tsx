@@ -37,6 +37,7 @@ export default function Predstavitev() {
                     <>
                         <p>Kaj natanko je feminizem je, je dokaj pestra tema. Ta stran se nagiba k dokaj sproščeni interpretaciji feminizma, četudi se bolj nagiba k levemu (v družbo usmerjenemu) namesto liberarnemu (v posameznika usmerjenemu) feminizmu. Oba imata svoje prednosti, vendar skupaj zmoremo več.</p>
                         <p>Zavračamo pa vse feminizme, ki to niso. Feminizme, ki se utemeljujejo skozi boj proti progresivnim temam ali se za ženske borijo skozi uničenje njihovih priložnosti. TERFi, anti-feminizem ter konservativni feminizem tukaj niso dobrodošli.</p>
+                        <p>Kanal ni bil izdelan za LGBTQ+ ter Queer vsebine. Te vsebine v primeru spora ne bodo izločene in se smatrajo kot zavezniške.</p>
                     </>
                 }
             </div>

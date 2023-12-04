@@ -1,7 +1,8 @@
 export default function PopupNote(
-    { id, notes }: {
+    { id, notes, direction }: {
         id: string,
-        notes: string[]
+        notes: string[],
+        direction?: "up" | "down" | "right" | "left"
     }
 ) {
 
@@ -52,7 +53,7 @@ export default function PopupNote(
             <span
                 id={id + "Pop"}
                 key={id + "Key"}
-                className="popup">
+                className={`popup ${direction === "down" ? "popDown" : ""}`}>
                 {content}
             </span>
         </div>

@@ -1,4 +1,4 @@
-import { Kanal, KanalForm, KanalGenre } from "../../../type";
+import { Kanal, KanalGenre } from "../../../type";
 import { useState } from "react";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";

@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
 
 export default function Checkbox(
     { boxClass, checkId, checkClass, preChecked, beforeText, afterText, limit, register, watch }:
@@ -88,6 +89,15 @@ export default function Checkbox(
         mouseOver = false;
     }
 
+    const overLimitCheck = () => {
+        if (limit) {
+            const unseenEl: HTMLInputElement = document.getElementById(unseenId);
+            if (unseenEl.disabled) {
+                toast.error("Največ 5 izbir.")
+            }
+        }
+    }
+
     const handleLimit = () => {
         if (limit) {
             const elGroup: HTMLCollectionOf<HTMLInputElement> = document.getElementsByClassName(limit.context);
@@ -132,6 +142,7 @@ export default function Checkbox(
                             styleOn :
                             styleOff
                     }}
+                    onClick={() => overLimitCheck()}
                     onMouseOver={() => handleMouseOver()}
                     onMouseLeave={() => handleLeave()}>
                 </span>
