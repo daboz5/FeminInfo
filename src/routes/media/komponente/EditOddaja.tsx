@@ -1,23 +1,23 @@
 import { useEffect } from "react";
-import { Knjiga } from "../../../type";
+import { Oddaja } from "../../../type";
 import { useForm } from "react-hook-form";
 import useFemStore from "../../../useFemStore";
-import useKnjiga from "./useKnjiga";
+import useOddaja from "./useOddaja";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 import PopupNote from "../../../utils/PopupNote";
 import useComponent from "./useComponent";
 
-export default function EditKnjiga(
-    { knjiga, setEditor, setKnjiga }:
+export default function EditOddaja(
+    { oddaja, setEditor, setOddaja }:
         {
-            knjiga: Knjiga | null,
+            oddaja: Oddaja | null,
             setEditor(newState: boolean): void,
-            setKnjiga(newState: null): void
+            setOddaja(newState: null): void
         }
 ) {
 
-    const { year, subtitleArr, setSubtitleArr } = useFemStore()
+    const { year } = useFemStore()
 
     const {
         handleType,
@@ -26,12 +26,11 @@ export default function EditKnjiga(
 
     const {
         pic,
-        knjigaTypes,
-        addSubtitle,
+        oddajaTypes,
         setPic,
         onSubmit,
         defFormValues
-    } = useKnjiga();
+    } = useOddaja();
 
     const {
         register,
@@ -39,116 +38,107 @@ export default function EditKnjiga(
         watch,
         setValue,
     } = useForm({
-        defaultValues: defFormValues(knjiga),
+        defaultValues: defFormValues(oddaja),
     });
 
     useEffect(() => {
-        setPic(knjiga?.img);
         handleType(watch("femType"), watch("femType") ? true : false, setValue);
-        const subT = defFormValues(knjiga)?.zbirka;
-        setSubtitleArr(subT ? subT : []);
+        setPic(oddaja?.img);
     }, [])
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
-            <h2>Podatki knjige</h2>
+            <h2>Podatki oddajaa</h2>
             <div className="popBox">
-                <h3>Naslov in strani</h3>
+                <h3>Naslov</h3>
                 <PopupNote
-                    id="knjigaTitle"
-                    notes={["Naslov naj ne bo daljši od 200 znakov.", "Če je približno število strani znano, ga lahko deliš.", "Če gre za zbirko, tukaj navedi ime zbirke.", "Posamične dele zbirke vneseš s klikom na 'dodaj podnaslov'.", "Strani delov zbirke se bodo seštele v skupno število strani zbirke."]}
+                    id="oddajaTitle"
+                    notes={["Naslov naj ne bo daljši od 200 znakov.", "Če je vmes menjal ime, omeni v povzetku."]}
                     direction="down"
                 />
             </div>
-            <span className="flex">
-                <input
-                    type="text"
-                    {...register("title", { required: true, minLength: 1, maxLength: 200 })}>
-                </input>
-                {subtitleArr.length === 1 ?
-                    <label>
-                        <input
-                            type="number"
-                            className="pageNumInput"
-                            value={subtitleArr[0].count}
-                            onChange={(e) => {
-                                subtitleArr[0].count = Number(e.target.value);
-                                setSubtitleArr(subtitleArr);
-                            }}>
-                        </input>
-                        <p>str.</p>
-                    </label> :
-                    <></>
-                }
-            </span>
-
-            {subtitleArr.length > 1 ?
-                <label className="colFlex">
-                    <p>Podnaslovi in strani</p>
-                    {subtitleArr.map(
-                        (sub, index) => {
-                            return index !== 0 ?
-                                <label key={"subTitleInputKey" + index}>
-                                    <input
-                                        id={"subTitleInput" + index}
-                                        className="subTitleInput"
-                                        type="text"
-                                        value={sub.title}
-                                        onChange={(e) => {
-                                            subtitleArr[index].title = e.target.value;
-                                            setSubtitleArr(subtitleArr);
-                                        }}
-                                        max={100}>
-                                    </input>
-
-                                    <input
-                                        type="number"
-                                        className="pageNumInput"
-                                        value={subtitleArr[index].count}
-                                        onChange={(e) => {
-                                            subtitleArr[index].count = Number(e.target.value);
-                                            setSubtitleArr(subtitleArr);
-                                        }}>
-                                    </input>
-                                    <p> str.</p>
-                                </label> :
-                                <></>
-                        })
-                    }
-                </label> :
-                <></>
-            }
-            <button
-                type="button"
-                onClick={() => addSubtitle()}>
-                dodaj ponaslov
-            </button>
+            <input
+                type="text"
+                {...register("title", { required: true, minLength: 1, maxLength: 200 })}>
+            </input>
 
             <div className="popBox">
-                <h3>Prva izdaja</h3>
+                <h3>Produkcija</h3>
                 <PopupNote
-                    id="knjigaYear"
-                    notes={["Knjiga je izšla oz. izhajala je OD leta ____."]}
+                    id="oddajaYear"
+                    notes={["Objavlja OD leta ____.", "Objavljal DO leta ____.", "Če še objavlja ali tega ne veš, pusti drugo polje prazno."]}
                 />
             </div>
             <div id="editYearBox" className="colFlex">
-                <label>
-                    <p>leta</p>
+                <div className="inBlock">
+                    <label>
+                        <p>od</p>
+                        <input
+                            type="number"
+                            min={1993}
+                            max={year}
+                            {...register("start", { min: 1993, max: year })}>
+                        </input>
+                    </label>
+                </div>
+                <div className="editYear">
+                    <label>
+                        <p>do</p>
+                        <input
+                            type="number"
+                            min={1993}
+                            max={year}
+                            {...register("finish", { min: 1993, max: year })}>
+                        </input>
+                    </label>
+                </div>
+            </div>
+
+            <div className="popBox">
+                <h3>Trajanje ogleda</h3>
+                <PopupNote
+                    id="oddajaLength"
+                    notes={["Krajši video traja ___ minut.", "Daljši video traja ___ minut.", "Oddaja ima objavljenih ___ videov."]}
+                />
+            </div>
+            <div className="colFlex">
+                <label id="editMin">
+                    <p>od</p>
                     <input
+                        min={1}
+                        max={1000}
                         type="number"
-                        min={-600}
-                        max={year}
-                        {...register("published", { min: -600, max: year })}>
+                        {...register("minLength", { min: 1, max: 1000 })}>
                     </input>
+                    <p>min</p>
+                </label>
+                <label id="editMax">
+                    <p>do</p>
+                    <input
+                        min={1}
+                        max={1000}
+                        type="number"
+                        {...register("maxLength", { min: 1, max: 1000 })}>
+                    </input>
+                    <p>min</p>
+                </label>
+                <label id="editSeasons">
+                    <input
+                        min={1}
+                        max={10000}
+                        type="number"
+                        {...register("episodes", { min: 1, max: 10000 })}>
+                    </input>
+                    <p>št. videov</p>
                 </label>
             </div>
 
             <div className="popBox">
                 <h3>Naslovna slika</h3>
                 <PopupNote
-                    id="knjigaPicture"
+                    id="oddajaPicture"
                     notes={["Slika naj ne bo večja od 2 Mb."]}
                 />
             </div>
@@ -158,8 +148,8 @@ export default function EditKnjiga(
                     className="editPic"
                     src={pic ?
                         pic :
-                        knjiga?.img ?
-                            knjiga.img :
+                        oddaja?.img ?
+                            oddaja.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -181,13 +171,13 @@ export default function EditKnjiga(
             <div className="popBox">
                 <h3>Tip feminizma</h3>
                 <PopupNote
-                    id="knjigaFemType"
+                    id="oddajaFemType"
                     notes={
                         ["Družbeni, Woke ali Liberalni feminizem.",
-                            "Družbeni označuje, da se knjiga osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
-                            "Liberalni označuje, da se knjiga osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Družbeni označuje, da se oddaja osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se oddaja osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
                             "Woke označuje vmesno, oboje in ostalo.",
-                            "Knjiga ni o ženskah in ni za ženske? Ne objavi."
+                            "Film ni o ženskah in ni za ženske? Ne objavi."
                         ]
                     }
                 />
@@ -258,14 +248,14 @@ export default function EditKnjiga(
             <div className="popBox">
                 <h3>Žanri</h3>
                 <PopupNote
-                    id="knjigaGenre"
-                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo knjiga."]}
+                    id="oddajaGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo oddaja."]}
                 />
             </div>
             <div className="editGenreBox colFlex">
-                {knjigaTypes.map((type, index) => {
+                {oddajaTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = knjigaTypes.find(genre => {
+                    const label = oddajaTypes.find(genre => {
                         if (type.name === genre.name) {
                             return genre.register
                         }
@@ -278,8 +268,8 @@ export default function EditKnjiga(
                             checkClass={group}
                             afterText={type.name}
                             preChecked={
-                                knjiga?.genre &&
-                                    knjiga.genre.find((gen) => gen === type.name) ?
+                                oddaja?.genre &&
+                                    oddaja.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -287,7 +277,7 @@ export default function EditKnjiga(
                                 context: group,
                                 max: 5
                             }}
-                            key={"knjigaGenre" + num}
+                            key={"oddajaGenre" + num}
                             register={register}
                         />
                     )
@@ -295,70 +285,70 @@ export default function EditKnjiga(
             </div>
 
             <div className="popBox">
-                <h3>Založba</h3>
+                <h3>Platforme</h3>
                 <PopupNote
-                    id="knjigaPublisher"
-                    notes={["Je knjiga del založbe, skupine založb ali samozaložbe?", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="oddajaPlatforme"
+                    notes={["Na katerih platformah jih je mogoče najti.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKnjigaPublisher"
-                name="publishers"
+                id="editOddajaPlatforms"
+                name="platforms"
                 maxLength={500}
                 register={register}
             />
 
             <div className="popBox">
-                <h3>Avtorji</h3>
+                <h3>Gostitelj</h3>
                 <PopupNote
-                    id="knjigAuthors"
-                    notes={["Kdo vse je pisal knjigo.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="oddajaGostitelj"
+                    notes={["Kdo vodi oddajo oz. gosti goste.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKnjigaAuthors"
-                name="authors"
+                id="editOddajaGostitelj"
+                name="hosts"
                 maxLength={500}
+                register={register}
+            />
+
+            <div className="popBox">
+                <h3>Gostje</h3>
+                <PopupNote
+                    id="oddajaGostje"
+                    notes={["Kdo je že nastopal oz. bil gost.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 1000 znakov."]}
+                />
+            </div>
+            <TextArea
+                id="editOddajaGostje"
+                name="guests"
+                maxLength={1000}
                 register={register}
             />
 
             <div className="popBox">
                 <h3>Ostali sodelujoči</h3>
                 <PopupNote
-                    id="knjigaOthers"
-                    notes={["Kdo razen pisateljev in založnika je še sodeloval.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="oddajaOthers"
+                    notes={["Kdo je še sodeloval kako drugače.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKnjigaOthers"
+                id="editOddajaOthers"
                 name="others"
                 maxLength={500}
                 register={register}
             />
 
             <div className="popBox">
-                <h3>Liki</h3>
-                <PopupNote
-                    id="knjigaCharacters"
-                    notes={["Imena oseb oz. likov, ki se pojavijo v knjigi.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
-                />
-            </div>
-            <TextArea
-                id="editKnjigaCharacters"
-                name="characters"
-                maxLength={1000}
-                register={register}
-            />
-
-            <div className="popBox">
                 <h3>Objasnilo ustreznosti</h3>
                 <PopupNote
-                    id="knjigaExplanation"
+                    id="oddajaExplanation"
                     notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKnjigaExplanation"
+                id="editOddajaExplanation"
                 name="explanation"
                 maxLength={750}
                 register={register}
@@ -367,12 +357,12 @@ export default function EditKnjiga(
             <div className="popBox">
                 <h3>Povzetek vsebine</h3>
                 <PopupNote
-                    id="knjigaSummary"
-                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi knjiga poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                    id="oddajaSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi oddaja poskuša presenetiti.", "Ne več kot 1000 znakov."]}
                 />
             </div>
             <TextArea
-                id="editKnjigaDescription"
+                id="editOddajaDescription"
                 name="description"
                 required={true}
                 maxLength={1500}
@@ -390,12 +380,12 @@ export default function EditKnjiga(
                     onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {knjiga ?
+                {oddaja ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            setKnjiga(null)
+                            setOddaja(null)
                             setEditor(false)
                         }}>
                         Nazaj na tabelo

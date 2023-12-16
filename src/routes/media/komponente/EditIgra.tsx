@@ -59,6 +59,7 @@ export default function EditIgra(
                 <PopupNote
                     id="igraTitle"
                     notes={["Naslov naj ne bo daljši od 200 znakov."]}
+                    direction="down"
                 />
             </div>
             <input

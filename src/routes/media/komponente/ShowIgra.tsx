@@ -18,7 +18,7 @@ export default function ShowIgra(
     return (igra ?
         <div
             className={`gridBox grid${setGrid(igra)} container"`}>
-            <div className="titleBox">
+            <div className="titleBox fInfo">
                 <h3
                     className="title">
                     {igra.title}
@@ -51,6 +51,7 @@ export default function ShowIgra(
                     }
                 </div>
             </div>
+
             <div className="image flex">
                 <img
                     src={igra.img ?

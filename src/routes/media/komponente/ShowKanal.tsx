@@ -23,12 +23,12 @@ export default function ShowKanal(
                 <div
                     className="fInfo">
                     <p>
-                        {
-                            kanal.firstAir +
-                            `${kanal.lastAir ?
-                                ` - ${kanal.lastAir}` :
-                                " -"}`
-                        }
+                        <p>
+                            {kanal.firstAir === kanal.lastAir ?
+                                kanal.firstAir :
+                                `${kanal.firstAir} - ${kanal.lastAir ?
+                                    kanal.lastAir : ""}`}
+                        </p>
                     </p>
                     {kanal.length.minmax[0] &&
                         <p

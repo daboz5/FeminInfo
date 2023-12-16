@@ -23,7 +23,7 @@ export default function ArrowUp(
 
   return (<>
     <svg
-      id="arrowUp"
+      className="arrowUp"
       style={rotation}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 164.35 132.668">

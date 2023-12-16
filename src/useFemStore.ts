@@ -1,22 +1,26 @@
 import { create } from 'zustand';
-import { Film, Igra, Kanal, Knjiga } from './type';
+import { Film, Igra, Kanal, Knjiga, Skupina, Oddaja } from './type';
 
 type State = {
     year: number,
+    subtitleArr: Skupina[],
     pageSize: number,
     footOpened: boolean,
-    libFilm: [] | Film[],
-    backupLibFilm: [] | Film[],
-    libIgra: [] | Igra[],
-    backupLibIgra: [] | Igra[],
-    libKanal: [] | Kanal[],
-    backupLibKanal: [] | Kanal[],
-    libKnjiga: [] | Knjiga[],
-    backupLibKnjiga: [] | Knjiga[],
+    libFilm: Film[],
+    backupLibFilm: Film[],
+    libIgra: Igra[],
+    backupLibIgra: Igra[],
+    libKanal: Kanal[],
+    backupLibKanal: Kanal[],
+    libKnjiga: Knjiga[],
+    backupLibKnjiga: Knjiga[],
+    libOddaja: Oddaja[],
+    backupLibOddaja: Oddaja[],
 }
 
 type Action = {
     registerSize(newSize: number): void,
+    setSubtitleArr(newState: Skupina[]): void,
     switchFootOpened(): void,
     setLibFilm(newLib: Film[]): void,
     setBackupLibFilm(newLib: Film[]): void,
@@ -26,6 +30,8 @@ type Action = {
     setBackupLibKanal(newLib: Kanal[]): void,
     setLibKnjiga(newLib: Knjiga[]): void,
     setBackupLibKnjiga(newLib: Knjiga[]): void,
+    setLibOddaja(newLib: Oddaja[]): void,
+    setBackupLibOddaja(newLib: Oddaja[]): void,
 }
 
 const useFemStore = create<State & Action>(set => ({
@@ -34,6 +40,11 @@ const useFemStore = create<State & Action>(set => ({
     pageSize: 0,
     registerSize: (newSize) => set(() => ({
         pageSize: newSize
+    })),
+
+    subtitleArr: [],
+    setSubtitleArr: (newState) => set(() => ({
+        subtitleArr: newState
     })),
 
     footOpened: false,
@@ -75,6 +86,15 @@ const useFemStore = create<State & Action>(set => ({
     })),
     setBackupLibKnjiga: (newLib) => set(() => ({
         backupLibKnjiga: newLib
+    })),
+
+    libOddaja: [],
+    backupLibOddaja: [],
+    setLibOddaja: (newLib) => set(() => ({
+        libOddaja: newLib
+    })),
+    setBackupLibOddaja: (newLib) => set(() => ({
+        backupLibOddaja: newLib
     })),
 }))
 

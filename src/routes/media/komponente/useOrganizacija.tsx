@@ -1,18 +1,14 @@
-import { Kanal, KanalGenre } from "../../../type";
+import { Oddaja, OddajaForm, OddajaGenre } from "../../../type";
 import { useState } from "react";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
-export default function useKanal() {
+export default function useOddaja() {
 
-    const kanalTypes: {
-        name: KanalGenre;
+    const oddajaTypes: {
+        name: OddajaGenre;
         register: string;
     }[] = [
-            {
-                name: "Animacija",
-                register: "animacija"
-            },
             {
                 name: "Doživetja",
                 register: "dozivetja"
@@ -22,8 +18,8 @@ export default function useKanal() {
                 register: "filmi"
             },
             {
-                name: "Hrana",
-                register: "hrana"
+                name: "Glasba",
+                register: "glasba"
             },
             {
                 name: "Igre",
@@ -62,24 +58,12 @@ export default function useKanal() {
                 register: "sprostitev"
             },
             {
-                name: "Radijska oddaja",
-                register: "oddaja"
-            },
-            {
-                name: "Reakcije",
-                register: "reakcije"
-            },
-            {
                 name: "Vadba",
                 register: "vadba"
             },
             {
                 name: "V živo",
                 register: "vzivo"
-            },
-            {
-                name: "Video eseji",
-                register: "videoeseji"
             },
             {
                 name: "Zabava",
@@ -91,7 +75,7 @@ export default function useKanal() {
             },
         ]
 
-    const testLib: Kanal[] = [
+    const testLib: Oddaja[] = [
         {
             title: "Feminist Frequency",
             firstAir: 2009,
@@ -105,7 +89,7 @@ export default function useKanal() {
             hosts: ["Emily", "Anita Sarkeesian", "Karoline"],
             guests: ["Charlie Jane Anders"],
             others: ["Rob Williams"],
-            genre: ["Kultura", "Radijska oddaja", "Filmi", "Knjige", "Igre"],
+            genre: ["Kultura", "Izobraževalno", "Filmi", "Knjige", "Igre"],
             femType: "woke",
             explanation: "Feministični banter čez razne kulturne vsebine.",
             description: "Feminist Frequency is an ongoing series of video commentaries exploring gender representations, myths, and messages in popular culture media. Created and hosted by Anita Sarkeesian.",
@@ -118,53 +102,53 @@ export default function useKanal() {
             }
         },
         {
-            title: "Bryony Claire",
-            firstAir: 2009,
-            lastAir: undefined,
+            title: "Insane in the Fem Brain",
+            firstAir: 2020,
+            lastAir: 2022,
             length: {
-                minmax: [10, 90],
-                episodes: 465
+                minmax: [50, 75],
+                episodes: 37
             },
             img: undefined,
-            platforms: ["YouTube", "Apple Podcasts"],
-            hosts: ["Emily", "Anita Sarkeesian", "Karoline"],
-            guests: ["Charlie Jane Anders"],
-            others: ["Rob Williams"],
-            genre: ["Lepotičenje", "Kultura", "Izobraževalno", "Video eseji", "Nasveti"],
-            femType: "woke",
-            explanation: "Feministični banter čez razne kulturne vsebine.",
-            description: "Feminist Frequency is an ongoing series of video commentaries exploring gender representations, myths, and messages in popular culture media. Created and hosted by Anita Sarkeesian.",
+            platforms: ["Google Podcasts", "Acast", "Spotify"],
+            hosts: ["Rick Wilson"],
+            guests: ["Nancy Carter-Bradley", "Lizzy Pollot", "Esther Manito"],
+            others: ["Paul"],
+            genre: ["Kultura", "Izobraževalno", "Nasveti", "Doživetja"],
+            femType: "lib",
+            explanation: "Pogovori o življenju žensk ter trans oseb.",
+            description: "A spin-off of the award winning podcast Insane In The Men Brain. Jayde Adams thinks Rich Wilson needs to learn more about the other sex and what makes women so powerful!",
             ratings: {
                 loves: 0,
-                likes: 3,
-                oks: 0,
+                likes: 2,
+                oks: 1,
                 dislikes: 0,
                 hates: 0
             }
         },
         {
-            title: "Alice Cappelle",
-            firstAir: 2020,
-            lastAir: undefined,
+            title: "End FGM",
+            firstAir: 2019,
+            lastAir: 2019,
             length: {
                 minmax: [10, 25],
                 episodes: 82
             },
             img: undefined,
-            platforms: ["YouTube"],
-            hosts: ["Alice Cappelle"],
-            guests: [],
+            platforms: ["Apple Podcasts", "Google Podcasts"],
+            hosts: ["Jeremiah Kipainoi"],
+            guests: ["Leyla Hussein", "Ebony Riddell Bamber", "Abdulmalik"],
             others: [],
-            genre: ["Izobraževalno", "Video eseji", "Kultura", "Doživetja", "Knjige"],
-            femType: "woke",
-            explanation: "Feministični banter čez razne kulturne vsebine.",
-            description: "Feminist Frequency is an ongoing series of video commentaries exploring gender representations, myths, and messages in popular culture media. Created and hosted by Anita Sarkeesian.",
+            genre: ["Izobraževalno", "Doživetja", "Nasveti", "Kultura"],
+            femType: "soc",
+            explanation: "O prekinitvi nasilja nad ženskimi spolovili, še posebno med tradicionalnih afriških in obafriških skupnostih.",
+            description: "People working in different sectors in the campaign against Female Genital Mutialtion share their journey, challenges and successes in this podcast.",
             ratings: {
-                loves: 5,
+                loves: 2,
                 likes: 3,
                 oks: 0,
                 dislikes: 0,
-                hates: 1
+                hates: 0
             }
         }
     ]
@@ -176,7 +160,7 @@ export default function useKanal() {
         searchRegexCreator,
     } = useComponent();
 
-    const [selected, setSelected] = useState<Kanal | null>(null);
+    const [selected, setSelected] = useState<Oddaja | null>(null);
     const [pic, setPic] = useState(selected?.img);
 
     const omniFilter = (querry: string) => {
@@ -184,23 +168,23 @@ export default function useKanal() {
 
         const regArr = searchRegexCreator(querry);
         const result = searchRegexOmniFilter(regArr);
-        if (result) { selectSetLibrary("kanal", result) }
+        if (result) { selectSetLibrary("oddaja", result) }
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const selection: Kanal[] = selectBackup("kanal");
+        const selection: Oddaja[] = selectBackup("oddaja");
         const filtered = selection.filter(
-            (kanal) => {
-                const title = kanal.title.toUpperCase();
-                const yearStart = kanal.firstAir;
-                const yearEnd = kanal.lastAir;
-                const platforms = kanal.platforms?.join(",").toUpperCase();
-                const hosts = kanal.hosts?.join(",").toUpperCase();
-                const guests = kanal.guests?.join(",").toUpperCase();
-                const others = kanal.others?.join(",").toUpperCase();
-                const genre = kanal.genre?.join(",").toUpperCase();
-                const explanation = kanal.explanation?.toUpperCase();
-                const description = kanal.description.toUpperCase();
+            (oddaja) => {
+                const title = oddaja.title.toUpperCase();
+                const yearStart = oddaja.firstAir;
+                const yearEnd = oddaja.lastAir;
+                const platforms = oddaja.platforms?.join(",").toUpperCase();
+                const hosts = oddaja.hosts?.join(",").toUpperCase();
+                const guests = oddaja.guests?.join(",").toUpperCase();
+                const others = oddaja.others?.join(",").toUpperCase();
+                const genre = oddaja.genre?.join(",").toUpperCase();
+                const explanation = oddaja.explanation?.toUpperCase();
+                const description = oddaja.description.toUpperCase();
                 const joined = `
                     ${title ? title : ""};
                     ${yearStart ? yearStart : ""};
@@ -220,7 +204,7 @@ export default function useKanal() {
                     }
                 })
                 if (matches.length > 0) {
-                    return kanal;
+                    return oddaja;
                 }
             }
         );
@@ -241,30 +225,30 @@ export default function useKanal() {
 
         const currentYear = new Date().getFullYear();
         if (min) {
-            if (min < 1993 || min > currentYear) {
-                if (min < 1993) {
+            if (min < 1919 || min > currentYear) {
+                if (min < 1919) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prvi internetni video je deljen leta 1993.`);
+                    Prva radijska oddaja je predvajala leta 1919.`);
                     return;
                 }
                 if (min > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje kanalov iz leta ${min}.
+                    Baza zaenkrat ne vsebuje oddaj iz leta ${min}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
             }
         }
         if (max) {
-            if (max < 1993 || max > currentYear) {
-                if (max < 1993) {
+            if (max < 1919 || max > currentYear) {
+                if (max < 1919) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prvi internetni video je deljen leta 1993.`);
+                    Prva radijska oddaja je predvajala leta 1919.`);
                     return;
                 }
                 if (max > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje kanalov iz leta ${max}.
+                    Baza zaenkrat ne vsebuje oddaj iz leta ${max}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
@@ -272,29 +256,29 @@ export default function useKanal() {
         }
 
         if (min || max) {
-            const result = testLib.filter((kanal) => {
-                const year = kanal.firstAir
+            const result = testLib.filter((oddaja) => {
+                const year = oddaja.firstAir
                 if (year) {
                     if (min && max) {
                         if (min && max && min > max && year <= min && year >= max) {
-                            return kanal;
+                            return oddaja;
                         } else if (year >= min && year <= max) {
-                            return kanal;
+                            return oddaja;
                         }
                     }
                     if (min && !max && year >= min) {
-                        return kanal;
+                        return oddaja;
                     }
                     if (!min && max && year <= max) {
-                        return kanal;
+                        return oddaja;
                     }
                 }
             })
-            if (result) { selectSetLibrary("kanal", result) }
+            if (result) { selectSetLibrary("oddaja", result) }
         }
     }
 
-    const setGrid = (content: Kanal) => {
+    const setGrid = (content: Oddaja) => {
         if (content) {
             let type = false;
             let creators = false;
@@ -315,28 +299,28 @@ export default function useKanal() {
         return 0
     }
 
-    const defFormValues = (kanal: Kanal | null): KanalForm | undefined => {
-        if (!kanal) return;
+    const defFormValues = (oddaja: Oddaja | null): OddajaForm | undefined => {
+        if (!oddaja) return;
 
         const defValues = {
-            title: kanal.title,
-            start: kanal.firstAir ? kanal.firstAir : undefined,
-            finish: kanal.lastAir ? kanal.lastAir : undefined,
-            minLength: kanal.length.minmax[0] ? kanal.length.minmax[0] : undefined,
-            maxLength: kanal.length.minmax[1] ? kanal.length.minmax[1] : undefined,
-            episodes: kanal.length.episodes ? kanal.length.episodes : 1,
-            femType: kanal.femType ? kanal.femType : "",
-            platforms: kanal.platforms.join(", "),
-            hosts: kanal.hosts.join(", "),
-            guests: kanal.guests.join(", "),
-            others: kanal.others.join(", "),
-            explanation: kanal.explanation,
-            description: kanal.description,
+            title: oddaja.title,
+            start: oddaja.firstAir ? oddaja.firstAir : undefined,
+            finish: oddaja.lastAir ? oddaja.lastAir : undefined,
+            minLength: oddaja.length.minmax[0] ? oddaja.length.minmax[0] : undefined,
+            maxLength: oddaja.length.minmax[1] ? oddaja.length.minmax[1] : undefined,
+            episodes: oddaja.length.episodes ? oddaja.length.episodes : 1,
+            femType: oddaja.femType ? oddaja.femType : "",
+            platforms: oddaja.platforms.join(", "),
+            hosts: oddaja.hosts.join(", "),
+            guests: oddaja.guests.join(", "),
+            others: oddaja.others.join(", "),
+            explanation: oddaja.explanation,
+            description: oddaja.description,
         };
 
-        kanalTypes.forEach(
+        oddajaTypes.forEach(
             type => {
-                const value = kanal.genre.find(gen => gen === type.name) ? true : false;
+                const value = oddaja.genre.find(gen => gen === type.name) ? true : false;
                 defValues[type.register] = value;
             }
         );
@@ -347,11 +331,10 @@ export default function useKanal() {
         if (!data) { return }
 
         const genreFilter = () => {
-            const result: KanalGenre[] = [];
-            data.animacija ? result.push("Animacija") : {};
+            const result: OddajaGenre[] = [];
             data.dozivetja ? result.push("Doživetja") : {};
             data.filmi ? result.push("Filmi") : {};
-            data.hrana ? result.push("Hrana") : {};
+            data.glasba ? result.push("Glasba") : {};
             data.igre ? result.push("Igre") : {};
             data.izobrazevalno ? result.push("Izobraževalno") : {};
             data.knjige ? result.push("Knjige") : {};
@@ -361,17 +344,14 @@ export default function useKanal() {
             data.potrosnja ? result.push("Potrošnja") : {};
             data.prirocniki ? result.push("Priročniki") : {};
             data.sprostitev ? result.push("Sprostitev") : {};
-            data.oddaja ? result.push("Radijska oddaja") : {};
-            data.reakcije ? result.push("Reakcije") : {};
             data.vadba ? result.push("Vadba") : {};
             data.vzivo ? result.push("V živo") : {};
-            data.videoeseji ? result.push("Video eseji") : {};
             data.zabava ? result.push("Zabava") : {};
             data.znanost ? result.push("Znanost") : {};
             return result;
         }
 
-        const result: Kanal = {
+        const result: Oddaja = {
             title: data.title,
             firstAir: data.start ? data.start : undefined,
             lastAir: data.finish ? data.finish : undefined,
@@ -408,7 +388,7 @@ export default function useKanal() {
         pic,
         selected,
         testLib,
-        kanalTypes,
+        oddajaTypes,
         defFormValues,
         setPic,
         setSelected,

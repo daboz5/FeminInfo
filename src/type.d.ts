@@ -98,6 +98,24 @@ type KnjigaGenre =
     "Zgodovina" |
     "Znanstvena fantastika"
 
+type OddajaGenre =
+    "Doživetja" |
+    "Filmi" |
+    "Glasba" |
+    "Igre" |
+    "Izobraževalno" |
+    "Knjige" |
+    "Kultura" |
+    "Lepotičenje" |
+    "Nasveti" |
+    "Potrošnja" |
+    "Priročniki" |
+    "Sprostitev" |
+    "Vadba" |
+    "V živo" |
+    "Zabava" |
+    "Znanost"
+
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -115,7 +133,7 @@ type GamePlatform =
 type Skupina = {
     id: number,
     title: string,
-    count?: number
+    count: number
 }
 
 type Ratings = {
@@ -336,7 +354,7 @@ type Knjiga = {
 type KnjigaForm = {
     title: string;
     published: number | undefined;
-    zbirka: Skupina[] | undefined;
+    zbirka: Skupina[]
     femType: string;
     akcija: boolean;
     avantura: boolean;
@@ -366,6 +384,58 @@ type KnjigaForm = {
     description: string;
 }
 
+type Oddaja = {
+    title: string;
+    firstAir: number | undefined;
+    lastAir: number | undefined;
+    length: {
+        minmax: [number | undefined, number | undefined];
+        episodes: number | undefined;
+    },
+    img: string | undefined;
+    platforms: string[];
+    hosts: string[];
+    guests: string[];
+    others: string[];
+    genre: OddajaGenre[];
+    femType: FemType | undefined;
+    explanation: string;
+    description: string;
+    ratings: Ratings
+}
+
+type OddajaForm = {
+    title: string;
+    start: number | undefined;
+    finish: number | undefined;
+    minLength: number | undefined;
+    maxLength: number | undefined;
+    episodes: number;
+    femType: string;
+    dozivetja: boolean | undefined;
+    filmi: boolean | undefined;
+    glasba: boolean | undefined;
+    igre: boolean | undefined;
+    izobrazevalno: boolean | undefined;
+    knjige: boolean | undefined;
+    kultura: boolean | undefined;
+    lepoticenje: boolean | undefined;
+    nasveti: boolean | undefined;
+    potrosnja: boolean | undefined;
+    prirocniki: boolean | undefined;
+    sprostitev: boolean | undefined;
+    vadba: boolean | undefined;
+    vzivo: boolean | undefined;
+    zabava: boolean | undefined;
+    znanost: boolean | undefined;
+    platforms: string;
+    hosts: string;
+    guests: string;
+    others: string;
+    explanation: string;
+    description: string;
+}
+
 export {
     Library,
     Film,
@@ -380,7 +450,11 @@ export {
     Knjiga,
     KnjigaGenre,
     KnjigaForm,
+    Oddaja,
+    OddajaGenre,
+    OddajaForm,
     GamePlatform,
     FemType,
     Ratings,
+    Skupina
 };

@@ -56,6 +56,7 @@ export default function EditFilm(
                 <PopupNote
                     id="filmTitle"
                     notes={["Naslov naj ne bo daljši od 200 znakov."]}
+                    direction="down"
                 />
             </div>
             <input

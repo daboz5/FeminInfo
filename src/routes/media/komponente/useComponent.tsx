@@ -10,14 +10,17 @@ export default function useComponent() {
         libIgra,
         libKanal,
         libKnjiga,
+        libOddaja,
         backupLibFilm,
         backupLibIgra,
         backupLibKanal,
         backupLibKnjiga,
+        backupLibOddaja,
         setLibFilm,
         setLibIgra,
         setLibKanal,
         setLibKnjiga,
+        setLibOddaja
     } = useFemStore();
 
     const [filter, setFilter] = useState("");
@@ -112,7 +115,7 @@ export default function useComponent() {
             case "knjiga":
                 return backupLibKnjiga;
             case "oddaja":
-                return backupLibIgra;
+                return backupLibOddaja;
             case "org":
                 return backupLibIgra;
             case "revija":
@@ -133,7 +136,7 @@ export default function useComponent() {
             case "knjiga":
                 return libKnjiga;
             case "oddaja":
-                return libIgra;
+                return libOddaja;
             case "org":
                 return libIgra;
             case "revija":
@@ -158,7 +161,7 @@ export default function useComponent() {
                 setLibKnjiga(content);
                 break;
             case "oddaja":
-                setLibFilm(content);
+                setLibOddaja(content);
                 break;
             case "org":
                 setLibFilm(content);
@@ -415,7 +418,6 @@ export default function useComponent() {
 
         const min = querry1 ? Number(querry1) : undefined;
         const max = querry2 ? Number(querry2) : undefined;
-        console.log(min, max)
 
         if (min || max) {
             const selection = selectBackup(lib);

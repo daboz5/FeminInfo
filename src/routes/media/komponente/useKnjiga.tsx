@@ -1,7 +1,8 @@
-import { Knjiga, KnjigaForm, KnjigaGenre } from "../../../type";
+import { Knjiga, KnjigaForm, KnjigaGenre, Skupina } from "../../../type";
 import { useState } from "react";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
+import useFemStore from "../../../useFemStore";
 
 export default function useKnjiga() {
 
@@ -97,6 +98,11 @@ export default function useKnjiga() {
             published: 1949,
             zbirka: [
                 {
+                    id: 0,
+                    title: "The Second Sex",
+                    count: 978
+                },
+                {
                     id: 1,
                     title: "Facts and Myths",
                     count: 352
@@ -129,7 +135,7 @@ export default function useKnjiga() {
             published: 1981,
             zbirka: [
                 {
-                    id: 1,
+                    id: 0,
                     title: "Women, Race and Class",
                     count: 271
                 }
@@ -156,6 +162,11 @@ export default function useKnjiga() {
             published: 2013,
             zbirka: [
                 {
+                    id: 0,
+                    title: "Ascendance of a Bookworm",
+                    count: 1500
+                },
+                {
                     id: 1,
                     title: "Daughter of a Soldier",
                     count: 300
@@ -163,18 +174,22 @@ export default function useKnjiga() {
                 {
                     id: 2,
                     title: "Apprentice Shrine Maiden",
+                    count: 300
                 },
                 {
                     id: 3,
                     title: "Adopted Daughter of an Archduke",
+                    count: 300
                 },
                 {
                     id: 4,
                     title: "Founder of the Royal Academy's So-Called Library Committee",
+                    count: 300
                 },
                 {
                     id: 5,
                     title: "Avatar of a Goddess",
+                    count: 300
                 }
             ],
             img: undefined,
@@ -195,6 +210,8 @@ export default function useKnjiga() {
             }
         },
     ]
+
+    const { subtitleArr, setSubtitleArr } = useFemStore();
 
     const {
         splitInput,
@@ -322,6 +339,45 @@ export default function useKnjiga() {
         }
     }
 
+    const sumPageNum = (zbirka: Skupina[]): number => {
+        if (zbirka) {
+            let pageCount = 0;
+            for (let i = 1; i < zbirka.length; i++) {
+                zbirka[i].count ?
+                    pageCount = pageCount + zbirka[i].count :
+                    ""
+            }
+            return pageCount;
+        } else return 0;
+    }
+
+    const addSubtitle = () => {
+        if (subtitleArr.length > 0) {
+            const els = document.getElementsByClassName("subTitleInput");
+            if (els) {
+                let blankEl = 0;
+                for (let i = 0; i < els.length; i++) {
+                    els[i].value === "" ? blankEl++ : blankEl
+                }
+                if (blankEl === 0) {
+                    setSubtitleArr(subtitleArr.concat({
+                        id: subtitleArr.length,
+                        title: "",
+                        count: 0
+                    }));
+                } else {
+                    toast.error("Vsaj en podnaslov je že prazen.")
+                }
+            }
+        } else {
+            setSubtitleArr(subtitleArr.concat({
+                id: subtitleArr.length,
+                title: "",
+                count: 0
+            }));
+        }
+    }
+
     const setGrid = (content: Knjiga) => {
         if (content) {
             let type = false;
@@ -396,14 +452,13 @@ export default function useKnjiga() {
             return result;
         }
 
-        const zbirka = data.zbirka;
+        const zbirka = [...subtitleArr];
+        zbirka[0].count = sumPageNum(zbirka)
 
         const result: Knjiga = {
             title: data.title,
             published: data.published,
-            zbirka: [
-                zbirka
-            ],
+            zbirka: zbirka,
             img: pic ? pic : undefined,
             publishers: splitInput(data.publishers),
             authors: splitInput(data.authors),
@@ -433,6 +488,7 @@ export default function useKnjiga() {
         selected,
         testLib,
         knjigaTypes,
+        addSubtitle,
         defFormValues,
         setPic,
         setSelected,

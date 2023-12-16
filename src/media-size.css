@@ -162,10 +162,6 @@
         padding: 10px 20px;
     }
 
-    .popupBtn .popDown::after {
-        top: -15%;
-    }
-
 }
 
 /* sm */
