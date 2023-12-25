@@ -1,86 +1,75 @@
-import { Oddaja } from "../../../type";
-import useOddaja from "./useOddaja";
+import { Organizacija } from "../../../type";
+import useOrganizacija from "./useOrganizacija";
 
-export default function ShowOddaja(
-    { oddaja, setOddaja, setEditor }:
+export default function ShowOrganizacija(
+    { organizacija, setOrganizacija, setEditor }:
         {
-            oddaja: Oddaja | null,
-            setOddaja(newState: null): void,
+            organizacija: Organizacija | null,
+            setOrganizacija(newState: null): void,
             setEditor(newState: boolean): void
         }
 ) {
 
-    const { setGrid } = useOddaja();
+    const { setGrid } = useOrganizacija();
 
-    return (oddaja ?
+    return (organizacija ?
         <div
-            className={`gridBox grid${setGrid(oddaja)} container`}>
+            className={`gridBox grid${setGrid(organizacija)} container`}>
             <div className="titleBox">
                 <h3
                     className="title">
-                    {oddaja.title}
+                    {organizacija.name}
                 </h3>
                 <div
                     className="fInfo">
                     <p>
-                        {oddaja.firstAir === oddaja.lastAir ?
-                            oddaja.firstAir :
-                            `${oddaja.firstAir} - ${oddaja.lastAir ?
-                                oddaja.lastAir : ""}`}
+                        {organizacija.founded}
                     </p>
-                    {oddaja.length.minmax[0] &&
+                    {organizacija.reach &&
                         <p
-                            className="trajanje">
-                            {oddaja.length.minmax[0] ?
-                                oddaja.length.minmax[1] ?
-                                    `Video med ${oddaja.length.minmax[0] + " in " + oddaja.length.minmax[1]} min` :
-                                    `Video okoli ${oddaja.length.minmax[0]} min` :
-                                ""
-                            }
-                        </p>
-                    }
-                    {oddaja.length.episodes &&
-                        oddaja.length.episodes > 1 &&
-                        <p
-                            className="epizode">
-                            {`${oddaja.length.episodes}${!oddaja.lastAir ? " +" : ""} videov`}
+                            className="doseg">
+                            {`Organizacija je ${organizacija.reach === "local" ? "lokalna" :
+                                organizacija.reach === "regional" ? "regionalna" :
+                                    organizacija.reach === "national" ? "regionalna" :
+                                        organizacija.reach === "multinational" ? "mutinacionalna" :
+                                            ""}.`}
                         </p>
                     }
                 </div>
             </div>
             <div className="image flex">
                 <img
-                    src={oddaja.img ?
-                        oddaja.img :
+                    src={organizacija.img ?
+                        organizacija.img :
                         "femininfoEyeIcon.png"
                     }
-                    style={oddaja.img ?
+                    style={organizacija.img ?
                         {} :
                         {
                             filter: "grayscale(100%)",
                             maxWidth: "90%"
                         }
                     }
-                    alt={oddaja.img ?
-                        `Slika ${oddaja.title}` :
+                    alt={organizacija.img ?
+                        `Slika ${organizacija.name}` :
                         "FeminInfo ikona"
                     }
                 />
             </div>
             {
-                oddaja.femType || oddaja.genre.length > 0 ?
+                organizacija.femType || organizacija.genre.length > 0 ?
                     <div className="genreBox colFlex">
-                        {oddaja.femType ?
-                            oddaja.femType === "lib" ?
+                        {organizacija.femType ?
+                            organizacija.femType === "lib" ?
                                 <img className="femType" src={"type-liberal.svg"} alt="liberalni feminizem" /> :
-                                oddaja.femType === "soc" ?
+                                organizacija.femType === "soc" ?
                                     <img className="femType" src={"type-society.svg"} alt="družbeni feminizem" /> :
                                     <img className="femType" src={"type-woke.svg"} alt="woke feminizem" /> :
                             <></>
                         }
-                        {oddaja.genre &&
+                        {organizacija.genre &&
                             <div className="data genreType">
-                                {oddaja.genre.sort().map(el => {
+                                {organizacija.genre.sort().map(el => {
                                     return <p key={"genre" + el}>{el}</p>;
                                 })}
                             </div>
@@ -90,15 +79,15 @@ export default function ShowOddaja(
             }
 
             {
-                oddaja.platforms.length > 0 || oddaja.hosts.length > 0 || oddaja.others.length > 0 ?
+                organizacija.representatives.length > 0 || organizacija.workers.length > 0 || organizacija.programs.length > 0 || organizacija.others.length > 0 ?
                     <div className="peopleBox">
-                        {oddaja.platforms.length > 0 &&
-                            <div className="platformsBox">
-                                <h3 className="dataType">Platforma</h3>
+                        {organizacija.representatives.length > 0 &&
+                            <div className="representativesBox">
+                                <h3 className="dataType">Predstavniki</h3>
                                 <p className="data">
-                                    {oddaja.platforms.sort().map(
+                                    {organizacija.representatives.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.platforms?.length) {
+                                            if (index + 1 === organizacija.representatives?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -108,13 +97,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.hosts.length > 0 &&
-                            <div className="hostsBox">
-                                <h3 className="dataType">Vodja</h3>
+                        {organizacija.workers.length > 0 &&
+                            <div className="workersBox">
+                                <h3 className="dataType">Delavci</h3>
                                 <p className="data">
-                                    {oddaja.hosts.sort().map(
+                                    {organizacija.workers.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.hosts?.length) {
+                                            if (index + 1 === organizacija.workers?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -124,13 +113,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.guests.length > 0 &&
-                            <div className="actorsBox">
-                                <h3 className="dataType">Gostje</h3>
+                        {organizacija.programs.length > 0 &&
+                            <div className="programsBox">
+                                <h3 className="dataType">Programi</h3>
                                 <p className="data">
-                                    {oddaja.guests.sort().map(
+                                    {organizacija.programs.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.guests?.length) {
+                                            if (index + 1 === organizacija.programs?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -140,13 +129,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.others.length > 0 &&
+                        {organizacija.others.length > 0 &&
                             <div className="staffBox">
                                 <h3 className="dataType">Ostali</h3>
                                 <p className="data">
-                                    {oddaja.others.sort().map(
+                                    {organizacija.others.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.others?.length) {
+                                            if (index + 1 === organizacija.others?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -161,42 +150,42 @@ export default function ShowOddaja(
             }
 
             {
-                oddaja.explanation &&
+                organizacija.explanation &&
                 <div className="explanationBox">
                     <h3 className="dataType">Pojasnilo</h3>
-                    <p className="data">{oddaja.explanation}</p>
+                    <p className="data">{organizacija.explanation}</p>
                 </div>
             }
 
             {
-                oddaja.description &&
+                organizacija.description &&
                 <div className="descriptionBox">
                     <h3 className="dataType">Opis</h3>
-                    <p className="data">{oddaja.description}</p>
+                    <p className="data">{organizacija.description}</p>
                 </div>
             }
 
             {
-                oddaja.ratings &&
+                organizacija.ratings &&
                 <div className="pollBox">
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.hates}</p>
+                        <p className="defMouse">{organizacija.ratings.hates}</p>
                         <p className="rIcon">💀</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.dislikes}</p>
+                        <p className="defMouse">{organizacija.ratings.dislikes}</p>
                         <p className="rIcon">👎</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.oks}</p>
+                        <p className="defMouse">{organizacija.ratings.oks}</p>
                         <p className="rIcon">⭐</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.likes}</p>
+                        <p className="defMouse">{organizacija.ratings.likes}</p>
                         <p className="rIcon">👍</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.loves}</p>
+                        <p className="defMouse">{organizacija.ratings.loves}</p>
                         <p className="rIcon">💜</p>
                     </span>
                 </div>
@@ -210,7 +199,7 @@ export default function ShowOddaja(
                 </button>
                 <button
                     className="actMouse"
-                    onClick={() => setOddaja(null)}>
+                    onClick={() => setOrganizacija(null)}>
                     Zapri
                 </button>
             </div>

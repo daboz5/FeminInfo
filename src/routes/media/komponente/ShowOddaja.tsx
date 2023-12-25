@@ -90,7 +90,7 @@ export default function ShowOddaja(
             }
 
             {
-                oddaja.platforms.length > 0 || oddaja.hosts.length > 0 || oddaja.others.length > 0 ?
+                oddaja.platforms.length > 0 || oddaja.hosts.length > 0 || oddaja.others.length > 0 || oddaja.guests.length > 0 ?
                     <div className="peopleBox">
                         {oddaja.platforms.length > 0 &&
                             <div className="platformsBox">

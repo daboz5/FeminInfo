@@ -1,17 +1,17 @@
-import { Oddaja } from "../../../type";
+import { Organizacija } from "../../../type";
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 
-export default function TabeleOddaja(
-    { setOddaja, setEditor, setFilter }:
+export default function TabeleOrganizacija(
+    { setOrganizacija, setEditor, setFilter }:
         {
-            setOddaja(el: Oddaja): void,
+            setOrganizacija(el: Organizacija): void,
             setEditor(el: boolean): void,
             setFilter(el: string): void,
         }
 ) {
 
-    const { libOddaja, backupLibOddaja, setLibOddaja } = useFemStore();
+    const { libOrganizacija, backupLibOrganizacija, setLibOrganizacija } = useFemStore();
     const { calcFame } = useComponent();
 
     return (<>
@@ -49,11 +49,11 @@ export default function TabeleOddaja(
                     <p className="actMouse">🌟</p>
                 </div>
             </div>
-            {libOddaja?.map(
+            {libOrganizacija?.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
                     return (
-                        <div className="orderBox" key={`oddaja${index}`}>
+                        <div className="orderBox" key={`organizacija${index}`}>
                             <div className="mOrdered flex">
                                 <img
                                     className="tablePic"
@@ -72,21 +72,14 @@ export default function TabeleOddaja(
                                 className="mOrdered mTitle flex"
                                 onClick={() => {
                                     setFilter("")
-                                    setOddaja(el)
+                                    setOrganizacija(el)
                                 }}>
                                 <h5 className="actMouse">
-                                    {el.title}
+                                    {el.name}
                                 </h5>
                             </div>
                             <div className="mOrdered defMouse flex">
-                                {el.firstAir +
-                                    `${el.firstAir === el.lastAir ?
-                                        "" :
-                                        el.lastAir ?
-                                            " - " + el.lastAir :
-                                            ` -`
-                                    }`
-                                }
+                                {el.founded}
                             </div>
                             <div className="mOrdered flex">
                                 {el.femType === "lib" ?
@@ -112,7 +105,7 @@ export default function TabeleOddaja(
             </button>
             <button
                 className="tableOptionBtn"
-                onClick={() => setLibOddaja(backupLibOddaja)}>
+                onClick={() => setLibOrganizacija(backupLibOrganizacija)}>
                 Obnovi seznam
             </button>
         </div>

@@ -1,11 +1,12 @@
 import { create } from 'zustand';
-import { Film, Igra, Kanal, Knjiga, Skupina, Oddaja } from './type';
+import { Film, Igra, Kanal, Knjiga, Skupina, Oddaja, Organizacija, Revija, Stran } from './type';
 
 type State = {
     year: number,
     subtitleArr: Skupina[],
     pageSize: number,
     footOpened: boolean,
+
     libFilm: Film[],
     backupLibFilm: Film[],
     libIgra: Igra[],
@@ -16,12 +17,19 @@ type State = {
     backupLibKnjiga: Knjiga[],
     libOddaja: Oddaja[],
     backupLibOddaja: Oddaja[],
+    libOrganizacija: Organizacija[],
+    backupLibOrganizacija: Organizacija[],
+    libRevija: Revija[],
+    backupLibRevija: Revija[],
+    libStran: Stran[],
+    backupLibStran: Stran[],
 }
 
 type Action = {
     registerSize(newSize: number): void,
     setSubtitleArr(newState: Skupina[]): void,
     switchFootOpened(): void,
+
     setLibFilm(newLib: Film[]): void,
     setBackupLibFilm(newLib: Film[]): void,
     setLibIgra(newLib: Igra[]): void,
@@ -32,6 +40,12 @@ type Action = {
     setBackupLibKnjiga(newLib: Knjiga[]): void,
     setLibOddaja(newLib: Oddaja[]): void,
     setBackupLibOddaja(newLib: Oddaja[]): void,
+    setLibOrganizacija(newLib: Organizacija[]): void,
+    setBackupLibOrganizacija(newLib: Organizacija[]): void,
+    setLibRevija(newLib: Revija[]): void,
+    setBackupLibRevija(newLib: Revija[]): void,
+    setLibStran(newLib: Stran[]): void,
+    setBackupLibStran(newLib: Stran[]): void,
 }
 
 const useFemStore = create<State & Action>(set => ({
@@ -95,6 +109,33 @@ const useFemStore = create<State & Action>(set => ({
     })),
     setBackupLibOddaja: (newLib) => set(() => ({
         backupLibOddaja: newLib
+    })),
+
+    libOrganizacija: [],
+    backupLibOrganizacija: [],
+    setLibOrganizacija: (newLib) => set(() => ({
+        libOrganizacija: newLib
+    })),
+    setBackupLibOrganizacija: (newLib) => set(() => ({
+        backupLibOrganizacija: newLib
+    })),
+
+    libRevija: [],
+    backupLibRevija: [],
+    setLibRevija: (newLib) => set(() => ({
+        libRevija: newLib
+    })),
+    setBackupLibRevija: (newLib) => set(() => ({
+        backupLibRevija: newLib
+    })),
+
+    libStran: [],
+    backupLibStran: [],
+    setLibStran: (newLib) => set(() => ({
+        libStran: newLib
+    })),
+    setBackupLibStran: (newLib) => set(() => ({
+        backupLibStran: newLib
     })),
 }))
 

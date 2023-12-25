@@ -1,98 +1,137 @@
-import { Oddaja, OddajaForm, OddajaGenre } from "../../../type";
+import { Organizacija, OrganizacijaForm, OrganizacijaType } from "../../../type";
 import { useState } from "react";
 import useComponent from "./useComponent";
 import toast from "react-hot-toast";
 
-export default function useOddaja() {
+export default function useOrganizacija() {
 
-    const oddajaTypes: {
-        name: OddajaGenre;
+    const organizacijaTypes: {
+        name: OrganizacijaType;
         register: string;
     }[] = [
             {
-                name: "Doživetja",
-                register: "dozivetja"
+                name: "Aktivizem",
+                register: "aktivizem"
             },
             {
-                name: "Filmi",
-                register: "filmi"
+                name: "Druženje",
+                register: "druzenje"
             },
             {
-                name: "Glasba",
-                register: "glasba"
+                name: "Duhovnost",
+                register: "duhovnost"
             },
             {
-                name: "Igre",
-                register: "igre"
+                name: "Finančna pomoč",
+                register: "financnapomoc"
             },
             {
-                name: "Izobraževalno",
-                register: "izobrazevalno"
+                name: "Izobrazba",
+                register: "izobrazba"
             },
             {
-                name: "Knjige",
-                register: "knjige"
+                name: "Krizna",
+                register: "krizna"
             },
             {
-                name: "Kultura",
-                register: "kultura"
+                name: "Kulturna",
+                register: "kulturna"
             },
             {
-                name: "Lepotičenje",
-                register: "lepoticenje"
+                name: "Kulturna dejavnost",
+                register: "kulturnadejavnost"
             },
             {
-                name: "Nasveti",
-                register: "nasveti"
+                name: "Materialna pomoč",
+                register: "materialnapomoc"
             },
             {
-                name: "Potrošnja",
-                register: "potrosnja"
+                name: "Medsebojna pomoč",
+                register: "medsebojnapomoc"
             },
             {
-                name: "Priročniki",
-                register: "prirocniki"
+                name: "Neprofitna",
+                register: "neprofitna"
             },
             {
-                name: "Sprostitev",
-                register: "sprostitev"
+                name: "Nevladna",
+                register: "nevladna"
             },
             {
-                name: "Vadba",
-                register: "vadba"
+                name: "Okoljevarstvo",
+                register: "okoljevarstvo"
             },
             {
-                name: "V živo",
-                register: "vzivo"
+                name: "Politika",
+                register: "politika"
             },
             {
-                name: "Zabava",
-                register: "zabava"
+                name: "Pravna pomoč",
+                register: "pravnapomoc"
             },
             {
-                name: "Znanost",
-                register: "znanost"
+                name: "Profitna",
+                register: "profitna"
+            },
+            {
+                name: "Rekreacija",
+                register: "rekreacija"
+            },
+            {
+                name: "Skrb ali varstvo",
+                register: "skrbalivarsto"
+            },
+            {
+                name: "Svetovanje",
+                register: "svetovanje"
+            },
+            {
+                name: "Zaposlovanje",
+                register: "zaposlovanje"
+            },
+            {
+                name: "Zaščita",
+                register: "zascita"
+            },
+            {
+                name: "Zdravje",
+                register: "zdravje"
             },
         ]
 
-    const testLib: Oddaja[] = [
+    const organizacijaReaches = [
         {
-            title: "Feminist Frequency",
-            firstAir: 2009,
-            lastAir: undefined,
-            length: {
-                minmax: [10, 90],
-                episodes: 465
-            },
+            state: "local",
+            text: "Lokalna"
+        },
+        {
+            state: "regional",
+            text: "Regionalna"
+        },
+        {
+            state: "national",
+            text: "Nacionalna"
+        },
+        {
+            state: "multinational",
+            text: "Multinacionalna"
+        }
+    ]
+
+    const testLib: Organizacija[] = [
+        {
+            name: "Inštitut 8. marec",
+            founded: 2016,
+            reach: "national",
             img: undefined,
-            platforms: ["YouTube", "Apple Podcasts"],
-            hosts: ["Emily", "Anita Sarkeesian", "Karoline"],
-            guests: ["Charlie Jane Anders"],
-            others: ["Rob Williams"],
-            genre: ["Kultura", "Izobraževalno", "Filmi", "Knjige", "Igre"],
             femType: "woke",
-            explanation: "Feministični banter čez razne kulturne vsebine.",
-            description: "Feminist Frequency is an ongoing series of video commentaries exploring gender representations, myths, and messages in popular culture media. Created and hosted by Anita Sarkeesian.",
+            representatives: ["Nika Kovač"],
+            workers: [],
+            others: ["Luka Volk", "Simon Maljevac"],
+            programs: ["#jaztudi", "Samo ja pomeni ja", "#Nisemprijavila", "#tusem: Pričanja upokojenk in upokojencev", "Naj Anhovo zadiha!", "Samo ljubezen"],
+            genre: ["Aktivizem", "Izobrazba", "Neprofitna", "Svetovanje", "Krizna"],
+            explanation: "Najrazličnejši programi za pomoč ženskam in družbi nasploh.",
+            description: "Slovenska nevladna organizacija, ki svoje poslanstvo opredeljuje kot »prevpraševanje različnih oblik podrejenosti, predvsem na področju spola, ter postavljanje neenakopravnosti v širši družben okvir«.",
             ratings: {
                 loves: 0,
                 likes: 2,
@@ -102,22 +141,18 @@ export default function useOddaja() {
             }
         },
         {
-            title: "Insane in the Fem Brain",
-            firstAir: 2020,
-            lastAir: 2022,
-            length: {
-                minmax: [50, 75],
-                episodes: 37
-            },
+            name: "Društvo za nenasilno komunikacijo",
+            founded: undefined,
+            reach: "national",
             img: undefined,
-            platforms: ["Google Podcasts", "Acast", "Spotify"],
-            hosts: ["Rick Wilson"],
-            guests: ["Nancy Carter-Bradley", "Lizzy Pollot", "Esther Manito"],
-            others: ["Paul"],
-            genre: ["Kultura", "Izobraževalno", "Nasveti", "Doživetja"],
-            femType: "lib",
-            explanation: "Pogovori o življenju žensk ter trans oseb.",
-            description: "A spin-off of the award winning podcast Insane In The Men Brain. Jayde Adams thinks Rich Wilson needs to learn more about the other sex and what makes women so powerful!",
+            femType: "woke",
+            representatives: ["Katja Zabukovec Kerin"],
+            workers: [],
+            programs: ["Varna hiša za ženske"],
+            others: [],
+            genre: ["Krizna", "Pravna pomoč", "Izobrazba", "Neprofitna", "Nevladna"],
+            explanation: "Čez imajo varno hišo za ženske.",
+            description: "Društvo za nenasilno komunikacijo je nevladna, neprofitna in humanitarna organizacija, ki se ukvarja s preprečevanjem nasilja v družbi in širjenjem principov nenasilne komunikacije.",
             ratings: {
                 loves: 0,
                 likes: 2,
@@ -127,22 +162,18 @@ export default function useOddaja() {
             }
         },
         {
-            title: "End FGM",
-            firstAir: 2019,
-            lastAir: 2019,
-            length: {
-                minmax: [10, 25],
-                episodes: 82
-            },
+            name: "Ženski lobi Slovenije",
+            founded: 2006,
+            reach: "national",
             img: undefined,
-            platforms: ["Apple Podcasts", "Google Podcasts"],
-            hosts: ["Jeremiah Kipainoi"],
-            guests: ["Leyla Hussein", "Ebony Riddell Bamber", "Abdulmalik"],
-            others: [],
-            genre: ["Izobraževalno", "Doživetja", "Nasveti", "Kultura"],
             femType: "soc",
-            explanation: "O prekinitvi nasilja nad ženskimi spolovili, še posebno med tradicionalnih afriških in obafriških skupnostih.",
-            description: "People working in different sectors in the campaign against Female Genital Mutialtion share their journey, challenges and successes in this podcast.",
+            representatives: ["Sonja Lokar"],
+            workers: ["Jana Javornik", "Živa Humer", "Ana Jereb", "Tonja Jerele", "Liana Kalčina", "Lucija Užmah", "Živa Vidmar", "Katja Zabukovec Kerin"],
+            programs: ["Klara Nahtigal", "Darja Sekula", "Alenka Verbole"],
+            others: [],
+            genre: ["Politika", "Aktivizem"],
+            explanation: "Društvo za promocijo interesov žensk.",
+            description: "Društvo Ženski lobi Slovenije (v nadaljevanju društvo) je prostovoljno, samostojno in nepridobitno društvo, ki se ustanavlja zaradi uresničevanja skupnih interesov ustanoviteljic.",
             ratings: {
                 loves: 2,
                 likes: 3,
@@ -160,7 +191,7 @@ export default function useOddaja() {
         searchRegexCreator,
     } = useComponent();
 
-    const [selected, setSelected] = useState<Oddaja | null>(null);
+    const [selected, setSelected] = useState<Organizacija | null>(null);
     const [pic, setPic] = useState(selected?.img);
 
     const omniFilter = (querry: string) => {
@@ -168,30 +199,30 @@ export default function useOddaja() {
 
         const regArr = searchRegexCreator(querry);
         const result = searchRegexOmniFilter(regArr);
-        if (result) { selectSetLibrary("oddaja", result) }
+        if (result) { selectSetLibrary("org", result) }
     }
 
     const searchRegexOmniFilter = (regArr: string[]) => {
-        const selection: Oddaja[] = selectBackup("oddaja");
+        const selection: Organizacija[] = selectBackup("org");
         const filtered = selection.filter(
-            (oddaja) => {
-                const title = oddaja.title.toUpperCase();
-                const yearStart = oddaja.firstAir;
-                const yearEnd = oddaja.lastAir;
-                const platforms = oddaja.platforms?.join(",").toUpperCase();
-                const hosts = oddaja.hosts?.join(",").toUpperCase();
-                const guests = oddaja.guests?.join(",").toUpperCase();
-                const others = oddaja.others?.join(",").toUpperCase();
-                const genre = oddaja.genre?.join(",").toUpperCase();
-                const explanation = oddaja.explanation?.toUpperCase();
-                const description = oddaja.description.toUpperCase();
+            (organizacija) => {
+                const name = organizacija.name.toUpperCase();
+                const founded = organizacija.founded;
+                const reach = organizacija.reach;
+                const representatives = organizacija.representatives?.join(",").toUpperCase();
+                const workers = organizacija.workers?.join(",").toUpperCase();
+                const programs = organizacija.programs?.join(",").toUpperCase();
+                const others = organizacija.others?.join(",").toUpperCase();
+                const genre = organizacija.genre?.join(",").toUpperCase();
+                const explanation = organizacija.explanation?.toUpperCase();
+                const description = organizacija.description.toUpperCase();
                 const joined = `
-                    ${title ? title : ""};
-                    ${yearStart ? yearStart : ""};
-                    ${yearEnd ? yearEnd : ""};
-                    ${platforms ? platforms : ""};
-                    ${hosts ? hosts : ""};
-                    ${guests ? guests : ""};
+                    ${name ? name : ""};
+                    ${founded ? founded : ""};
+                    ${reach ? reach : ""};
+                    ${representatives ? representatives : ""};
+                    ${workers ? workers : ""};
+                    ${programs ? programs : ""};
                     ${others ? others : ""};
                     ${genre ? genre : ""};
                     ${explanation ? explanation : ""};
@@ -204,7 +235,7 @@ export default function useOddaja() {
                     }
                 })
                 if (matches.length > 0) {
-                    return oddaja;
+                    return organizacija;
                 }
             }
         );
@@ -225,30 +256,30 @@ export default function useOddaja() {
 
         const currentYear = new Date().getFullYear();
         if (min) {
-            if (min < 1919 || min > currentYear) {
-                if (min < 1919) {
+            if (min < -60000 || min > currentYear) {
+                if (min < -60000) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prva radijska oddaja je predvajala leta 1919.`);
+                    Moderni ljudje obstajajo samo približno 60.000 let.`);
                     return;
                 }
                 if (min > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje oddaj iz leta ${min}.
+                    Baza zaenkrat ne vsebuje organizacij iz leta ${min}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
             }
         }
         if (max) {
-            if (max < 1919 || max > currentYear) {
-                if (max < 1919) {
+            if (max < -60000 || max > currentYear) {
+                if (max < -60000) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prva radijska oddaja je predvajala leta 1919.`);
+                    Moderni ljudje obstajajo samo približno 60.000 let.`);
                     return;
                 }
                 if (max > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje oddaj iz leta ${max}.
+                    Baza zaenkrat ne vsebuje organizacij iz leta ${max}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
@@ -256,35 +287,35 @@ export default function useOddaja() {
         }
 
         if (min || max) {
-            const result = testLib.filter((oddaja) => {
-                const year = oddaja.firstAir
+            const result = testLib.filter((organizacija) => {
+                const year = organizacija.founded
                 if (year) {
                     if (min && max) {
                         if (min && max && min > max && year <= min && year >= max) {
-                            return oddaja;
+                            return organizacija;
                         } else if (year >= min && year <= max) {
-                            return oddaja;
+                            return organizacija;
                         }
                     }
                     if (min && !max && year >= min) {
-                        return oddaja;
+                        return organizacija;
                     }
                     if (!min && max && year <= max) {
-                        return oddaja;
+                        return organizacija;
                     }
                 }
             })
-            if (result) { selectSetLibrary("oddaja", result) }
+            if (result) { selectSetLibrary("org", result) }
         }
     }
 
-    const setGrid = (content: Oddaja) => {
+    const setGrid = (content: Organizacija) => {
         if (content) {
             let type = false;
             let creators = false;
             let explain = false;
             if (content.genre.length > 0 || content.femType) { type = true; }
-            if (content.platforms.length > 0 || content.hosts.length > 0 || content.guests.length > 0 || content.others.length > 0) { creators = true; }
+            if (content.representatives.length > 0 || content.workers.length > 0 || content.programs.length > 0 || content.others.length > 0) { creators = true; }
             if (content.explanation) { explain = true; }
 
             if (type && creators && explain) { return 0 }
@@ -299,28 +330,28 @@ export default function useOddaja() {
         return 0
     }
 
-    const defFormValues = (oddaja: Oddaja | null): OddajaForm | undefined => {
-        if (!oddaja) return;
+    const defFormValues = (organizacija: Organizacija | null): OrganizacijaForm | undefined => {
+        if (!organizacija) return;
 
         const defValues = {
-            title: oddaja.title,
-            start: oddaja.firstAir ? oddaja.firstAir : undefined,
-            finish: oddaja.lastAir ? oddaja.lastAir : undefined,
-            minLength: oddaja.length.minmax[0] ? oddaja.length.minmax[0] : undefined,
-            maxLength: oddaja.length.minmax[1] ? oddaja.length.minmax[1] : undefined,
-            episodes: oddaja.length.episodes ? oddaja.length.episodes : 1,
-            femType: oddaja.femType ? oddaja.femType : "",
-            platforms: oddaja.platforms.join(", "),
-            hosts: oddaja.hosts.join(", "),
-            guests: oddaja.guests.join(", "),
-            others: oddaja.others.join(", "),
-            explanation: oddaja.explanation,
-            description: oddaja.description,
+            name: organizacija.name,
+            start: organizacija.founded ? organizacija.founded : undefined,
+            local: organizacija.reach === "local" ? true : false,
+            regional: organizacija.reach === "regional" ? true : false,
+            national: organizacija.reach === "national" ? true : false,
+            multinational: organizacija.reach === "multinational" ? true : false,
+            femType: organizacija.femType ? organizacija.femType : "",
+            representatives: organizacija.representatives.join(", "),
+            workers: organizacija.workers.join(", "),
+            programs: organizacija.programs.join(", "),
+            others: organizacija.others.join(", "),
+            explanation: organizacija.explanation,
+            description: organizacija.description,
         };
 
-        oddajaTypes.forEach(
+        organizacijaTypes.forEach(
             type => {
-                const value = oddaja.genre.find(gen => gen === type.name) ? true : false;
+                const value = organizacija.genre.find(gen => gen === type.name) ? true : false;
                 defValues[type.register] = value;
             }
         );
@@ -331,38 +362,54 @@ export default function useOddaja() {
         if (!data) { return }
 
         const genreFilter = () => {
-            const result: OddajaGenre[] = [];
-            data.dozivetja ? result.push("Doživetja") : {};
-            data.filmi ? result.push("Filmi") : {};
-            data.glasba ? result.push("Glasba") : {};
-            data.igre ? result.push("Igre") : {};
-            data.izobrazevalno ? result.push("Izobraževalno") : {};
-            data.knjige ? result.push("Knjige") : {};
-            data.kultura ? result.push("Kultura") : {};
-            data.lepoticenje ? result.push("Lepotičenje") : {};
-            data.nasveti ? result.push("Nasveti") : {};
-            data.potrosnja ? result.push("Potrošnja") : {};
-            data.prirocniki ? result.push("Priročniki") : {};
-            data.sprostitev ? result.push("Sprostitev") : {};
-            data.vadba ? result.push("Vadba") : {};
-            data.vzivo ? result.push("V živo") : {};
-            data.zabava ? result.push("Zabava") : {};
-            data.znanost ? result.push("Znanost") : {};
+            const result: OrganizacijaType[] = [];
+            data.aktivizem ? result.push("Aktivizem") : {};
+            data.druzenje ? result.push("Druženje") : {};
+            data.duhovnost ? result.push("Duhovnost") : {};
+            data.financnapomoc ? result.push("Finančna pomoč") : {};
+            data.izobrazba ? result.push("Izobrazba") : {};
+            data.krizna ? result.push("Krizna") : {};
+            data.kulturna ? result.push("Kulturna") : {};
+            data.kulturnadejavnost ? result.push("Kulturna dejavnost") : {};
+            data.materialnapomoc ? result.push("Materialna pomoč") : {};
+            data.medsebojnapomoc ? result.push("Medsebojna pomoč") : {};
+            data.neprofitna ? result.push("Neprofitna") : {};
+            data.nevladna ? result.push("Nevladna") : {};
+            data.okoljevarstvo ? result.push("Okoljevarstvo") : {};
+            data.politika ? result.push("Politika") : {};
+            data.pravnapomoc ? result.push("Pravna pomoč") : {};
+            data.profitna ? result.push("Profitna") : {};
+            data.rekreacija ? result.push("Rekreacija") : {};
+            data.skrbalivarstvo ? result.push("Skrb ali varstvo") : {};
+            data.svetovanje ? result.push("Svetovanje") : {};
+            data.zaposlovanje ? result.push("Zaposlovanje") : {};
+            data.zascita ? result.push("Zaščita") : {};
+            data.zdravje ? result.push("Zdravje") : {};
             return result;
         }
 
-        const result: Oddaja = {
-            title: data.title,
-            firstAir: data.start ? data.start : undefined,
-            lastAir: data.finish ? data.finish : undefined,
-            length: {
-                minmax: [data.minLength ? data.minLength : undefined, data.maxLength ? data.maxLength : undefined],
-                episodes: data.episodes ? data.episodes : undefined,
-            },
+        const reachError = () => {
+            toast.error("Doseg ogranizacije je obvezno polje.")
+        }
+
+        const reach = data.local ? "local" :
+            data.regional ? "regional" :
+                data.national ? "national" :
+                    data.multinational ? "multinational" :
+                        reachError()
+
+        if (!reach) {
+            return;
+        }
+
+        const result: Organizacija = {
+            name: data.name,
+            founded: data.founded ? data.founded : undefined,
+            reach: reach,
             img: pic ? pic : undefined,
-            platforms: splitInput(data.platforms),
-            hosts: splitInput(data.hosts),
-            guests: splitInput(data.guests),
+            representatives: splitInput(data.representatives),
+            workers: splitInput(data.workers),
+            programs: splitInput(data.programs),
             others: splitInput(data.others),
             femType: data.femType === false ? undefined : data.femType,
             genre: genreFilter(),
@@ -388,7 +435,8 @@ export default function useOddaja() {
         pic,
         selected,
         testLib,
-        oddajaTypes,
+        organizacijaTypes,
+        organizacijaReaches,
         defFormValues,
         setPic,
         setSelected,

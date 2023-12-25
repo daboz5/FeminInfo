@@ -116,6 +116,30 @@ type OddajaGenre =
     "Zabava" |
     "Znanost"
 
+type OrganizacijaType =
+    "Aktivizem" |
+    "Druženje" |
+    "Duhovnost" |
+    "Finančna pomoč" |
+    "Izobrazba" |
+    "Krizna" |
+    "Kulturna" |
+    "Kulturna dejavnost" |
+    "Materialna pomoč" |
+    "Medsebojna pomoč" |
+    "Neprofitna" |
+    "Nevladna" |
+    "Okoljevarstvo" |
+    "Politika" |
+    "Pravna pomoč" |
+    "Profitna" |
+    "Rekreacija" |
+    "Skrb ali varstvo" |
+    "Svetovanje" |
+    "Zaposlovanje" |
+    "Zaščita" |
+    "Zdravje"
+
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -412,6 +436,7 @@ type OddajaForm = {
     maxLength: number | undefined;
     episodes: number;
     femType: string;
+    aktivizem: boolean | undefined;
     dozivetja: boolean | undefined;
     filmi: boolean | undefined;
     glasba: boolean | undefined;
@@ -421,6 +446,7 @@ type OddajaForm = {
     kultura: boolean | undefined;
     lepoticenje: boolean | undefined;
     nasveti: boolean | undefined;
+    politika: boolean | undefined;
     potrosnja: boolean | undefined;
     prirocniki: boolean | undefined;
     sprostitev: boolean | undefined;
@@ -431,6 +457,53 @@ type OddajaForm = {
     platforms: string;
     hosts: string;
     guests: string;
+    others: string;
+    explanation: string;
+    description: string;
+}
+
+type Organizacija = {
+    name: string;
+    founded: number | undefined;
+    reach: "local" | "regional" | "national" | "multinational";
+    img: string | undefined;
+    representatives: string[];
+    workers: string[];
+    others: string[];
+    programs: string[];
+    genre: OrganizacijaType[];
+    femType: FemType | undefined;
+    explanation: string;
+    description: string;
+    ratings: Ratings
+}
+
+type OrganizacijaForm = {
+    name: string;
+    founded: number | undefined;
+    reach: string;
+    femType: string;
+    druzenje: boolean | undefined;
+    duhovnost: boolean | undefined;
+    financnapomoc: boolean | undefined;
+    izobrazba: boolean | undefined;
+    krizna: boolean | undefined;
+    kulturna: boolean | undefined;
+    kulturnadejavnost: boolean | undefined;
+    materialnapomoc: boolean | undefined;
+    medsebojnapomoc: boolean | undefined;
+    neprofitna: boolean | undefined;
+    nevladna: boolean | undefined;
+    okoljevarstvo: boolean | undefined;
+    pravnapomoc: boolean | undefined;
+    profitna: boolean | undefined;
+    rekreacija: boolean | undefined;
+    skrbalivarstvo: boolean | undefined;
+    svetovanje: boolean | undefined;
+    zaposlovanje: boolean | undefined;
+    zascita: boolean | undefined;
+    representatives: string;
+    workers: string;
     others: string;
     explanation: string;
     description: string;
@@ -453,6 +526,9 @@ export {
     Oddaja,
     OddajaGenre,
     OddajaForm,
+    Organizacija,
+    OrganizacijaType,
+    OrganizacijaForm,
     GamePlatform,
     FemType,
     Ratings,

@@ -93,7 +93,12 @@ export default function Checkbox(
         if (limit) {
             const unseenEl: HTMLInputElement = document.getElementById(unseenId);
             if (unseenEl.disabled) {
-                toast.error("Največ 5 izbir.")
+                toast.error(`Največ ${limit.max} izbir${limit.max === 1 ? "a" :
+                    limit.max === 2 ? "i" :
+                        limit.max === 3 ? "e" :
+                            limit.max === 4 ? "e" :
+                                ""
+                    }.`)
             }
         }
     }

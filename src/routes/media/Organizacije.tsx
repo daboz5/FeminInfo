@@ -1,21 +1,21 @@
 import { useEffect } from "react";
 import useFemStore from "../../useFemStore";
 import useComponent from "./komponente/useComponent";
-import useOddaja from "./komponente/useOddaja";
-import TableOddaja from './komponente/TableOddaja';
-import FilterOddaja from './komponente/FilterOddaja';
-import ShowOddaja from "./komponente/ShowOddaja";
-import EditOddaja from "./komponente/EditOddaja";
+import useOrganizacija from "./komponente/useOrganizacija";
+import TableOrganizacija from './komponente/TableOrganizacija';
+import FilterOrganizacija from './komponente/FilterOrganizacija';
+import ShowOrganizacija from "./komponente/ShowOrganizacija";
+import EditOrganizacija from "./komponente/EditOrganizacija";
 
 export default function Oddaje() {
 
-    const { setLibOddaja, setBackupLibOddaja } = useFemStore();
+    const { setLibOrganizacija, setBackupLibOrganizacija } = useFemStore();
 
     const {
         testLib,
         selected,
         setSelected,
-    } = useOddaja();
+    } = useOrganizacija();
 
     const {
         filter,
@@ -25,10 +25,10 @@ export default function Oddaje() {
     } = useComponent();
 
     useEffect(() => {
-        setLibOddaja(testLib.sort(
+        setLibOrganizacija(testLib.sort(
             (a, b) => {
-                const titleA = a.title.toUpperCase();
-                const titleB = b.title.toUpperCase();
+                const titleA = a.name.toUpperCase();
+                const titleB = b.name.toUpperCase();
                 if (titleA < titleB) {
                     return -1;
                 }
@@ -37,7 +37,7 @@ export default function Oddaje() {
                 }
                 return 0;
             }));
-        setBackupLibOddaja(testLib);
+        setBackupLibOrganizacija(testLib);
     }, []);
 
     return (
@@ -45,30 +45,30 @@ export default function Oddaje() {
             id="mediaPage"
             className="container">
             {filter ?
-                <FilterOddaja
+                <FilterOrganizacija
                     filter={filter}
                     setFilter={setFilter}
                 /> :
                 <></>
             }
             {editing ?
-                <EditOddaja
-                    oddaja={selected}
+                <EditOrganizacija
+                    organizacija={selected}
                     setEditor={setEditing}
-                    setOddaja={setSelected}
+                    setOrganizacija={setSelected}
                 /> :
                 !selected ?
                     <>
-                        <h2>Seznam oddajaov</h2>
-                        <TableOddaja
+                        <h2>Seznam organizacijaov</h2>
+                        <TableOrganizacija
                             setFilter={setFilter}
-                            setOddaja={setSelected}
+                            setOrganizacija={setSelected}
                             setEditor={setEditing}
                         />
                     </> :
-                    <ShowOddaja
-                        oddaja={selected}
-                        setOddaja={setSelected}
+                    <ShowOrganizacija
+                        organizacija={selected}
+                        setOrganizacija={setSelected}
                         setEditor={setEditing} />
             }
         </section>

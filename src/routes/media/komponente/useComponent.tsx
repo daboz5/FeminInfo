@@ -11,16 +11,25 @@ export default function useComponent() {
         libKanal,
         libKnjiga,
         libOddaja,
+        libOrganizacija,
+        libRevija,
+        libStran,
         backupLibFilm,
         backupLibIgra,
         backupLibKanal,
         backupLibKnjiga,
         backupLibOddaja,
+        backupLibOrganizacija,
+        backupLibRevija,
+        backupLibStran,
         setLibFilm,
         setLibIgra,
         setLibKanal,
         setLibKnjiga,
-        setLibOddaja
+        setLibOddaja,
+        setBackupLibOrganizacija,
+        setLibRevija,
+        setLibStran
     } = useFemStore();
 
     const [filter, setFilter] = useState("");
@@ -117,11 +126,11 @@ export default function useComponent() {
             case "oddaja":
                 return backupLibOddaja;
             case "org":
-                return backupLibIgra;
+                return backupLibOrganizacija;
             case "revija":
-                return backupLibIgra;
+                return backupLibRevija;
             case "stran":
-                return backupLibIgra;
+                return backupLibStran;
         }
     }
 
@@ -138,11 +147,11 @@ export default function useComponent() {
             case "oddaja":
                 return libOddaja;
             case "org":
-                return libIgra;
+                return libOrganizacija;
             case "revija":
-                return libIgra;
+                return libRevija;
             case "stran":
-                return libIgra;
+                return libStran;
         }
     }
 
@@ -164,13 +173,13 @@ export default function useComponent() {
                 setLibOddaja(content);
                 break;
             case "org":
-                setLibFilm(content);
+                setBackupLibOrganizacija(content);
                 break;
             case "revija":
-                setLibFilm(content);
+                setLibRevija(content);
                 break;
             case "stran":
-                setLibFilm(content);
+                setLibStran(content);
                 break;
         }
     }
@@ -231,6 +240,14 @@ export default function useComponent() {
                         yearA = a.published;
                         yearB = b.published;
                         break;
+                    case "oddaja":
+                        yearA = a.firstAir;
+                        yearB = b.firstAir;
+                        break;
+                    case "org":
+                        yearA = a.founded;
+                        yearB = b.founded;
+                        break;
                     default:
                         yearA = 1;
                         yearB = 2;
@@ -270,6 +287,22 @@ export default function useComponent() {
                     case "kanal":
                         yearA = a.firstAir;
                         yearB = b.firstAir;
+                        break;
+                    case "oddaja":
+                        yearA = a.firstAir;
+                        yearB = b.firstAir;
+                        break;
+                    case "org":
+                        yearA = a.founded;
+                        yearB = b.founded;
+                        break;
+                    case "revija":
+                        yearA = a.firstPublish;
+                        yearB = b.firstPublish;
+                        break;
+                    case "stran":
+                        yearA = a.year;
+                        yearB = b.year;
                         break;
                     default:
                         yearA = 1;
