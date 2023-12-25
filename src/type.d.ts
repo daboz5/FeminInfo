@@ -140,6 +140,27 @@ type OrganizacijaType =
     "Zaščita" |
     "Zdravje"
 
+type RevijaGenre =
+    "Dom & Okolica" |
+    "Filmi" |
+    "Finance" |
+    "Glasba" |
+    "Govorice" |
+    "Igre" |
+    "Informativno" |
+    "Knjige" |
+    "Kultura" |
+    "Moda" |
+    "Narava" |
+    "Novice" |
+    "Okolje" |
+    "Politika" |
+    "Popotna" |
+    "Sprostitev" |
+    "Šport" |
+    "Zgodbe" |
+    "Znanost"
+
 type GamePlatform =
     "Windows" |
     "OS X" |
@@ -509,6 +530,55 @@ type OrganizacijaForm = {
     description: string;
 }
 
+type Revija = {
+    title: string;
+    start: number | undefined;
+    end: number | undefined;
+    frequency: "dan" | "teden" | "mesec" | "leto" | undefined;
+    irregular: boolean;
+    averageLength: number | undefined;
+    img: string | undefined;
+    company: string;
+    authors: string[];
+    others: string[];
+    genre: RevijaGenre[];
+    femType: FemType | undefined;
+    explanation: string;
+    description: string;
+    ratings: Ratings
+}
+
+type RevijaForm = {
+    title: string;
+    start: number | undefined;
+    end: number | undefined;
+    averageLength: number | undefined;
+    femType: string;
+    dominokolica: boolean | undefined;
+    filmi: boolean | undefined;
+    finance: boolean | undefined;
+    glasba: boolean | undefined;
+    govorice: boolean | undefined;
+    igre: boolean | undefined;
+    informativno: boolean | undefined;
+    knjige: boolean | undefined;
+    kultura: boolean | undefined;
+    moda: boolean | undefined;
+    narava: boolean | undefined;
+    novice: boolean | undefined;
+    okolje: boolean | undefined;
+    politika: boolean | undefined;
+    sprostitev: boolean | undefined;
+    sport: boolean | undefined;
+    zgodbe: boolean | undefined;
+    znanost: boolean | undefined;
+    company: string;
+    authors: string;
+    others: string;
+    explanation: string;
+    description: string;
+}
+
 export {
     Library,
     Film,
@@ -529,6 +599,9 @@ export {
     Organizacija,
     OrganizacijaType,
     OrganizacijaForm,
+    Revija,
+    RevijaGenre,
+    RevijaForm,
     GamePlatform,
     FemType,
     Ratings,
