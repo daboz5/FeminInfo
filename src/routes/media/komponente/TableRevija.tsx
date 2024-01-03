@@ -1,17 +1,17 @@
-import { Oddaja } from "../../../type";
+import { Revija } from "../../../type";
 import useFemStore from "../../../useFemStore";
 import useComponent from "./useComponent";
 
-export default function TabeleOddaja(
-    { setOddaja, setEditor, setFilter }:
+export default function TabeleRevija(
+    { setRevija, setEditor, setFilter }:
         {
-            setOddaja(el: Oddaja): void,
+            setRevija(el: Revija): void,
             setEditor(el: boolean): void,
             setFilter(el: string): void,
         }
 ) {
 
-    const { libOddaja, backupLibOddaja, setLibOddaja } = useFemStore();
+    const { libRevija, backupLibRevija, setLibRevija } = useFemStore();
     const { calcFame } = useComponent();
 
     return (<>
@@ -49,11 +49,11 @@ export default function TabeleOddaja(
                     <p className="actMouse">🌟</p>
                 </div>
             </div>
-            {libOddaja?.map(
+            {libRevija?.map(
                 (el, index) => {
                     const fame = calcFame(el.ratings);
                     return (
-                        <div className="orderBox" key={`oddaja${index}`}>
+                        <div className="orderBox" key={`revija${index}`}>
                             <div className="mOrdered flex">
                                 <img
                                     className="tablePic"
@@ -65,25 +65,25 @@ export default function TabeleOddaja(
                                         {} :
                                         { filter: "grayscale(100%)" }
                                     }
-                                    alt="slika oddaje"
+                                    alt="slika revije"
                                 />
                             </div>
                             <div
                                 className="mOrdered mTitle flex"
                                 onClick={() => {
                                     setFilter("")
-                                    setOddaja(el)
+                                    setRevija(el)
                                 }}>
                                 <h5 className="actMouse">
                                     {el.title}
                                 </h5>
                             </div>
                             <div className="mOrdered defMouse flex">
-                                {el.firstAir +
-                                    `${el.firstAir === el.lastAir ?
+                                {el.start +
+                                    `${el.start === el.end ?
                                         "" :
-                                        el.lastAir ?
-                                            " - " + el.lastAir :
+                                        el.end ?
+                                            " - " + el.end :
                                             ` -`
                                     }`
                                 }
@@ -108,11 +108,11 @@ export default function TabeleOddaja(
             <button
                 className="tableOptionBtn"
                 onClick={() => setEditor(true)}>
-                Dodaj oddajo
+                Dodaj revijo
             </button>
             <button
                 className="tableOptionBtn"
-                onClick={() => setLibOddaja(backupLibOddaja)}>
+                onClick={() => setLibRevija(backupLibRevija)}>
                 Obnovi seznam
             </button>
         </div>

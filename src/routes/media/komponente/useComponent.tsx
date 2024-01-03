@@ -248,6 +248,10 @@ export default function useComponent() {
                         yearA = a.founded;
                         yearB = b.founded;
                         break;
+                    case "revija":
+                        yearA = a.start;
+                        yearB = b.start;
+                        break;
                     default:
                         yearA = 1;
                         yearB = 2;
@@ -297,8 +301,8 @@ export default function useComponent() {
                         yearB = b.founded;
                         break;
                     case "revija":
-                        yearA = a.firstPublish;
-                        yearB = b.firstPublish;
+                        yearA = a.start;
+                        yearB = b.start;
                         break;
                     case "stran":
                         yearA = a.year;

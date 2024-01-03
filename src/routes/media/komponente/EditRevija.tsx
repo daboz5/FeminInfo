@@ -1,19 +1,19 @@
 import { useEffect } from "react";
-import { Oddaja } from "../../../type";
+import { Revija } from "../../../type";
 import { useForm } from "react-hook-form";
 import useFemStore from "../../../useFemStore";
-import useOddaja from "./useOddaja";
+import useRevija from "./useRevija";
 import Checkbox from "../../../utils/CheckBox";
 import TextArea from "../../../utils/TextArea";
 import PopupNote from "../../../utils/PopupNote";
 import useComponent from "./useComponent";
 
-export default function EditOddaja(
-    { oddaja, setEditor, setOddaja }:
+export default function EditRevija(
+    { revija, setEditor, setRevija }:
         {
-            oddaja: Oddaja | null,
+            revija: Revija | null,
             setEditor(newState: boolean): void,
-            setOddaja(newState: null): void
+            setRevija(newState: null): void
         }
 ) {
 
@@ -26,11 +26,12 @@ export default function EditOddaja(
 
     const {
         pic,
-        oddajaTypes,
+        revijaTypes,
+        revijaPerioda,
         setPic,
         onSubmit,
         defFormValues
-    } = useOddaja();
+    } = useRevija();
 
     const {
         register,
@@ -38,23 +39,23 @@ export default function EditOddaja(
         watch,
         setValue,
     } = useForm({
-        defaultValues: defFormValues(oddaja),
+        defaultValues: defFormValues(revija),
     });
 
     useEffect(() => {
         handleType(watch("femType"), watch("femType") ? true : false, setValue);
-        setPic(oddaja?.img);
+        setPic(revija?.img);
     }, [])
 
     return (
         <form
             onSubmit={handleSubmit(onSubmit)}
             className="editForm container colFlex">
-            <h2>Podatki oddajaa</h2>
+            <h2>Podatki revije</h2>
             <div className="popBox">
                 <h3>Naslov</h3>
                 <PopupNote
-                    id="oddajaTitle"
+                    id="revijaTitle"
                     notes={["Naslov naj ne bo daljši od 200 znakov.", "Če je vmes menjal ime, omeni v povzetku."]}
                     direction="down"
                 />
@@ -65,10 +66,10 @@ export default function EditOddaja(
             </input>
 
             <div className="popBox">
-                <h3>Produkcija</h3>
+                <h3>Izhajanje</h3>
                 <PopupNote
-                    id="oddajaYear"
-                    notes={["Objavlja OD leta ____.", "Objavljal DO leta ____.", "Če še objavlja ali tega ne veš, pusti drugo polje prazno."]}
+                    id="revijaYear"
+                    notes={["Izhaja OD leta ____.", "Izhajala DO leta ____.", "Če še izhaja ali tega ne veš, pusti drugo polje prazno."]}
                 />
             </div>
             <div id="editYearBox" className="colFlex">
@@ -77,9 +78,9 @@ export default function EditOddaja(
                         <p>od</p>
                         <input
                             type="number"
-                            min={1993}
+                            min={1663}
                             max={year}
-                            {...register("start", { min: 1993, max: year })}>
+                            {...register("start", { min: 1663, max: year })}>
                         </input>
                     </label>
                 </div>
@@ -88,57 +89,81 @@ export default function EditOddaja(
                         <p>do</p>
                         <input
                             type="number"
-                            min={1993}
+                            min={1663}
                             max={year}
-                            {...register("finish", { min: 1993, max: year })}>
+                            {...register("end", { min: 1663, max: year })}>
                         </input>
                     </label>
                 </div>
             </div>
 
             <div className="popBox">
-                <h3>Trajanje ogleda</h3>
+                <h3>Pogostost objav</h3>
                 <PopupNote
-                    id="oddajaLength"
-                    notes={["Krajši video traja ___ minut.", "Daljši video traja ___ minut.", "Oddaja ima objavljenih ___ videov."]}
+                    id="revijaFrequency"
+                    notes={["je okoli ____."]}
                 />
             </div>
             <div className="colFlex">
-                <label id="editMin">
-                    <p>od</p>
+                <label id="editFreqInt">
+                    <input
+                        min={1}
+                        max={31}
+                        type="number"
+                        {...register("freqInt", { min: 1, max: 31 })}>
+                    </input>
+                </label>
+                <label id="editFreqUnit" className="colFlex">
+                    {revijaPerioda.map((el, index) => {
+                        const num = index + 1;
+                        const group = "editFreqCheckbox"
+                        return <Checkbox
+                            boxClass="editFreq"
+                            checkId={el.register}
+                            checkClass={group}
+                            afterText={el.text}
+                            preChecked={
+                                revija?.frequency.unit &&
+                                    revija.frequency.unit === el.text ?
+                                    true :
+                                    false
+                            }
+                            limit={{
+                                context: group,
+                                max: 1
+                            }}
+                            key={"freq" + num}
+                            register={register}
+                        />
+                    }
+                    )}
+                </label>
+            </div>
+
+            <div className="popBox">
+                <h3>Povprečno število strani</h3>
+                <PopupNote
+                    id="revijaLength"
+                    notes={["Povprečno število strani na izdajo je okoli ____."]}
+                />
+            </div>
+            <div className="colFlex">
+                <label id="editStr">
+                    <p>cca</p>
                     <input
                         min={1}
                         max={1000}
                         type="number"
-                        {...register("minLength", { min: 1, max: 1000 })}>
+                        {...register("averageLength", { min: 1, max: 1000 })}>
                     </input>
-                    <p>min</p>
-                </label>
-                <label id="editMax">
-                    <p>do</p>
-                    <input
-                        min={1}
-                        max={1000}
-                        type="number"
-                        {...register("maxLength", { min: 1, max: 1000 })}>
-                    </input>
-                    <p>min</p>
-                </label>
-                <label id="editSeasons">
-                    <input
-                        min={1}
-                        max={10000}
-                        type="number"
-                        {...register("episodes", { min: 1, max: 10000 })}>
-                    </input>
-                    <p>št. videov</p>
+                    <p>str</p>
                 </label>
             </div>
 
             <div className="popBox">
                 <h3>Naslovna slika</h3>
                 <PopupNote
-                    id="oddajaPicture"
+                    id="revijaPicture"
                     notes={["Slika naj ne bo večja od 2 Mb."]}
                 />
             </div>
@@ -148,8 +173,8 @@ export default function EditOddaja(
                     className="editPic"
                     src={pic ?
                         pic :
-                        oddaja?.img ?
-                            oddaja.img :
+                        revija?.img ?
+                            revija.img :
                             "femininfoEyeIcon.png"
                     }
                     alt="Predogled naslovne slike"
@@ -171,11 +196,11 @@ export default function EditOddaja(
             <div className="popBox">
                 <h3>Tip feminizma</h3>
                 <PopupNote
-                    id="oddajaFemType"
+                    id="revijaFemType"
                     notes={
                         ["Družbeni, Woke ali Liberalni feminizem.",
-                            "Družbeni označuje, da se oddaja osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
-                            "Liberalni označuje, da se oddaja osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
+                            "Družbeni označuje, da se revija osredotoča na družbene spremembe ali izpostavlja sistemske rešitve.",
+                            "Liberalni označuje, da se revija osredotoča na posameznike, njihova doživetja in spopadanje s sistemom.",
                             "Woke označuje vmesno, oboje in ostalo.",
                             "Film ni o ženskah in ni za ženske? Ne objavi."
                         ]
@@ -248,14 +273,14 @@ export default function EditOddaja(
             <div className="popBox">
                 <h3>Žanri</h3>
                 <PopupNote
-                    id="oddajaGenre"
-                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo oddaja."]}
+                    id="revijaGenre"
+                    notes={["Izberi do 5 žanrov, kateri najbolje označujejo revija."]}
                 />
             </div>
             <div className="editGenreBox colFlex">
-                {oddajaTypes.map((type, index) => {
+                {revijaTypes.map((type, index) => {
                     const num = index + 1;
-                    const label = oddajaTypes.find(genre => {
+                    const label = revijaTypes.find(genre => {
                         if (type.name === genre.name) {
                             return genre.register
                         }
@@ -268,8 +293,8 @@ export default function EditOddaja(
                             checkClass={group}
                             afterText={type.name}
                             preChecked={
-                                oddaja?.genre &&
-                                    oddaja.genre.find((gen) => gen === type.name) ?
+                                revija?.genre &&
+                                    revija.genre.find((gen) => gen === type.name) ?
                                     true :
                                     false
                             }
@@ -277,7 +302,7 @@ export default function EditOddaja(
                                 context: group,
                                 max: 5
                             }}
-                            key={"oddajaGenre" + num}
+                            key={"revijaGenre" + num}
                             register={register}
                         />
                     )
@@ -285,43 +310,43 @@ export default function EditOddaja(
             </div>
 
             <div className="popBox">
-                <h3>Platforme</h3>
+                <h3>Organizacije</h3>
                 <PopupNote
-                    id="oddajaPlatforme"
-                    notes={["Na katerih platformah jih je mogoče najti.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="revijaOrganizacije"
+                    notes={["Katere organizacije odgovarjajo za izhajanje.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaPlatforms"
-                name="platforms"
+                id="editRevijaOrganizacije"
+                name="companies"
                 maxLength={500}
                 register={register}
             />
 
             <div className="popBox">
-                <h3>Gostitelj</h3>
+                <h3>Avtorji</h3>
                 <PopupNote
-                    id="oddajaGostitelj"
-                    notes={["Kdo vodi oddajo oz. gosti goste.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
+                    id="revijaAvtor"
+                    notes={["Kdo oddaja prispevke publikacije.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaGostitelj"
-                name="hosts"
+                id="editRevijaAvtor"
+                name="authors"
                 maxLength={500}
                 register={register}
             />
 
             <div className="popBox">
-                <h3>Gostje</h3>
+                <h3>Jeziki</h3>
                 <PopupNote
-                    id="oddajaGostje"
-                    notes={["Kdo je že nastopal oz. bil gost.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 1000 znakov."]}
+                    id="revijaJeziki"
+                    notes={["V katerih jezikih je revijo mogoče najti.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 1000 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaGostje"
-                name="guests"
+                id="editRevijaJeziki"
+                name="languages"
                 maxLength={1000}
                 register={register}
             />
@@ -329,12 +354,12 @@ export default function EditOddaja(
             <div className="popBox">
                 <h3>Ostali sodelujoči</h3>
                 <PopupNote
-                    id="oddajaOthers"
+                    id="revijaOthers"
                     notes={["Kdo je še sodeloval kako drugače.", "Več vnosov loči z vejico ali podpičjem.", "Ne več kot 500 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaOthers"
+                id="editRevijaOthers"
                 name="others"
                 maxLength={500}
                 register={register}
@@ -343,12 +368,12 @@ export default function EditOddaja(
             <div className="popBox">
                 <h3>Objasnilo ustreznosti</h3>
                 <PopupNote
-                    id="oddajaExplanation"
+                    id="revijaExplanation"
                     notes={["Zakaj je vnos primeren za FeminInfo?", "Kaj si lahko feministke od njega ali ob njem obetajo?", "Ne več kot 750 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaExplanation"
+                id="editRevijaExplanation"
                 name="explanation"
                 maxLength={750}
                 register={register}
@@ -357,12 +382,12 @@ export default function EditOddaja(
             <div className="popBox">
                 <h3>Povzetek vsebine</h3>
                 <PopupNote
-                    id="oddajaSummary"
-                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi oddaja poskuša presenetiti.", "Ne več kot 1000 znakov."]}
+                    id="revijaSummary"
+                    notes={["Kratek povzetek. Poskušaj ne razkriti informacij, s katerimi revija poskuša presenetiti.", "Ne več kot 1000 znakov."]}
                 />
             </div>
             <TextArea
-                id="editOddajaDescription"
+                id="editRevijaDescription"
                 name="description"
                 required={true}
                 maxLength={1500}
@@ -380,12 +405,12 @@ export default function EditOddaja(
                     onClick={() => setEditor(false)}>
                     Prekliči urejanje
                 </button>
-                {oddaja ?
+                {revija ?
                     <button
                         type="button"
                         className="actMouse"
                         onClick={() => {
-                            setOddaja(null)
+                            setRevija(null)
                             setEditor(false)
                         }}>
                         Nazaj na tabelo

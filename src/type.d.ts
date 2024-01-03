@@ -534,12 +534,15 @@ type Revija = {
     title: string;
     start: number | undefined;
     end: number | undefined;
-    frequency: "dan" | "teden" | "mesec" | "leto" | undefined;
-    irregular: boolean;
+    frequency: {
+        interval: number;
+        unit: "dan" | "teden" | "mesec" | "leto" | undefined;
+    };
     averageLength: number | undefined;
     img: string | undefined;
-    company: string;
+    companies: string[];
     authors: string[];
+    languages: string[];
     others: string[];
     genre: RevijaGenre[];
     femType: FemType | undefined;
@@ -552,6 +555,8 @@ type RevijaForm = {
     title: string;
     start: number | undefined;
     end: number | undefined;
+    freqInt: number | undefined;
+    freqUnit: "dan" | "teden" | "mesec" | "leto" | undefined;
     averageLength: number | undefined;
     femType: string;
     dominokolica: boolean | undefined;
@@ -572,8 +577,9 @@ type RevijaForm = {
     sport: boolean | undefined;
     zgodbe: boolean | undefined;
     znanost: boolean | undefined;
-    company: string;
+    companies: string;
     authors: string;
+    languages: string;
     others: string;
     explanation: string;
     description: string;

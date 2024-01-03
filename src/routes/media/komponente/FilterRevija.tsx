@@ -1,8 +1,8 @@
 import ArrowUp from "../../../assets/ArrowUp";
 import useComponent from "./useComponent";
-import useOddaja from "./useOddaja";
+import useRevija from "./useRevija";
 
-export default function FilterOddaja(
+export default function FilterRevija(
     { filter, setFilter }:
         {
             filter: string,
@@ -27,9 +27,9 @@ export default function FilterOddaja(
     const {
         yearFilter,
         omniFilter
-    } = useOddaja();
+    } = useRevija();
 
-    const lib = "oddaja";
+    const lib = "revija";
 
     const search = <>
         <div className="mediaFilter colFlex">

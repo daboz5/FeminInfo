@@ -87,78 +87,89 @@ export default function useRevija() {
             },
         ]
 
+    const revijaPerioda = [
+        { text: "dan", register: "freqUnitDay" },
+        { text: "teden", register: "freqUnitWeek" },
+        { text: "mesec", register: "freqUnitMonth" },
+        { text: "leto", register: "freqUnitYear" },
+        { text: "neperiodično", register: "freqUnit" },
+    ];
+
     const testLib: Revija[] = [
         {
-            title: "Feminist Frequency",
-            firstAir: 2009,
-            lastAir: undefined,
-            length: {
-                minmax: [10, 90],
-                episodes: 465
+            title: "Cosmopolitan",
+            start: 1886,
+            end: undefined,
+            frequency: {
+                interval: 4,
+                unit: "leto",
             },
+            averageLength: undefined,
             img: undefined,
-            platforms: ["YouTube", "Apple Podcasts"],
-            hosts: ["Emily", "Anita Sarkeesian", "Karoline"],
-            guests: ["Charlie Jane Anders"],
-            others: ["Rob Williams"],
-            genre: ["Kultura", "Izobraževalno", "Filmi", "Knjige", "Igre"],
-            femType: "woke",
-            explanation: "Feministični banter čez razne kulturne vsebine.",
-            description: "Feminist Frequency is an ongoing series of video commentaries exploring gender representations, myths, and messages in popular culture media. Created and hosted by Anita Sarkeesian.",
-            ratings: {
-                loves: 0,
-                likes: 2,
-                oks: 0,
-                dislikes: 0,
-                hates: 0
-            }
-        },
-        {
-            title: "Insane in the Fem Brain",
-            firstAir: 2020,
-            lastAir: 2022,
-            length: {
-                minmax: [50, 75],
-                episodes: 37
-            },
-            img: undefined,
-            platforms: ["Google Podcasts", "Acast", "Spotify"],
-            hosts: ["Rick Wilson"],
-            guests: ["Nancy Carter-Bradley", "Lizzy Pollot", "Esther Manito"],
-            others: ["Paul"],
-            genre: ["Kultura", "Izobraževalno", "Nasveti", "Doživetja"],
+            companies: ["Hearst Communications"],
+            authors: [],
+            languages: ["English", "Bulgarian", "Chinese", "Czech", "French", "German", "Hungarian", "Indonesian", "Italian", "Japanese", "Korean", "Spanish", "Dutch", "Slovenian", "Ukrainian"],
+            others: ["Jessica Pels"],
+            genre: ["Moda", "Govorice", "Dom & Okolica", "Sprostitev", "Kultura"],
             femType: "lib",
-            explanation: "Pogovori o življenju žensk ter trans oseb.",
-            description: "A spin-off of the award winning podcast Insane In The Men Brain. Jayde Adams thinks Rich Wilson needs to learn more about the other sex and what makes women so powerful!",
+            explanation: "O ženskah je in kolikor mi je znano ni proti njim.",
+            description: "Entertainment magazine for women.",
             ratings: {
                 loves: 0,
-                likes: 2,
-                oks: 1,
+                likes: 0,
+                oks: 3,
                 dislikes: 0,
                 hates: 0
             }
         },
         {
-            title: "End FGM",
-            firstAir: 2019,
-            lastAir: 2019,
-            length: {
-                minmax: [10, 25],
-                episodes: 82
+            title: "Feminist Review",
+            start: 1979,
+            end: undefined,
+            frequency: {
+                interval: 3,
+                unit: "leto",
             },
+            averageLength: undefined,
             img: undefined,
-            platforms: ["Apple Podcasts", "Google Podcasts"],
-            hosts: ["Jeremiah Kipainoi"],
-            guests: ["Leyla Hussein", "Ebony Riddell Bamber", "Abdulmalik"],
+            companies: ["SAGE Publishing"],
+            authors: [],
+            languages: ["English"],
             others: [],
-            genre: ["Izobraževalno", "Doživetja", "Nasveti", "Kultura"],
-            femType: "soc",
-            explanation: "O prekinitvi nasilja nad ženskimi spolovili, še posebno med tradicionalnih afriških in obafriških skupnostih.",
-            description: "People working in different sectors in the campaign against Female Genital Mutialtion share their journey, challenges and successes in this podcast.",
+            genre: ["Informativno", "Znanost", "Kultura", "Politika"],
+            femType: undefined,
+            explanation: "Feministična teorija skozi razmišljanja in akademske publikacije.",
+            description: "Feminist Review’s purpose is to hold space for conversations that rethink and reimagine feminist scholarship and praxis: the modes and contexts in which it operates, the questions it takes up, and with whom feminisms are in conversation.",
             ratings: {
-                loves: 2,
-                likes: 3,
-                oks: 0,
+                loves: 0,
+                likes: 0,
+                oks: 3,
+                dislikes: 0,
+                hates: 0
+            }
+        },
+        {
+            title: "The Women’s Review of Books",
+            start: 1983,
+            end: undefined,
+            frequency: {
+                interval: 1,
+                unit: undefined,
+            },
+            averageLength: undefined,
+            img: undefined,
+            companies: ["Wellesley Centers for Women", "Old City Publishing"],
+            authors: [],
+            languages: ["English"],
+            others: [],
+            genre: ["Knjige"],
+            femType: "woke",
+            explanation: "Knjige izbrane od žensk predvsem za ženske.",
+            description: "WRB reviews scholarship as well as fiction, graphic novels, poetry, and memoir usually (but not always) by women. We strive to review a diverse array of books in many fields, genres, and styles for each issue.",
+            ratings: {
+                loves: 0,
+                likes: 0,
+                oks: 3,
                 dislikes: 0,
                 hates: 0
             }
@@ -188,11 +199,11 @@ export default function useRevija() {
         const filtered = selection.filter(
             (revija) => {
                 const title = revija.title.toUpperCase();
-                const yearStart = revija.firstAir;
-                const yearEnd = revija.lastAir;
-                const platforms = revija.platforms?.join(",").toUpperCase();
-                const hosts = revija.hosts?.join(",").toUpperCase();
-                const guests = revija.guests?.join(",").toUpperCase();
+                const yearStart = revija.start;
+                const yearEnd = revija.end;
+                const companies = revija.companies?.join(",").toUpperCase();
+                const authors = revija.authors?.join(",").toUpperCase();
+                const languages = revija.languages?.join(",").toUpperCase();
                 const others = revija.others?.join(",").toUpperCase();
                 const genre = revija.genre?.join(",").toUpperCase();
                 const explanation = revija.explanation?.toUpperCase();
@@ -201,9 +212,9 @@ export default function useRevija() {
                     ${title ? title : ""};
                     ${yearStart ? yearStart : ""};
                     ${yearEnd ? yearEnd : ""};
-                    ${platforms ? platforms : ""};
-                    ${hosts ? hosts : ""};
-                    ${guests ? guests : ""};
+                    ${companies ? companies : ""};
+                    ${authors ? authors : ""};
+                    ${languages ? languages : ""};
                     ${others ? others : ""};
                     ${genre ? genre : ""};
                     ${explanation ? explanation : ""};
@@ -237,15 +248,15 @@ export default function useRevija() {
 
         const currentYear = new Date().getFullYear();
         if (min) {
-            if (min < 1919 || min > currentYear) {
-                if (min < 1919) {
+            if (min < 1663 || min > currentYear) {
+                if (min < 1663) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prva radijska revija je predvajala leta 1919.`);
+                    Prva tiskana revija je izšla leta 1663.`);
                     return;
                 }
                 if (min > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje oddaj iz leta ${min}.
+                    Baza zaenkrat ne vsebuje revij iz leta ${min}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
@@ -255,12 +266,12 @@ export default function useRevija() {
             if (max < 1919 || max > currentYear) {
                 if (max < 1919) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Prva radijska revija je predvajala leta 1919.`);
+                    Prva tiskana revija je izšla leta 1663.`);
                     return;
                 }
                 if (max > currentYear) {
                     toast.error(`Neveljavni iskalni nabor.
-                    Baza zaenkrat ne vsebuje oddaj iz leta ${max}.
+                    Baza zaenkrat ne vsebuje revij iz leta ${max}.
                     Ponovno poskusite v prihodnosti.`);
                     return;
                 }
@@ -269,7 +280,7 @@ export default function useRevija() {
 
         if (min || max) {
             const result = testLib.filter((revija) => {
-                const year = revija.firstAir
+                const year = revija.start
                 if (year) {
                     if (min && max) {
                         if (min && max && min > max && year <= min && year >= max) {
@@ -296,7 +307,7 @@ export default function useRevija() {
             let creators = false;
             let explain = false;
             if (content.genre.length > 0 || content.femType) { type = true; }
-            if (content.platforms.length > 0 || content.hosts.length > 0 || content.guests.length > 0 || content.others.length > 0) { creators = true; }
+            if (content.companies.length > 0 || content.authors.length > 0 || content.languages.length > 0 || content.others.length > 0) { creators = true; }
             if (content.explanation) { explain = true; }
 
             if (type && creators && explain) { return 0 }
@@ -316,15 +327,20 @@ export default function useRevija() {
 
         const defValues = {
             title: revija.title,
-            start: revija.firstAir ? revija.firstAir : undefined,
-            finish: revija.lastAir ? revija.lastAir : undefined,
-            minLength: revija.length.minmax[0] ? revija.length.minmax[0] : undefined,
-            maxLength: revija.length.minmax[1] ? revija.length.minmax[1] : undefined,
-            episodes: revija.length.episodes ? revija.length.episodes : 1,
+            start: revija.start ? revija.start : undefined,
+            end: revija.end ? revija.end : undefined,
+            averageLength: revija.averageLength ? revija.averageLength : undefined,
+            freqInt: revija.frequency.interval ? revija.frequency.interval : undefined,
+            freqUnit: revija.frequency.unit === undefined ? revija.frequency.unit : undefined,
+            freqUnitDay: revija.frequency.unit === "dan" ? revija.frequency.unit : undefined,
+            freqUnitWeek: revija.frequency.unit === "teden" ? revija.frequency.unit : undefined,
+            freqUnitMonth: revija.frequency.unit === "mesec" ? revija.frequency.unit : undefined,
+            freqUnitYear: revija.frequency.unit === "leto" ? revija.frequency.unit : undefined,
+            avgLength: revija.averageLength ? revija.averageLength : undefined,
             femType: revija.femType ? revija.femType : "",
-            platforms: revija.platforms.join(", "),
-            hosts: revija.hosts.join(", "),
-            guests: revija.guests.join(", "),
+            companies: revija.companies.join(", "),
+            authors: revija.authors.join(", "),
+            languages: revija.languages.join(", "),
             others: revija.others.join(", "),
             explanation: revija.explanation,
             description: revija.description,
@@ -344,37 +360,47 @@ export default function useRevija() {
 
         const genreFilter = () => {
             const result: RevijaGenre[] = [];
-            data.dozivetja ? result.push("Doživetja") : {};
+            data.dominokolica ? result.push("Dom & Okolica") : {};
             data.filmi ? result.push("Filmi") : {};
+            data.finance ? result.push("Finance") : {};
             data.glasba ? result.push("Glasba") : {};
+            data.govorice ? result.push("Govorice") : {};
             data.igre ? result.push("Igre") : {};
-            data.izobrazevalno ? result.push("Izobraževalno") : {};
+            data.informativno ? result.push("Informativno") : {};
             data.knjige ? result.push("Knjige") : {};
             data.kultura ? result.push("Kultura") : {};
-            data.lepoticenje ? result.push("Lepotičenje") : {};
-            data.nasveti ? result.push("Nasveti") : {};
-            data.potrosnja ? result.push("Potrošnja") : {};
-            data.prirocniki ? result.push("Priročniki") : {};
+            data.moda ? result.push("Moda") : {};
+            data.narava ? result.push("Narava") : {};
+            data.novice ? result.push("Novice") : {};
+            data.okolje ? result.push("Okolje") : {};
+            data.politika ? result.push("Politika") : {};
+            data.popotna ? result.push("Popotna") : {};
             data.sprostitev ? result.push("Sprostitev") : {};
-            data.vadba ? result.push("Vadba") : {};
-            data.vzivo ? result.push("V živo") : {};
-            data.zabava ? result.push("Zabava") : {};
+            data.sport ? result.push("Šport") : {};
+            data.zgodbe ? result.push("Zgodbe") : {};
             data.znanost ? result.push("Znanost") : {};
             return result;
         }
 
+        const freqUnit = data.freqUnitDay ? "dan" :
+            data.freqUnitWeek ? "teden" :
+                data.freqUnitMonth ? "mesec" :
+                    data.freqUnitYear ? "leto" :
+                        undefined
+
         const result: Revija = {
             title: data.title,
-            firstAir: data.start ? data.start : undefined,
-            lastAir: data.finish ? data.finish : undefined,
-            length: {
-                minmax: [data.minLength ? data.minLength : undefined, data.maxLength ? data.maxLength : undefined],
-                episodes: data.episodes ? data.episodes : undefined,
+            start: data.start ? data.start : undefined,
+            end: data.finish ? data.finish : undefined,
+            frequency: {
+                interval: data.freqInt ? data.freqInt : 1,
+                unit: freqUnit,
             },
+            averageLength: data.averageLength,
             img: pic ? pic : undefined,
-            platforms: splitInput(data.platforms),
-            hosts: splitInput(data.hosts),
-            guests: splitInput(data.guests),
+            companies: splitInput(data.companies),
+            authors: splitInput(data.authors),
+            languages: splitInput(data.languages),
             others: splitInput(data.others),
             femType: data.femType === false ? undefined : data.femType,
             genre: genreFilter(),
@@ -401,6 +427,7 @@ export default function useRevija() {
         selected,
         testLib,
         revijaTypes,
+        revijaPerioda,
         defFormValues,
         setPic,
         setSelected,

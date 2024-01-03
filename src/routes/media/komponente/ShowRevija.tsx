@@ -1,86 +1,81 @@
-import { Oddaja } from "../../../type";
-import useOddaja from "./useOddaja";
+import { Revija } from "../../../type";
+import useRevija from "./useRevija";
 
-export default function ShowOddaja(
-    { oddaja, setOddaja, setEditor }:
+export default function ShowRevija(
+    { revija, setRevija, setEditor }:
         {
-            oddaja: Oddaja | null,
-            setOddaja(newState: null): void,
+            revija: Revija | null,
+            setRevija(newState: null): void,
             setEditor(newState: boolean): void
         }
 ) {
 
-    const { setGrid } = useOddaja();
+    const { setGrid } = useRevija();
 
-    return (oddaja ?
+    return (revija ?
         <div
-            className={`gridBox grid${setGrid(oddaja)} container`}>
+            className={`gridBox grid${setGrid(revija)} container`}>
             <div className="titleBox">
                 <h3
                     className="title">
-                    {oddaja.title}
+                    {revija.title}
                 </h3>
                 <div
                     className="fInfo">
                     <p>
-                        {oddaja.firstAir === oddaja.lastAir ?
-                            oddaja.firstAir :
-                            `${oddaja.firstAir} - ${oddaja.lastAir ?
-                                oddaja.lastAir : ""}`}
+                        {revija.start === revija.start ?
+                            revija.end :
+                            `${revija.end} - ${revija.end ?
+                                revija.end : ""}`}
                     </p>
-                    {oddaja.length.minmax[0] &&
+                    <p
+                        className="izhajanje">
+                        {revija.frequency.unit ?
+                            `Izhaja ${revija.frequency.interval}x na ${revija.frequency.unit}.` :
+                            `Izhajanje ni zabeleženo kot predvidljivo.`
+                        }
+                    </p>
+                    {revija.averageLength &&
                         <p
-                            className="trajanje">
-                            {oddaja.length.minmax[0] ?
-                                oddaja.length.minmax[1] ?
-                                    `Video med ${oddaja.length.minmax[0] + " in " + oddaja.length.minmax[1]} min` :
-                                    `Video okoli ${oddaja.length.minmax[0]} min` :
-                                ""
-                            }
-                        </p>
-                    }
-                    {oddaja.length.episodes &&
-                        oddaja.length.episodes > 1 &&
-                        <p
-                            className="epizode">
-                            {`${oddaja.length.episodes}${!oddaja.lastAir ? " +" : ""} videov`}
+                            className="avgLength">
+                            {`Povprečno ${revija.averageLength} strani.`}
                         </p>
                     }
                 </div>
             </div>
             <div className="image flex">
                 <img
-                    src={oddaja.img ?
-                        oddaja.img :
+                    src={revija.img ?
+                        revija.img :
                         "femininfoEyeIcon.png"
                     }
-                    style={oddaja.img ?
+                    style={revija.img ?
                         {} :
                         {
                             filter: "grayscale(100%)",
                             maxWidth: "90%"
                         }
                     }
-                    alt={oddaja.img ?
-                        `Slika ${oddaja.title}` :
+                    alt={revija.img ?
+                        `Slika ${revija.title}` :
                         "FeminInfo ikona"
                     }
                 />
             </div>
             {
-                oddaja.femType || oddaja.genre.length > 0 ?
+                revija.femType || revija.genre.length > 0 ?
                     <div className="genreBox colFlex">
-                        {oddaja.femType ?
-                            oddaja.femType === "lib" ?
+                        {revija.femType ?
+                            revija.femType === "lib" ?
                                 <img className="femType" src={"type-liberal.svg"} alt="liberalni feminizem" /> :
-                                oddaja.femType === "soc" ?
+                                revija.femType === "soc" ?
                                     <img className="femType" src={"type-society.svg"} alt="družbeni feminizem" /> :
                                     <img className="femType" src={"type-woke.svg"} alt="woke feminizem" /> :
                             <></>
                         }
-                        {oddaja.genre &&
+                        {revija.genre &&
                             <div className="data genreType">
-                                {oddaja.genre.sort().map(el => {
+                                {revija.genre.sort().map(el => {
                                     return <p key={"genre" + el}>{el}</p>;
                                 })}
                             </div>
@@ -90,15 +85,15 @@ export default function ShowOddaja(
             }
 
             {
-                oddaja.platforms.length > 0 || oddaja.hosts.length > 0 || oddaja.others.length > 0 || oddaja.guests.length > 0 ?
+                revija.companies.length > 0 || revija.authors.length > 0 || revija.others.length > 0 || revija.languages.length > 0 ?
                     <div className="peopleBox">
-                        {oddaja.platforms.length > 0 &&
-                            <div className="platformsBox">
-                                <h3 className="dataType">Platforma</h3>
+                        {revija.companies.length > 0 &&
+                            <div className="companiesBox">
+                                <h3 className="dataType">Organizacije</h3>
                                 <p className="data">
-                                    {oddaja.platforms.sort().map(
+                                    {revija.companies.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.platforms?.length) {
+                                            if (index + 1 === revija.companies?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -108,13 +103,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.hosts.length > 0 &&
-                            <div className="hostsBox">
-                                <h3 className="dataType">Vodja</h3>
+                        {revija.authors.length > 0 &&
+                            <div className="authorsBox">
+                                <h3 className="dataType">Avtorji prispevkov</h3>
                                 <p className="data">
-                                    {oddaja.hosts.sort().map(
+                                    {revija.authors.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.hosts?.length) {
+                                            if (index + 1 === revija.authors?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -124,13 +119,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.guests.length > 0 &&
+                        {revija.languages.length > 0 &&
                             <div className="actorsBox">
                                 <h3 className="dataType">Gostje</h3>
                                 <p className="data">
-                                    {oddaja.guests.sort().map(
+                                    {revija.languages.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.guests?.length) {
+                                            if (index + 1 === revija.languages?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -140,13 +135,13 @@ export default function ShowOddaja(
                                 </p>
                             </div>
                         }
-                        {oddaja.others.length > 0 &&
+                        {revija.others.length > 0 &&
                             <div className="staffBox">
                                 <h3 className="dataType">Ostali</h3>
                                 <p className="data">
-                                    {oddaja.others.sort().map(
+                                    {revija.others.sort().map(
                                         (el, index) => {
-                                            if (index + 1 === oddaja.others?.length) {
+                                            if (index + 1 === revija.others?.length) {
                                                 return el + "."
                                             } else {
                                                 return el + ", "
@@ -161,42 +156,42 @@ export default function ShowOddaja(
             }
 
             {
-                oddaja.explanation &&
+                revija.explanation &&
                 <div className="explanationBox">
                     <h3 className="dataType">Pojasnilo</h3>
-                    <p className="data">{oddaja.explanation}</p>
+                    <p className="data">{revija.explanation}</p>
                 </div>
             }
 
             {
-                oddaja.description &&
+                revija.description &&
                 <div className="descriptionBox">
                     <h3 className="dataType">Opis</h3>
-                    <p className="data">{oddaja.description}</p>
+                    <p className="data">{revija.description}</p>
                 </div>
             }
 
             {
-                oddaja.ratings &&
+                revija.ratings &&
                 <div className="pollBox">
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.hates}</p>
+                        <p className="defMouse">{revija.ratings.hates}</p>
                         <p className="rIcon">💀</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.dislikes}</p>
+                        <p className="defMouse">{revija.ratings.dislikes}</p>
                         <p className="rIcon">👎</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.oks}</p>
+                        <p className="defMouse">{revija.ratings.oks}</p>
                         <p className="rIcon">⭐</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.likes}</p>
+                        <p className="defMouse">{revija.ratings.likes}</p>
                         <p className="rIcon">👍</p>
                     </span>
                     <span className="rating">
-                        <p className="defMouse">{oddaja.ratings.loves}</p>
+                        <p className="defMouse">{revija.ratings.loves}</p>
                         <p className="rIcon">💜</p>
                     </span>
                 </div>
@@ -210,7 +205,7 @@ export default function ShowOddaja(
                 </button>
                 <button
                     className="actMouse"
-                    onClick={() => setOddaja(null)}>
+                    onClick={() => setRevija(null)}>
                     Zapri
                 </button>
             </div>
