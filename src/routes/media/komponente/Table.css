@@ -1,132 +1,136 @@
 .libBox {
-    margin: 25px 0 0;
-    border-radius: 10px;
-    background-color: rebeccapurple;
-    padding: 4px;
+  margin: 25px 0 0;
+  border-radius: 10px;
+  background-color: rebeccapurple;
+  padding: 4px;
 }
 
 .orderBox {
-    display: grid;
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-areas:
-        "pic title fame";
-    font-size: 1.2rem;
-    text-align: center;
-    background-color: hotpink;
+  display: grid;
+  grid-template-columns: 1fr 4fr 1fr;
+  grid-template-areas: "pic title fame";
+  font-size: 1.2rem;
+  text-align: center;
+  background-color: hotpink;
 }
 
 .orderBox:first-of-type {
-    border-radius: 7px 7px 0 0;
+  border-radius: 7px 7px 0 0;
 }
 
 .orderBox:first-of-type .mOrder:first-of-type {
-    border-radius: 7px 0 0 0;
+  border-radius: 7px 0 0 0;
 }
 
 .orderBox:first-of-type .mOrder:last-of-type {
-    border-radius: 0 7px 0 0;
+  border-radius: 0 7px 0 0;
 }
 
 .orderBox:last-of-type {
-    border-radius: 0 0 7px 7px;
+  border-radius: 0 0 7px 7px;
 }
 
 .orderBox:last-child .mOrdered:first-of-type {
-    border-radius: 0 0 0 7px;
+  border-radius: 0 0 0 7px;
 }
 
 .mOrder {
-    justify-content: center;
-    font-weight: 600;
-    padding: 0.4rem 0;
-    background-color: violet;
+  justify-content: center;
+  font-weight: 600;
+  padding: 0.4rem 0;
+  background-color: violet;
 }
 
 .mOrder h5 {
-    text-indent: 0;
+  text-indent: 0;
 }
 
 .mOrdered {
-    justify-content: center;
-    align-items: center;
-    min-height: 60px;
-    max-height: 100px;
-    font-size: 1rem;
-    font-weight: 600;
+  justify-content: center;
+  align-items: center;
+  min-height: 60px;
+  max-height: 100px;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.mTitle a {
+  text-decoration: none;
+  color: black;
 }
 
 .mTitle h5 {
-    text-indent: 0px;
-    transition: 0.3s;
+  text-indent: 0px;
+  transition: 0.3s;
 }
 
 .mTitle h5:hover {
-    text-shadow: 0 0 0.5px black;
+  text-shadow: 0 0 0.5px black;
 }
 
 .mOrder:nth-of-type(1) p {
-    position: relative;
-    top: 3px;
-    margin: 0;
+  position: relative;
+  top: 3px;
+  margin: 0;
 }
 
 .mOrdered:nth-of-type(1) {
-    background-color: pink;
-    grid-area: pic;
+  background-color: pink;
+  grid-area: pic;
 }
 
 .mOrdered:nth-of-type(2) {
-    justify-content: left;
-    text-align: left;
-    padding: 0 15px;
-    grid-area: title;
+  justify-content: left;
+  text-align: left;
+  padding: 0 15px;
+  grid-area: title;
 }
 
 .mOrder:nth-of-type(3) {
-    display: none;
+  display: none;
 }
 
 .mOrdered:nth-of-type(3) {
-    display: none;
-    grid-area: year;
+  display: none;
+  grid-area: year;
 }
 
 .mOrder:nth-of-type(4) {
-    display: none;
+  display: none;
 }
 
 .mOrdered:nth-of-type(4) {
-    display: none;
-    grid-area: type;
+  display: none;
+  grid-area: type;
 }
 
 .mOrder:nth-of-type(5) p {
-    position: relative;
-    top: 4px;
-    margin: 0;
+  position: relative;
+  top: 4px;
+  margin: 0;
 }
 
 .mOrdered:nth-of-type(5) {
-    grid-area: fame;
+  grid-area: fame;
 }
 
 .tablePic {
-    max-height: 85%;
-    max-width: 85%;
-    border-radius: 3px;
+  max-height: 85%;
+  max-width: 85%;
+  border-radius: 3px;
 }
 
 .tableType {
-    max-height: 75%;
-    max-width: 75%;
+  max-height: 75%;
+  max-width: 75%;
 }
 
 .tableOptions {
-    justify-content: center;
-    gap: 15px;
+  justify-content: center;
+  gap: 15px;
 }
 
 .tableOptionBtn {
-    margin: 25px 0 0;
-    padding: 0.3em 0.5em;
+  margin: 25px 0 0;
+  padding: 0.3em 0.5em;
 }

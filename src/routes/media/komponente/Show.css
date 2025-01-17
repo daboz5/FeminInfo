@@ -277,8 +277,30 @@
     grid-area: options;
 }
 
-.optionsBox button {
+.mediaBtn {
+    font-family: "Unna", serif;
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: black;
+    border: 0 solid black;
+    box-shadow: 0 0 10px 3px black, 0 0 3px 1px black;
+    border-radius: 0.3rem;
+    padding: 0.3em 1em;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.optionsBox a {
+    text-align: center;
     width: 75vw;
+}
+
+.optionsBox a:hover {
+    box-shadow: 0 0 3px 3px black;
+}
+
+.optionsBox a:active {
+    box-shadow: 0 0 0 3px black;
 }
 
 .vsebina {

@@ -1,17 +1,17 @@
 #panel {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 1.1fr 0.5fr;
+    grid-template-rows: 0.9fr 0.45fr;
     grid-template-areas:
         "logo title title"
         "navbar navbar navbar";
-    height: 200px;
+    height: 180px;
 }
 
 #femLogo {
     justify-self: center;
     align-self: center;
-    height: 100px;
+    height: 90px;
     grid-area: logo;
 }
 

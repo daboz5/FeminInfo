@@ -1,255 +1,248 @@
 .rootElement {
-    width: 100%;
+  width: 100%;
 }
 
 /*PAGE SECTIONS*/
 
 #headBox {
-    position: relative;
-    background-color: purple;
+  position: relative;
+  background-color: purple;
 }
 
 #mainBox {
-    position: relative;
-    overflow-x: hidden;
-    overflow-y: auto;
-    scrollbar-gutter: stable both-edges;
-    height: calc(100vh - 200px - 50px);
-    padding: 25px 20px;
+  position: relative;
+  overflow-x: hidden;
+  overflow-y: auto;
+  scrollbar-gutter: stable both-edges;
+  height: calc(100vh - 200px - 50px);
+  padding: 25px 20px;
 }
 
 #footBox {
-    position: fixed;
-    bottom: 0;
-    background-color: wheat;
-    z-index: 2;
+  position: fixed;
+  bottom: 0;
+  background-color: wheat;
+  z-index: 2;
 }
 
 /*SCROLLBAR*/
 
 #mainBox::-webkit-scrollbar {
-    width: 12px;
+  width: 12px;
 }
 
 #mainBox::-webkit-scrollbar-thumb {
-    box-shadow: inset 2px 3px 5px 2px rgba(255, 105, 180, 0.8);
-    border-radius: 10px;
-    background-color: rebeccapurple;
+  box-shadow: inset 2px 3px 5px 2px rgba(255, 105, 180, 0.8);
+  border-radius: 10px;
+  background-color: rebeccapurple;
 }
 
 /*GENERIC CSS TYPES*/
 
 .defMouse {
-    cursor: default;
+  cursor: default;
 }
 
 .actMouse {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .block {
-    display: block;
+  display: block;
 }
 
 .inBlock {
-    display: inline-block;
+  display: inline-block;
 }
 
 .flex {
-    display: flex;
+  display: flex;
 }
 
 .inFlex {
-    display: inline-flex;
+  display: inline-flex;
 }
 
 .colFlex {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 /*GENERIC HTML TYPES*/
 
 h1 {
-    justify-self: center;
-    align-self: center;
-    color: whitesmoke;
-    font-family: "Lobster", serif;
-    font-size: 2.6rem;
-    text-shadow:
-        0 0 10px hotpink,
-        0 0 3px black,
-        0 0 5px black,
-        0 0 7px black;
-    grid-area: title;
-    cursor: default;
+  justify-self: center;
+  align-self: center;
+  color: whitesmoke;
+  font-family: "Lobster", serif;
+  font-size: 2.7rem;
+  text-shadow: 0 0 10px hotpink, 0 0 3px black, 0 0 5px black, 0 0 7px black;
+  grid-area: title;
+  cursor: default;
 }
 
 h2 {
-    font-family: "Lobster", serif;
-    font-size: 1.8rem;
-    text-align: center;
-    cursor: default;
+  font-family: "Lobster", serif;
+  font-size: 1.8rem;
+  text-align: center;
+  cursor: default;
 }
 
 h3 {
-    font-family: "Lobster", serif;
-    text-indent: 25px;
-    font-size: 1.5rem;
-    cursor: default;
+  font-family: "Lobster", serif;
+  text-indent: 25px;
+  font-size: 1.5rem;
+  cursor: default;
 }
 
 h4 {
-    font-family: "Lobster", serif;
-    font-size: 1.3rem;
-    text-indent: 25px;
-    cursor: default;
+  font-family: "Lobster", serif;
+  font-size: 1.3rem;
+  text-indent: 25px;
+  cursor: default;
 }
 
 h5 {
-    font-family: "Lobster", serif;
-    font-size: 1.1rem;
-    text-indent: 25px;
-    cursor: default;
+  font-family: "Lobster", serif;
+  font-size: 1.1rem;
 }
 
 p {
-    font-size: 1.05rem;
-    margin: 12px 0;
-    cursor: default;
+  font-size: 1.05rem;
+  margin: 12px 0;
+  cursor: default;
 }
 
 input {
-    font-family: "Unna", serif;
+  font-family: "Unna", serif;
 }
 
 textarea {
-    font-family: "Unna", serif;
+  font-family: "Unna", serif;
 }
 
 button {
-    font-family: "Unna", serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    border: 0 solid black;
-    box-shadow:
-        0 0 10px 3px black,
-        0 0 3px 1px black;
-    ;
-    border-radius: 0.3rem;
-    padding: 0.3em 1em;
-    transition: 0.3s;
+  font-family: "Unna", serif;
+  font-size: 1.4rem;
+  font-weight: 700;
+  border: 0 solid black;
+  box-shadow: 0 0 10px 3px black, 0 0 3px 1px black;
+  border-radius: 0.3rem;
+  padding: 0.3em 1em;
+  transition: 0.3s;
 }
 
 button:hover {
-    box-shadow: 0 0 3px 3px black;
+  box-shadow: 0 0 3px 3px black;
 }
 
 button:active {
-    box-shadow: 0 0 0 3px black;
+  box-shadow: 0 0 0 3px black;
 }
 
-/*HOVER MARKER*/
+/*UNDERSCORE ON HOVER*/
 
-.hoverMarker {
-    position: absolute;
-    top: 40%;
-    left: -12px;
-    height: 6px;
-    width: 6px;
-    border-radius: 50%;
-    background-color: black;
-    -webkit-transition: opacity 0.3s ease-out;
-    -moz-transition: opacity 0.3s ease-out;
-    -o-transition: opacity 0.3s ease-out;
-    transition: opacity 0.3s ease-out;
+.underHover {
+  align-items: center;
+}
+
+.underHover hr {
+  width: 0%;
+  border-color: black;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.underHover:hover hr {
+  width: 99%;
+  opacity: 1;
 }
 
 /*POPUP*/
 
 .popBox {
-    position: relative;
+  position: relative;
 }
 
 .popupBtn {
-    position: absolute;
-    display: inline-flex;
-    justify-content: center;
-    align-items: center;
-    height: 23px;
-    width: 23px;
-    color: hotpink;
-    font-weight: 600;
-    bottom: 13px;
-    margin-left: 8px;
-    border-radius: 50%;
-    text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
-    box-shadow: inset 0 0 5px 2px hotpink;
-    background-color: rgba(128, 0, 128, 0.9);
-    cursor: pointer;
-    transition: 0.5s;
+  position: absolute;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  height: 23px;
+  width: 23px;
+  color: hotpink;
+  font-weight: 600;
+  bottom: 13px;
+  margin-left: 8px;
+  border-radius: 50%;
+  text-shadow: 0 0 5px rgb(0, 0, 0), 0 0 10px rgb(0, 0, 0);
+  box-shadow: inset 0 0 5px 2px hotpink;
+  background-color: rgba(128, 0, 128, 0.9);
+  cursor: pointer;
+  transition: 0.5s;
 }
 
 .popupBtn .popup {
-    position: absolute;
-    left: 6px;
-    bottom: 132%;
-    width: 180px;
-    color: #fff;
-    text-align: center;
-    margin-left: -85px;
-    margin-right: 0;
-    border: 3px solid violet;
-    border-radius: 7px;
-    padding: 8px 10px;
-    background-color: purple;
-    visibility: hidden;
-    pointer-events: none;
-    transition: 0.5s;
-    z-index: 3;
+  position: absolute;
+  left: 6px;
+  bottom: 132%;
+  width: 180px;
+  color: #fff;
+  text-align: center;
+  margin-left: -85px;
+  margin-right: 0;
+  border: 3px solid violet;
+  border-radius: 7px;
+  padding: 8px 10px;
+  background-color: purple;
+  visibility: hidden;
+  pointer-events: none;
+  transition: 0.5s;
+  z-index: 3;
 }
 
 .popupBtn .popDown {
-    top: 140%;
-    bottom: auto;
+  top: 140%;
+  bottom: auto;
 }
 
 @-webkit-keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
+  from {
+    opacity: 0;
+  }
 
-    to {
-        opacity: 1;
-    }
+  to {
+    opacity: 1;
+  }
 }
 
 @-webkit-keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }
 
 @keyframes fadeOut {
-    from {
-        opacity: 1;
-    }
+  from {
+    opacity: 1;
+  }
 
-    to {
-        opacity: 0;
-    }
+  to {
+    opacity: 0;
+  }
 }

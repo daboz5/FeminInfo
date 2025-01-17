@@ -1,45 +1,43 @@
 #oNas {
-    align-items: center;
-    width: 100%;
-    text-align: justify;
+  align-items: center;
+  width: 100%;
+  text-align: justify;
 }
 
 #cvsBox {
-    padding: 25px 0px;
+  padding: 25px 0px;
 }
 
 .cvBox {
-    justify-content: center;
-    align-items: center;
-    gap: 1.5rem;
+  justify-content: center;
+  align-items: center;
+  gap: 1.5rem;
 }
 
 .cvImg {
-    max-height: 120px;
-    max-width: 120px;
-    border: 1px solid black;
-    border-radius: 8px;
+  max-height: 120px;
+  max-width: 120px;
+  border: 1px solid black;
+  border-radius: 8px;
 }
 
 .cvInfoBox {
-    line-height: 1.2;
-    gap: 7px;
+  line-height: 1.2;
+  gap: 7px;
 }
 
 .cvInfoBox p {
-    font-size: 1.3rem;
-    margin: 0;
+  font-size: 1.3rem;
+  margin: 0;
 }
 
-#oNasLink {
-    position: relative;
-    justify-content: center;
+#oNasLinkBox {
+  justify-content: center;
 }
 
 #oNasLink a {
-    font-family: "Lobster", serif;
-    color: black;
-    font-size: 1.3rem;
-    font-weight: 600;
-    text-decoration: none;
+  font-family: "Lobster", serif;
+  color: black;
+  font-size: 1.3rem;
+  text-decoration: none;
 }

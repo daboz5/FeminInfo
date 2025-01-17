@@ -1,9 +1,13 @@
 #iPage {
-    align-items: center;
-    width: 100%;
-    text-align: justify;
+  align-items: center;
+  width: 100%;
+  text-align: justify;
 }
 
 #iConBox {
-    max-width: 600px;
+  max-width: 600px;
+}
+
+#pripombaBox {
+  justify-content: center;
 }

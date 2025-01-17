@@ -7,43 +7,23 @@ export default function ONas() {
         navedba: JSX.Element;
     }
 
-    const creditsArr: credit[] = [
-        {
-            razlaga: <>Slika medijske kategorije Film</>,
-            navedba: <>Image by <b>OsloMetX</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Igre</>,
-            navedba: <>Image by <b>cromaconceptovisual</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Kanali</>,
-            navedba: <>Image by <b>Mohamed Hassan</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Knjige</>,
-            navedba: <>Image by <b>Kyra Starr</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Oddaje</>,
-            navedba: <>Image by <b>Werner Gmünder</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Organizacije</>,
-            navedba: <>Photo by <b>Viktoria  Slowikowska</b> from <b>Pexels</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Revije</>,
-            navedba: <>Image by <b>StockSnap</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika medijske kategorije Strani</>,
-            navedba: <>Image by <b>MikeRenpening</b> from <b>Pixabay</b></>
-        },
-        {
-            razlaga: <>Slika admin avatarja</>,
-            navedba: <>Image by <b>Art Heaux</b> from <b>Tumblr</b></>
+    const creditEl = (razlaga: string, who: string, where: string) => {
+        return         {
+            razlaga: <>Slika {razlaga}</>,
+            navedba: <>Slika je last <b>{who}</b> iz <b>{where}</b></>
         }
+    }; 
+
+    const creditsArr: credit[] = [
+            creditEl("medijske kategorije Film", "OsloMetX", "Pixabay"),
+            creditEl("medijske kategorije Igre", "cromaconceptovisual", "Pixabay"),
+            creditEl("medijske kategorije Kanali", "Mohamed Hassan", "Pixabay"),
+            creditEl("medijske kategorije Knjige", "Kyra Starr", "Pixabay"),
+            creditEl("medijske kategorije Oddaje", "Werner Gmünder", "Pixabay"),
+            creditEl("medijske kategorije Organizacije", "Viktoria  Slowikowska", "Pixabay"),
+            creditEl("medijske kategorije Revije", "StockSnap", "Pixabay"),
+            creditEl("medijske kategorije Strani", "MikeRenpening", "Pixabay"),
+            creditEl("admin avatarja", "Art Heaux", "Tumblr"),
     ]
 
     const credits = creditsArr.map(
@@ -61,7 +41,7 @@ export default function ONas() {
     )
 
     return (
-        <div id="Credits" className="container">
+        <div id="Credits">
             <p id="crExplain" className="block">Vsebine ljudi, katerih delo je uradni del spletišča, vendar niso neposredno sodelovali.</p>
             <div id="crContent" className="flex">
                 {credits}
